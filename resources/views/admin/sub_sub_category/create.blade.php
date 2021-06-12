@@ -2,12 +2,11 @@
 
 <form action="{{route('sub_sub_category.store')}}" method="post"  id="submit_form" enctype="multipart/form-data">
     @csrf
-
    <div class="row">
        <div class="col-md-6"> 
         <div class="form-group">
             <label for="">Select Category <b>*</b> </label>
-            <select  name="category_id"  class="form-control" >
+            <select  id="category_wise_sub_category" name="category_id"  class="form-control" >
                 <option selected disabled>selecet one</option>
                 @foreach ($categories as $item)
                 <option value="{{ $item->id }}">{{$item->name }}</option>
@@ -19,12 +18,8 @@
        <div class="col-md-6">
         <div class="form-group">
             <label for="">Select Sub Category <b>*</b> </label>
-            <select name="category_id"  class="form-control" >
-                <option selected disabled>selecet one</option>
-                @foreach ($categories as $item)
-                <option value="{{ $item->id }}">{{$item->name }}</option>
-                @endforeach
-    
+            <select name="sub_category_id"  id="sub_category_id" class="form-control" >
+            
             </select>
         </div>
        </div>

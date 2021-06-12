@@ -41,7 +41,11 @@
                                             <tr>
                                                 <td>{{ $sub_sub_category->name }}</td>
                                                 <td>
+                                                    @if ($sub_sub_category->image)
                                                     <img class="small_image" src="{{ asset('storage/'.$sub_sub_category->image ) }}" alt="image"></td>
+                                                    @else
+                                                     <img class="small_image" src="{{ asset('storage/images/no_image.png') }}" alt="">  
+                                                    @endif
                                                 <td>{{ $sub_sub_category->category->name }}</td>
                                                 <td>{{ $sub_sub_category->sub_category->name }}</td>
                                                 <td>
@@ -52,7 +56,6 @@
                                                     @endif
                                                 </td>
                                                 <td>
-
 
                                                     @if ($sub_sub_category->status==1)
                                                     <a href="#" route="{{ route('sub_sub_category.destroy', $sub_sub_category->id) }}"

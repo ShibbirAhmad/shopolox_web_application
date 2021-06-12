@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\SubSubCategory;
-use Illuminate\Support\Str;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 use Illuminate\Support\Facades\Validator;
 
-class SubSubCategoryController extends Controller
+class VariantController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +17,8 @@ class SubSubCategoryController extends Controller
      */
     public function index()
     {
-        $sub_sub_categories = SubSubCategory::orderBy('id','desc')->with('category','sub_category')->get();
-        return view('admin.sub_sub_category.index', compact('sub_sub_categories'));
+        $variants = Variant::with('attribute')->orderBy('id','desc')->get();
+        return view('admin.variant.index', compact('variants'));
     }
 
     /**
@@ -30,9 +28,8 @@ class SubSubCategoryController extends Controller
      */
     public function create()
     {
-        $categories=Category::where('status',1)->get();
-        $sub_categories=SubCategory::where('status',1)->get();
-        $html = view('admin.sub_sub_category.create',compact(['categories','sub_categories']))->render();
+        $attributes=Attribute::where('status',1)->get();
+        $html = view('admin.variant.create',compact('attributes'))->render();
 
         return response()->json([
             'html' => $html,
@@ -47,24 +44,17 @@ class SubSubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-      // return $request->all();
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:sub_sub_categories',
-            'category_id' => 'required',
-            'sub_category_id' => 'required',
+            'name' => 'required|unique:variants',
+            'attribute_id' => 'required',
         ]);
         if(!$validator->fails()){ 
-        $subCategory = new SubSubCategory();
-        $subCategory->name = $request->name;
-        $subCategory->category_id = $request->category_id;
-        $subCategory->sub_category_id = $request->sub_category_id;
-        $subCategory->status = 1;
-        $subCategory->slug = Str::slug($request->name).'-'. rand(22,99);   
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images/sub_sub_category', 'public');
-            $subCategory->image = $path;
-        }
-        $subCategory->save();
+        $variant = new Variant();
+        $variant->name = $request->name;
+        $variant->attribute_id = $request->attribute_id;
+        $variant->status = 1;
+        $variant->save();
             return response()->json([
                 'status' => 'OK',
                 'message' => 'added successfully'
@@ -85,8 +75,14 @@ class SubSubCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+        $variant=Variant::findOrFail($id);
+        $variant->delete();
+        return response()->json([
+            'status' => "OK",
+            'message' => 'deleted',
+        ]);      
+    
     }
 
     /**
@@ -97,10 +93,9 @@ class SubSubCategoryController extends Controller
      */
     public function edit($id)
     {
-        $sub_sub_category = SubSubCategory::findOrFail($id);
-        $categories=Category::where('status',1)->get();
-        $sub_categories=SubCategory::where('status',1)->get();
-        $html = view('admin.sub_sub_category.edit', compact('sub_sub_category','categories','sub_categories'))->render();
+        $variant = Variant::findOrFail($id);
+        $attributes=Attribute::where('status',1)->get();
+        $html = view('admin.variant.edit', compact('variant','attributes'))->render();
 
         return response()->json([
             'html' => $html,
@@ -117,23 +112,15 @@ class SubSubCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:sub_sub_categories,name,'.$id,
-            'category_id' => 'required',
-            'sub_category_id' => 'required',
+            'name' => 'required|unique:variants,name,'.$id,
+            'attribute_id' => 'required',
         ]);
         if(!$validator->fails()){ 
         //for slug
-        $subCategory=SubSubCategory::findOrFail($id);
-        $subCategory->name = $request->name;
-        $subCategory->category_id = $request->category_id;
-        $subCategory->sub_category_id = $request->sub_category_id;
-        $subCategory->slug = Str::slug($request->name).'-'. rand(22,99);   //make category slug.
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images/sub_sub_category', 'public');
-            $subCategory->image = $path;
-        }
-        $subCategory->save();
+        $variant=Variant::findOrFail($id);
+        $variant->name = $request->name;
+        $variant->attribute_id = $request->attribute_id;
+        $variant->save();
             return response()->json([
                 'status' => 'OK',
                 'message' => 'updated successfully'
@@ -159,13 +146,13 @@ class SubSubCategoryController extends Controller
 
     public function destroy($id)
     {
-        $sub_category = SubSubCategory::findOrFail($id);
-        if ($sub_category->status== 1 ) {
-            $sub_category->status= 0;
+        $variant = Variant::findOrFail($id);
+        if ($variant->status== 1 ) {
+            $variant->status= 0;
         }else {
-            $sub_category->status = 1 ;
+            $variant->status = 1 ;
         }
-        $sub_category->save();
+        $variant->save();
             return response()->json([
                 'status' => "OK",
                 'message' => 'status changed',

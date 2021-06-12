@@ -3,7 +3,7 @@
 
     <div class="form-group">
         <label for="">Category Name</label>
-        <input class="form-control" type="text" name="name" placeholder="EX:Man Fashion">
+        <input class="form-control" type="text" name="name" placeholder="EX:blogs">
     </div>
   
     <div class="form-group">

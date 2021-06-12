@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PageController;
 use Illuminate\Support\Facades\Route;
@@ -37,10 +40,13 @@ Route::group([
         'category' => CategoryController::class,
         'sub_category' => SubCategoryController::class,
         'sub_sub_category' => SubSubCategoryController::class,
+        'product' => ProductController::class,
+        'attribute' => AttributeController::class,
+        'variant' => VariantController::class,
     ]);
+   
 });
 
 Auth::routes();
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/admin/login', [HomeController::class, 'login'])->name('admin.login');

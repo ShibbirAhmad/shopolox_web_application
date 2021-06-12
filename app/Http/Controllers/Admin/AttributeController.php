@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class AttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id','desc')->get();
-        return view('admin.category.index', compact('categories'));
+        $attributes = Attribute::orderBy('id','desc')->get();
+        return view('admin.attribute.index', compact('attributes'));
     }
 
     /**
@@ -29,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $html = view('admin.category.create')->render();
+        $html = view('admin.attribute.create')->render();
 
         return response()->json([
             'html' => $html,
@@ -45,22 +44,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:categories',
+            'name' => 'required|unique:attributes',
         ]);
 
         if (!$validator->fails()) {
-            $category = new Category();
-            $category->name = $request->name;
-            $category->status = 1 ;
-            $category->slug = Str::slug($request->name);
-            if ($request->hasFile('image')) {
-                $path=$request->file('image')->store('images/category','public');
-                $category->image=$path;
-            }
-            $category->save();
+            $attribute = new Attribute();
+            $attribute->name = $request->name;
+            $attribute->status = 1;
+            $attribute->save();
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'Category Was Created',
+                    'message' => 'attribute was Created',
                 ]);
             
         }
@@ -79,10 +73,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-            $sub_categories=SubCategory::where('category_id',$id)->where('status',1)->get();
-            return response()->json([
-                'sub_categories' =>$sub_categories
-            ]);
+          
         
     }
 
@@ -94,8 +85,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        $html = view('admin.category.edit', compact('category'))->render();
+        $attribute = Attribute::find($id);
+        $html = view('admin.attribute.edit', compact('attribute'))->render();
 
         return response()->json([
             'html' => $html,
@@ -113,21 +104,16 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
 
-            'name' => 'required|unique:categories,name,' . $id,
+            'name' => 'required|unique:attributes,name,' . $id,
         ]);
 
         if (!$validator->fails()) {
-            $category = Category::find($id);
-            $category->name = $request->name;
-            $category->slug = Str::slug($request->name);
-            if ($request->hasFile('image')) {
-                $path=$request->file('image')->store('images/category','public');
-                $category->image=$path;
-            }
-            $category->save();
+            $attribute = Attribute::find($id);
+            $attribute->name = $request->name;
+            $attribute->save();
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'Category Was Updated',
+                    'message' => 'attribute Was Updated',
                 ]);
             
         }
@@ -147,13 +133,13 @@ class CategoryController extends Controller
    
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        if ($category->status== 1 ) {
-            $category->status= 0;
+        $attribute = Attribute::findOrFail($id);
+        if ($attribute->status== 1 ) {
+            $attribute->status= 0;
         }else {
-            $category->status = 1 ;
+            $attribute->status = 1 ;
         }
-        $category->save();
+        $attribute->save();
             return response()->json([
                 'status' => "OK",
                 'message' => 'status changed',

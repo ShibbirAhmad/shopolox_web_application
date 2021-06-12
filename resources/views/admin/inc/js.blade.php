@@ -116,7 +116,7 @@
                         'X-CSRF-TOKEN': CSRF_TOKEN
                     },
                     url: $action,
-                    type: "DELETE",
+                    type: "GET",
                     success: function(resp) {
                         if (resp.status == "OK") {
                             toastMessage(resp.message);
@@ -179,10 +179,8 @@
                 // },
                 //success function
                 success: function(resp) {
-
                     console.log(resp)
                     if (resp.status == "OK") {
-
                         $("#__modal").hide();
                         toastMessage(resp.message);
                     } else {
@@ -204,6 +202,36 @@
             });
         });
 
+
+
+        //category wise sub category
+        $('#__modal').on('change','#category_wise_sub_category',function(e) {
+            let id=$(this).val();
+            console.log(id)
+            let $action = "{{ route('category.show',':id') }}";
+            console.log($action)
+            $.ajax({
+                url: $action.replace(':id',id),
+                type: "GET",
+                cache: false,
+                success: function(resp) {
+                    let option=`<option disabled> Select  Sub Category</option>`;
+                    if(resp.sub_categories.length>0){
+                        resp.sub_categories.forEach(element=>{
+                            option+=`<option value=${element.id}>${element.name}</option>`
+                        })
+                    }else{
+                         option=`<option disabled>Select  Sub Category</option>`;
+                    }                    
+                    $('#__modal').find("#sub_category_id").html(option);
+                },
+                error: function(e) {
+                    alert("something went wrong");
+                }
+            });
+           
+
+        })
 
 
         function toastMessage(message) {
