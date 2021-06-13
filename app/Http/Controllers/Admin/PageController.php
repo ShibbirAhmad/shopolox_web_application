@@ -58,14 +58,14 @@ class PageController extends Controller
             $page->content = $request->content;
             if ($page->save()) {
                 return response()->json([
-                    'success' => "OK",
+                    'status' => "OK",
                     'message' => 'Page Was Create',
                 ]);
             }
         }
 
         return response()->json([
-            'success' => 'FALD',
+            'status' => 'FAILD',
             'errors' => $validator->errors()->all(),
         ]);
         // return $request->all();
@@ -120,14 +120,14 @@ class PageController extends Controller
             $page->content = $request->content;
             if ($page->save()) {
                 return response()->json([
-                    'success' => "OK",
+                    'status' => "OK",
                     'message' => 'Page Was Updated',
                 ]);
             }
         }
 
         return response()->json([
-            'success' => 'FALD',
+            'status' => 'FAILD',
             'errors' => $validator->errors()->all(),
         ]);
     }
@@ -143,7 +143,7 @@ class PageController extends Controller
         $page=Page::find($id);
         if($page->delete()){
             return response()->json([
-                'success' => "OK",
+                'status' => "OK",
                 'message' => 'Page Was Delete',
             ]);
         }

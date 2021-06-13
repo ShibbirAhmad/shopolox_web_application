@@ -3,18 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\SubSubCategory;
+use App\Models\Attribute;
+use App\Models\Variant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class ProductController extends Controller
+class productController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public $category,$sub_category,$sub_sub_category,$attributes,$variants ;
+
+    public function __construct() {
+
+      $this->attributes = Attribute::where('status',1)->orderBy('name')->get();
+      $this->variants =   Variant::where('status',1)->orderBy('name')->get();
+      $this->categories = Category::where('status',1)->orderBy('name')->get();
+      $this->sub_categories = SubCategory::where('status',1)->orderBy('name')->get();
+      $this->sub_sub_categories = SubSubCategory::where('status',1)->orderBy('name')->get();
+
+    }
+
+
     public function index()
     {
-        //
+        $products = Product::orderBy('id','desc')->get();
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -24,7 +46,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories=$this->categories ;
+        $attributes=$this->attributes ;
+        $variants=$this->variants ;
+        return view('admin.product.create',compact(['categories','attributes','variants']));
     }
 
     /**
@@ -35,7 +60,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:products',
+        ]);
+
+        if (!$validator->fails()) {
+            $product = new Product();
+            $product->name = $request->name;
+            $product->status = 1 ;
+            $product->slug = Str::slug($request->name);
+            if ($request->hasFile('image')) {
+                $path=$request->file('image')->store('images/product','public');
+                $product->image=$path;
+            }
+            $product->save();
+                return response()->json([
+                    'status' => "OK",
+                    'message' => 'product Was Created',
+                ]);
+            
+        }
+
+        return response()->json([
+            'status' => 'FAILD',
+            'errors' => $validator->errors()->all(),
+        ]);
     }
 
     /**
@@ -46,7 +95,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+           
+        
     }
 
     /**
@@ -57,7 +107,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $html = view('admin.product.edit', compact('product'))->render();
+
+        return response()->json([
+            'html' => $html,
+        ]);
     }
 
     /**
@@ -69,7 +124,31 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+
+            'name' => 'required|unique:products,name,' . $id,
+        ]);
+
+        if (!$validator->fails()) {
+            $product = Product::find($id);
+            $product->name = $request->name;
+            $product->slug = Str::slug($request->name);
+            if ($request->hasFile('image')) {
+                $path=$request->file('image')->store('images/product','public');
+                $product->image=$path;
+            }
+            $product->save();
+                return response()->json([
+                    'status' => "OK",
+                    'message' => 'product Was Updated',
+                ]);
+            
+        }
+
+        return response()->json([
+            'status' => 'FAILD',
+            'errors' => $validator->errors()->all(),
+        ]);
     }
 
     /**
@@ -78,8 +157,25 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+   
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        if ($product->status== 1 ) {
+            $product->status= 0;
+        }else {
+            $product->status = 1 ;
+        }
+        $product->save();
+            return response()->json([
+                'status' => "OK",
+                'message' => 'status changed',
+            ]);      
+        
+    
     }
+
+    
+
+
 }

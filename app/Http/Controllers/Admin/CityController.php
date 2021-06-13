@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Attribute;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-class AttributeController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $attributes = Attribute::orderBy('id','desc')->get();
-        return view('admin.attribute.index', compact('attributes'));
+        $cities = City::orderBy('id','desc')->get();
+        return view('admin.city.index', compact('cities'));
     }
 
     /**
@@ -28,7 +28,7 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        $html = view('admin.attribute.create')->render();
+        $html = view('admin.city.create')->render();
 
         return response()->json([
             'html' => $html,
@@ -44,17 +44,19 @@ class AttributeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:attributes',
+            'name' => 'required|unique:cities',
+            'delivery_charge' => 'required'
         ]);
 
         if (!$validator->fails()) {
-            $attribute = new Attribute();
-            $attribute->name = $request->name;
-            $attribute->status = 1;
-            $attribute->save();
+            $city = new City();
+            $city->name = $request->name;
+            $city->delivery_charge = $request->delivery_charge;
+            $city->status = 1;
+            $city->save();
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'attribute was Created',
+                    'message' => 'city was created',
                 ]);
             
         }
@@ -73,8 +75,12 @@ class AttributeController extends Controller
      */
     public function show($id)
     {
-          
-        
+        $city = city::findOrFail($id);
+        $city->delete();
+            return response()->json([
+                'status' => "OK",
+                'message' => 'Deleted',
+            ]);  
     }
 
     /**
@@ -85,8 +91,8 @@ class AttributeController extends Controller
      */
     public function edit($id)
     {
-        $attribute = Attribute::find($id);
-        $html = view('admin.attribute.edit', compact('attribute'))->render();
+        $city = city::find($id);
+        $html = view('admin.city.edit', compact('city'))->render();
 
         return response()->json([
             'html' => $html,
@@ -104,16 +110,17 @@ class AttributeController extends Controller
     {
         $validator = Validator::make($request->all(), [
 
-            'name' => 'required|unique:attributes,name,' . $id,
+            'name' => 'required|unique:cities,name,' . $id,
         ]);
 
         if (!$validator->fails()) {
-            $attribute = Attribute::find($id);
-            $attribute->name = $request->name;
-            $attribute->save();
+            $city = city::find($id);
+            $city->name = $request->name;
+            $city->delivery_charge = $request->delivery_charge;
+            $city->save();
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'attribute Was Updated',
+                    'message' => 'city Was Updated',
                 ]);
             
         }
@@ -133,13 +140,13 @@ class AttributeController extends Controller
    
     public function destroy($id)
     {
-        $attribute = Attribute::findOrFail($id);
-        if ($attribute->status== 1 ) {
-            $attribute->status= 0;
+        $city = city::findOrFail($id);
+        if ($city->status== 1 ) {
+            $city->status= 0;
         }else {
-            $attribute->status = 1 ;
+            $city->status = 1 ;
         }
-        $attribute->save();
+        $city->save();
             return response()->json([
                 'status' => "OK",
                 'message' => 'status changed',

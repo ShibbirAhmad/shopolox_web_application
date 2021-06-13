@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Attribute;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-
-class AttributeController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $attributes = Attribute::orderBy('id','desc')->get();
-        return view('admin.attribute.index', compact('attributes'));
+        $brands = Brand::orderBy('id','desc')->get();
+        return view('admin.brand.index', compact('brands'));
     }
 
     /**
@@ -28,7 +28,7 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        $html = view('admin.attribute.create')->render();
+        $html = view('admin.brand.create')->render();
 
         return response()->json([
             'html' => $html,
@@ -44,17 +44,22 @@ class AttributeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:attributes',
+            'name' => 'required|unique:brands',
         ]);
 
         if (!$validator->fails()) {
-            $attribute = new Attribute();
-            $attribute->name = $request->name;
-            $attribute->status = 1;
-            $attribute->save();
+            $brand = new Brand();
+            $brand->name = $request->name;
+            $brand->status = 1 ;
+            $brand->slug = Str::slug($request->name);
+            if ($request->hasFile('image')) {
+                $path=$request->file('image')->store('images/brand','public');
+                $brand->image=$path;
+            }
+            $brand->save();
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'attribute was Created',
+                    'message' => 'brand Was Created',
                 ]);
             
         }
@@ -85,8 +90,8 @@ class AttributeController extends Controller
      */
     public function edit($id)
     {
-        $attribute = Attribute::find($id);
-        $html = view('admin.attribute.edit', compact('attribute'))->render();
+        $brand = Brand::find($id);
+        $html = view('admin.brand.edit', compact('brand'))->render();
 
         return response()->json([
             'html' => $html,
@@ -104,16 +109,21 @@ class AttributeController extends Controller
     {
         $validator = Validator::make($request->all(), [
 
-            'name' => 'required|unique:attributes,name,' . $id,
+            'name' => 'required|unique:brands,name,' . $id,
         ]);
 
         if (!$validator->fails()) {
-            $attribute = Attribute::find($id);
-            $attribute->name = $request->name;
-            $attribute->save();
+            $brand = Brand::find($id);
+            $brand->name = $request->name;
+            $brand->slug = Str::slug($request->name);
+            if ($request->hasFile('image')) {
+                $path=$request->file('image')->store('images/brand','public');
+                $brand->image=$path;
+            }
+            $brand->save();
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'attribute Was Updated',
+                    'message' => 'brand Was Updated',
                 ]);
             
         }
@@ -133,13 +143,13 @@ class AttributeController extends Controller
    
     public function destroy($id)
     {
-        $attribute = Attribute::findOrFail($id);
-        if ($attribute->status== 1 ) {
-            $attribute->status= 0;
+        $brand = Brand::findOrFail($id);
+        if ($brand->status== 1 ) {
+            $brand->status= 0;
         }else {
-            $attribute->status = 1 ;
+            $brand->status = 1 ;
         }
-        $attribute->save();
+        $brand->save();
             return response()->json([
                 'status' => "OK",
                 'message' => 'status changed',
