@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\SubSubCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -66,12 +67,15 @@ class SubCategoryController extends Controller
                 'status' => 'OK',
                 'message' => 'sub category add successfully'
             ]);
-        }
+        }else{
 
             return response()->json([
                 'status' => 'FAILD',
                 'errors' => $validator->errors()->all(),
             ]);
+        }
+
+
         
     }
 
@@ -83,7 +87,10 @@ class SubCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $sub_sub_categories=SubSubCategory::where('status',1)->where('sub_category_id',$id)->get();
+        return response()->json([
+            'sub_sub_categories' => $sub_sub_categories ,
+        ]);
     }
 
     /**
@@ -132,12 +139,15 @@ class SubCategoryController extends Controller
                 'status' => 'OK',
                 'message' => 'updated successfully'
             ]);
-        }
+        }else{
 
             return response()->json([
                 'status' => 'FAILD',
                 'errors' => $validator->errors()->all(),
             ]);
+        }
+
+
         
     }
 

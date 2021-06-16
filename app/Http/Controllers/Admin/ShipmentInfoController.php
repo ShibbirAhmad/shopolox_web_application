@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
+use App\Models\ShipmentInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-
-class CityController extends Controller
+class ShipmentInfoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,9 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::orderBy('id','desc')->get();
-        return view('admin.city.index', compact('cities'));
+
+        $shipment_infos = ShipmentInfo::orderBy('id','desc')->get();
+        return view('admin.shipment_info.index', compact('shipment_infos'));
     }
 
     /**
@@ -28,11 +29,12 @@ class CityController extends Controller
      */
     public function create()
     {
-        $html = view('admin.city.create')->render();
+        $html = view('admin.shipment_info.create')->render();
 
         return response()->json([
             'html' => $html,
         ]);
+
     }
 
     /**
@@ -44,28 +46,29 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:cities',
-            'delivery_charge' => 'required'
+
+            'name' => 'required|unique:shipment_infos',
+            'description' => 'required',
         ]);
 
         if (!$validator->fails()) {
-            $city = new City();
-            $city->name = $request->name;
-            $city->delivery_charge = $request->delivery_charge;
-            $city->status = 1;
-            $city->save();
+            $shipment_info = new ShipmentInfo();
+            $shipment_info->name = $request->name;
+            $shipment_info->status = 1;
+            $shipment_info->description = $request->description;
+            if ($shipment_info->save()) {
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'city was created',
+                    'message' => 'shipment_info Created',
                 ]);
-            
+            }
         }else{
+
             return response()->json([
                 'status' => 'FAILD',
                 'errors' => $validator->errors()->all(),
             ]);
         }
-
 
     }
 
@@ -77,12 +80,12 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        $city = city::findOrFail($id);
-        $city->delete();
-            return response()->json([
-                'status' => "OK",
-                'message' => 'Deleted',
-            ]);  
+        $shipment_info=ShipmentInfo::findOrFail($id);
+        $shipment_info->delete();
+        return response()->json([
+            'status' => "OK",
+            'message' => 'deleted',
+        ]);    
     }
 
     /**
@@ -93,8 +96,8 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        $city = city::find($id);
-        $html = view('admin.city.edit', compact('city'))->render();
+        $shipment_info = ShipmentInfo::find($id);
+        $html = view('admin.shipment_info.edit', compact('shipment_info'))->render();
 
         return response()->json([
             'html' => $html,
@@ -112,19 +115,20 @@ class CityController extends Controller
     {
         $validator = Validator::make($request->all(), [
 
-            'name' => 'required|unique:cities,name,' . $id,
+            'name' => 'required|unique:shipment_infos,name,'.$id,
+            'description' => 'required',
         ]);
 
         if (!$validator->fails()) {
-            $city = city::find($id);
-            $city->name = $request->name;
-            $city->delivery_charge = $request->delivery_charge;
-            $city->save();
+            $shipment_info = ShipmentInfo::find($id);
+            $shipment_info->name = $request->name;
+            $shipment_info->description = $request->description;
+            if ($shipment_info->save()) {
                 return response()->json([
                     'status' => "OK",
-                    'message' => 'city Was Updated',
+                    'message' => 'shipment_info Was Updated',
                 ]);
-            
+            }
         }else{
 
             return response()->json([
@@ -142,25 +146,20 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
     public function destroy($id)
     {
-        $city = city::findOrFail($id);
-        if ($city->status== 1 ) {
-            $city->status= 0;
+       
+        $attribute = ShipmentInfo::findOrFail($id);
+        if ($attribute->status== 1 ) {
+            $attribute->status= 0;
         }else {
-            $city->status = 1 ;
+            $attribute->status = 1 ;
         }
-        $city->save();
+        $attribute->save();
             return response()->json([
                 'status' => "OK",
                 'message' => 'status changed',
             ]);      
         
-    
     }
-
-    
-
-
 }

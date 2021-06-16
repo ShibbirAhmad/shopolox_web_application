@@ -3,7 +3,7 @@
 @section('content')
     <div class="layout-px-spacing">
 
-        <div class="row layout-top-spacing justify-content-center">
+        <div id="product_row" class="row layout-top-spacing justify-content-center">
 
             <div class="col-lg-12">
                 <button class="btn btn-primary mb-2 mr-2 btn-rounded " route="{{ route('product.index') }}"
@@ -32,63 +32,95 @@
                                   type="text"
                                   name="name"
                                   class="form-control"
-                                  autofocus
-                                  autocomplete="off"
+                                  required
                                   placeholder="Ex:jean's pents"
                                 />
                               </div>
-                              <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-12"> 
-                                    <div class="form-group">
-                                        <label for="">Select Brand  </label>
-                                        <select  id="category_wise_sub_category" name="category_id"  class="form-control" >
-                                            <option selected disabled>selecet one</option>
-                                            @foreach ($categories as $item)
-                                            <option value="{{ $item->id }}">{{$item->name }}</option>
-                                            @endforeach
-                                
-                                        </select>
-                                    </div>
-                                </div> 
-                                
-                                <div class="col-md-6 col-sm-6 col-xs-12"> 
-                                    <div class="form-group">
-                                        <label for="">Select Category <b>*</b> </label>
-                                        <select  id="category_wise_sub_category" name="category_id"  class="form-control" >
-                                            <option selected disabled>selecet one</option>
-                                            @foreach ($categories as $item)
-                                            <option value="{{ $item->id }}">{{$item->name }}</option>
-                                            @endforeach
-                                
-                                        </select>
-                                    </div>
-                                </div>    
-                              </div>    
+                        
+                                <div class="form-group">
+                                    <label for="">Select Brand  </label>
+                                    <select  name="brand_id"  class="form-control" >
+                                        <option selected disabled>selecet one</option>
+                                        @foreach ($brands as $item)
+                                        <option value="{{ $item->id }}">{{$item->name }}</option>
+                                        @endforeach
+                            
+                                    </select>
+                                </div>
 
-                              
                               <div class="row">
-                                  <div class="col-md-6 col-sm-6 col-xs-12"> 
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
-                                        <label for="">Select Sub Category <b>*</b> </label>
-                                        <select name="sub_category_id"  id="sub_category_id" class="form-control" >
-                                            <option disabled >select one</option>
-                                        </select>
-                                    </div>  
+                                        <label>
+                                          regular Price
+                                          <b class="text-danger">*</b>
+                                        </label>
+                                        <input
+                                          type="number"
+                                          name="price"
+                                          class="form-control"
+                                          required
+                                          placeholder="0"
+                                        />
+                              
+                                      </div>
                                   </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12"> 
-                                    <div class="form-group">
-                                        <label>sub sub category</label>
-                                        <select
+                              
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <div class="form-group">
+                                          <label>Sale Price <b class="text-danger">*</b> </label>
+                                          <input
+                                            type="number"
+                                            name="sale_price"
                                             class="form-control"
-                                            name="'sub_sub_category">
-                                            <option disabled >select one</option>
-                                    
-                                        </select>
-                                   </div>
-                                </div> 
-                              </div>
-            
+                                            required
+                                            placeholder="0"
                                   
+                                          />
+                                        </div>                        
+                                  </div>
+
+                                  <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                      <label>profit margin</label>
+                                      <input
+                                        type="text"
+                                        name="profit_margin"
+                                        class="form-control"
+                                        readonly
+                                      />
+                                    </div>                
+                                  </div>
+                              
+
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <div class="form-group">
+                                      <label>unit type <b class="text-danger">*</b> </label>
+                                      <select class="form-control" required name="unit_type" >
+                                        <option disabled selected value="select">select</option>
+                                        <option  value="piece">piece</option>
+                                        <option  value="weight">weight</option>
+                                        <option  value="liter">liter</option>
+                                      </select>
+                                    </div>                        
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <div class="form-group">
+                                      <label>cost per unit  <b class="text-danger">*</b> </label>
+                                      <input type="number" placeholder="0" required class="form-control" name="cost" >
+                                    </div>                        
+                                </div>
+
+
+                                
+
+                     
+
+                              </div>
+                            
+                              
+                                
 
                         </div>
                     </div>
@@ -137,84 +169,14 @@
                                         </label>
                                         <select class="form-control" name="variants[]" multiple >
                                           <option value disabled>select variant</option>
-                                          @foreach ($variants as $item)
-                                              <option value="{{ $item->id }}">{{ $item->name }} </option>
-                                          @endforeach
+                                        
                                         </select>
                                       </div>
                                   </div>
 
-                                <div class="col-md-4 col-sm-4 col-xs-6">
-                                    <div class="form-group">
-                                        <label>
-                                          regular Price
-                                          <b class="text-danger">*</b>
-                                        </label>
-                                        <input
-                                          type="text"
-                                          name="price"
-                                          class="form-control"
-                                          autocomplete="off"
-                                          placeholder="price"
-                                        />
-                               
-                                      </div>
-                                </div>
-                               
-                                <div class="col-md-4 col-sm-4 col-xs-6">
-                                    <div class="form-group">
-                                        <label>Sale Price </label>
-                                        <input
-                    
-                                          type="text"
-                                          name="discount"
-                                          class="form-control"
-                                          autocomplete="off"
-                                          placeholder="discount"
-                                 
-                                        />
-                    
-                                      </div>                        
-                                 </div>
+                     
 
-                                <div class="col-md-4 col-sm-4 col-xs-6">
-                                    <div class="form-group">
-                                        <label>cost per itme</label>
-                                        <input
-                                          type="text"
-                                          name="cost_per_item"
-                                          class="form-control"
-                                          placeholder="cost per item"
-                                          
-                                        />
-                                      </div>                
-                                 </div>
-
-                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                  <div class="form-group">
-                                      <label>unit type </label>
-                                      <input
-                                        type="text"
-                                        name="discount"
-                                        class="form-control"
-                                        autocomplete="off"
-                                        placeholder="discount"
-                                      />
-                  
-                                    </div>                        
-                               </div>
-
-                              <div class="col-md-6 col-sm-6 col-xs-6">
-                                  <div class="form-group">
-                                      <label>profit margin</label>
-                                      <input
-                                        type="text"
-                                        name="cost_per_item"
-                                        class="form-control"
-                                        readonly
-                                      />
-                                    </div>                
-                               </div>
+                       
                    
                             </div>
 
@@ -285,11 +247,57 @@
 
             </div>
 
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 layout-spacing">
+                              <div id="tableHover" class="col-lg-12 col-12 layout-spacing">
+                                  <div class="statbox widget box box-shadow">
+                                      <div class="widget-header">
+                                          <div class="row">
+                                              <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                                  <h4>product Description </h4>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="widget-content widget-content-area">
+                  
+                                        <div class="form-group">
+                                          <label for="">Page Content</label>
+                                          <textarea name="content" id="demo1" placeholder="page content" class="form-control"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+            
+
     </div>
 @endsection
 
 
-@push('css')
+
+@push('extra_js')
+<script>
+  new SimpleMDE({
+      element: document.getElementById("demo1"),
+      spellChecker: false,
+  });
+  </script>
+@endpush
+
+
+
+
+@push('extra_css')
     
 <style >
   .mb-2 {

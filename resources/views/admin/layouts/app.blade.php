@@ -58,6 +58,7 @@
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     @include('admin.inc.js')
+    @include('admin.inc.product_js')
    
     @stack('extra_js')
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

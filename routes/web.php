@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ShipmentInfoController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Admin\HomeController;
@@ -35,7 +36,7 @@ Route::group([
     'middleware' => 'admin',
 ], function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('admin.home');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
 
     //resoure route
     Route::resources([
@@ -45,6 +46,7 @@ Route::group([
         'sub_category' => SubCategoryController::class,
         'sub_sub_category' => SubSubCategoryController::class,
         'product' =>   ProductController::class,
+        'shipment_info' =>   ShipmentInfoController::class,
         'attribute' => AttributeController::class,
         'variant' =>   VariantController::class,
         'city' =>      CityController::class,

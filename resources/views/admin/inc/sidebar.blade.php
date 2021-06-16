@@ -4,7 +4,7 @@
 
         <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu">
-                <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <a href="{{ route('admin.home') }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -94,7 +94,7 @@
                         <a href="{{ route('product.index') }}"> Products </a>
                     </li>
                     <li>
-                        <a href="{{ route('product.index') }}"> Shipment Info </a>
+                        <a href="{{ route('shipment_info.index') }}"> Shipment Info </a>
                     </li>
                     <li>
                         <a href="{{ route('attribute.index') }}"> Attributes </a>

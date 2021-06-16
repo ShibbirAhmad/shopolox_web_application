@@ -62,13 +62,14 @@ class PageController extends Controller
                     'message' => 'Page Was Create',
                 ]);
             }
+        }else{
+
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
         }
 
-        return response()->json([
-            'status' => 'FAILD',
-            'errors' => $validator->errors()->all(),
-        ]);
-        // return $request->all();
     }
 
     /**
@@ -124,12 +125,15 @@ class PageController extends Controller
                     'message' => 'Page Was Updated',
                 ]);
             }
+        }else{
+
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
         }
 
-        return response()->json([
-            'status' => 'FAILD',
-            'errors' => $validator->errors()->all(),
-        ]);
+
     }
 
     /**

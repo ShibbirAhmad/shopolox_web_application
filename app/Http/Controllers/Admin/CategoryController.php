@@ -63,12 +63,15 @@ class CategoryController extends Controller
                     'message' => 'Category Was Created',
                 ]);
             
+        }else{
+
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
         }
 
-        return response()->json([
-            'status' => 'FAILD',
-            'errors' => $validator->errors()->all(),
-        ]);
+
     }
 
     /**
@@ -130,12 +133,15 @@ class CategoryController extends Controller
                     'message' => 'Category Was Updated',
                 ]);
             
+        }else{
+
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
         }
 
-        return response()->json([
-            'status' => 'FAILD',
-            'errors' => $validator->errors()->all(),
-        ]);
+
     }
 
     /**

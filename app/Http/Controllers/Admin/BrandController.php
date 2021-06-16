@@ -45,6 +45,7 @@ class BrandController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:brands',
+            'image' => 'required',
         ]);
 
         if (!$validator->fails()) {
@@ -52,22 +53,23 @@ class BrandController extends Controller
             $brand->name = $request->name;
             $brand->status = 1 ;
             $brand->slug = Str::slug($request->name);
-            if ($request->hasFile('image')) {
-                $path=$request->file('image')->store('images/brand','public');
-                $brand->image=$path;
-            }
+            $path=$request->file('image')->store('images/brand','public');
+            $brand->image=$path;
             $brand->save();
                 return response()->json([
                     'status' => "OK",
                     'message' => 'brand Was Created',
                 ]);
             
+        }else{
+
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
         }
 
-        return response()->json([
-            'status' => 'FAILD',
-            'errors' => $validator->errors()->all(),
-        ]);
+
     }
 
     /**
@@ -126,12 +128,15 @@ class BrandController extends Controller
                     'message' => 'brand Was Updated',
                 ]);
             
+        }else{
+
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
         }
 
-        return response()->json([
-            'status' => 'FAILD',
-            'errors' => $validator->errors()->all(),
-        ]);
+
     }
 
     /**

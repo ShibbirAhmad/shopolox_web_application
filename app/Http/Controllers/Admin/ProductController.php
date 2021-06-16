@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use App\Models\Attribute;
+use App\Models\Brand;
 use App\Models\Variant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -20,16 +21,14 @@ class productController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $category,$sub_category,$sub_sub_category,$attributes,$variants ;
+    public $category,$sub_category,$sub_sub_category,$attributes,$variants,$brands ;
 
     public function __construct() {
 
-      $this->attributes = Attribute::where('status',1)->orderBy('name')->get();
-      $this->variants =   Variant::where('status',1)->orderBy('name')->get();
-      $this->categories = Category::where('status',1)->orderBy('name')->get();
-      $this->sub_categories = SubCategory::where('status',1)->orderBy('name')->get();
-      $this->sub_sub_categories = SubSubCategory::where('status',1)->orderBy('name')->get();
-
+      $this->attributes = Attribute::where('status',1)->orderBy('name')->with('variants')->get();
+      $this->brands =   Brand::where('status',1)->orderBy('name')->get();
+      $this->categories = Category::where('status',1)->orderBy('name')->with('subCategories.subSubCategory')->get();
+    
     }
 
 
@@ -48,8 +47,8 @@ class productController extends Controller
     {
         $categories=$this->categories ;
         $attributes=$this->attributes ;
-        $variants=$this->variants ;
-        return view('admin.product.create',compact(['categories','attributes','variants']));
+        $brands=$this->brands ;
+        return view('admin.product.create',compact(['categories','attributes','brands']));
     }
 
     /**

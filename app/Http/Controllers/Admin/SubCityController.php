@@ -60,12 +60,15 @@ class SubCityController extends Controller
                 'status' => 'OK',
                 'message' => 'added successfully'
             ]);
-        }
+        }else{
 
             return response()->json([
                 'status' => 'FAILD',
                 'errors' => $validator->errors()->all(),
             ]);
+        }
+
+
         
     }
 
@@ -126,13 +129,15 @@ class SubCityController extends Controller
                 'status' => 'OK',
                 'message' => 'updated successfully'
             ]);
-        }
+        }else{
 
             return response()->json([
                 'status' => 'FAILD',
                 'errors' => $validator->errors()->all(),
             ]);
-        
+        }
+
+
     }
 
     /**

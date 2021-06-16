@@ -5,8 +5,8 @@
         <div class="row layout-top-spacing justify-content-center">
 
             <div class="col-lg-12">
-                <button class="btn btn-primary mb-2 mr-2 btn-rounded modal_show" route="{{ route('brand.create') }}"
-                    modal-title="Create brand">Add</button>
+                <button class="btn btn-primary mb-2 mr-2 btn-rounded modal_show" route="{{ route('shipment_info.create') }}"
+                    modal-title="Add shipment information">Add</button>
 
             </div>
 
@@ -16,60 +16,57 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>brand Table</h4>
+                                    <h4>shipment information Table</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
                             <div class="table-responsive">
-                                <table class="table table-bordered text-center table-striped table-hover mb-4">
+                                <table class="table table-bordered table-hover mb-4">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Logo</th>
-                                            <th>Status</th>
+                                            <th>status</th>
                                             <th>Action</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($brands as $brand)
+                                        @foreach ($shipment_infos as $shipment_info)
+
 
                                             <tr>
-                                                <td>{{ $brand->name }}</td>                                         
+                                                <td>{{ $shipment_info->name }}</td>
                                                 <td>
-                                                @if ($brand->image)
-                                                <img class="small_image" src="{{ asset('storage/'.$brand->image ) }}" alt="image"></td>
-                                                @else
-                                                    <img class="small_image" src="{{ asset('storage/images/no_image.png') }}" alt="no image">  
-                                                @endif 
-                                                </td>
-                                                <td>
-                                                    @if ($brand->status==1)
-                                                        <span class="bade badge-success"> Active </span>
+                                                    @if ($shipment_info->status==1)
+                                                    <span class="bade badge-success"> Active </span>
                                                     @else
                                                     <span class="bade badge-warning"> Inactive </span>
                                                     @endif
                                                 </td>
                                                 <td>
-
-                                                 @if ($brand->status==1)
-                                                    <a href="#" route="{{ route('brand.destroy', $brand->id) }}"
+                                                    @if ($shipment_info->status==1)
+                                                    <a href="#" route="{{ route('shipment_info.destroy', $shipment_info->id) }}"
                                                         class="btn btn-sm btn-warning btn_status_change">
                                                         <i class="fa fa-ban"></i>
                                                     </a>
                                                     @else
-                                                    <a href="#" route="{{ route('brand.destroy', $brand->id) }}"
+                                                    <a href="#" route="{{ route('shipment_info.destroy', $shipment_info->id) }}"
                                                         class="btn btn-sm btn-success btn_status_change">
                                                         <i class="fa fa-check"></i>
                                                     </a>        
                                                     @endif
 
-                                                    <a href="#" route="{{ route('brand.edit', $brand->id) }}"
+                                                    <a href="#" route="{{ route('shipment_info.edit', $shipment_info->id) }}"
                                                         class="btn btn-sm btn-success modal_show_edit"
-                                                        modal-title="Edit-{{ $brand->name }}">
+                                                        modal-title="Edit-{{ $shipment_info->name }}">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
+                                                    <a href="#" route="{{ route('shipment_info.show', $shipment_info->id) }}"
+                                                        class="btn btn-sm btn-danger btn_delete"
+                                                       >
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>                                                    
                                                 </td>
 
                                             </tr>
