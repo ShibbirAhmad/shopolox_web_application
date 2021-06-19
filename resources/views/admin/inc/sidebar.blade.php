@@ -91,7 +91,13 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="products" data-parent="#accordionExample">
                     <li>
-                        <a href="{{ route('product.index') }}"> Products </a>
+                        <a href="{{ route('product.index') }}"> Products Upload</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('product.index') }}"> Products Supplier</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('product.index') }}"> Products Purchase</a>
                     </li>
                     <li>
                         <a href="{{ route('shipment_info.index') }}"> Shipment Info </a>

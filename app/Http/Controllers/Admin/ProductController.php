@@ -27,7 +27,7 @@ class productController extends Controller
 
       $this->attributes = Attribute::where('status',1)->orderBy('name')->with('variants')->get();
       $this->brands =   Brand::where('status',1)->orderBy('name')->get();
-      $this->categories = Category::where('status',1)->orderBy('name')->with('subCategories.subSubCategory')->get();
+      $this->categories = Category::where('status',1)->orderBy('name')->with('sub_categories.sub_sub_categories')->get();
     
     }
 
