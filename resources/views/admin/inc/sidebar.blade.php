@@ -1,6 +1,6 @@
-<div class="sidebar-wrapper sidebar-theme">
+<div style="overflow-y: scroll" class="sidebar-wrapper sidebar-theme">
 
-    <nav id="sidebar">
+    <nav  id="sidebar">
 
         <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu">
@@ -94,7 +94,7 @@
                         <a href="{{ route('product.index') }}"> Products Upload</a>
                     </li>
                     <li>
-                        <a href="{{ route('product.index') }}"> Products Supplier</a>
+                        <a href="{{ route('supplier.index') }}"> Products Supplier</a>
                     </li>
                     <li>
                         <a href="{{ route('product.index') }}"> Products Purchase</a>

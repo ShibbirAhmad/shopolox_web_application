@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\ShipmentInfoController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\VariantController;
@@ -46,6 +48,8 @@ Route::group([
         'sub_category' => SubCategoryController::class,
         'sub_sub_category' => SubSubCategoryController::class,
         'product' =>   ProductController::class,
+        'supplier' =>   SupplierController::class,
+        'purchase' =>   PurchaseController::class,
         'shipment_info' =>   ShipmentInfoController::class,
         'attribute' => AttributeController::class,
         'variant' =>   VariantController::class,

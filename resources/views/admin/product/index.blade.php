@@ -25,28 +25,44 @@
                                 <table class="table table-bordered text-center table-striped table-hover mb-4">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Image</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th width="5%">#</th>
+                                            <th width="10%">Name</th>
+                                            <th width="5%">Code</th>
+                                            <th width="5%">Image</th>
+                                            <th width="5%">Purchase Price </th>
+                                            <th width="5%">Regular Price</th>
+                                            <th width="5%">Discount</th>
+                                            <th width="5%">Sale Price</th>
+                                            <th width="5%">Profit Margin</th>
+                                            <th width="5%">Stock</th>
+                                            <th width="5%">Status</th>
+                                            <th width="10%">Action</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($products as $product)
+                                        @foreach ($products as $key=>$product)
 
                                             <tr>
+                                                <td>{{ $key+1 }}</td>                                         
                                                 <td>{{ $product->name }}</td>                                         
+                                                <td>{{ $product->code }}</td>                                                                                  
                                                 <td>
-                                                @if ($product->image)
-                                                <img class="small_image" src="{{ asset('storage/'.$product->image ) }}" alt="image"></td>
+                                                @if ($product->product_images[0]->image)
+                                                <img class="small_image" src="{{ asset('storage/'.$product->product_images[0]->image ) }}" alt="image"></td>
                                                 @else
                                                     <img class="small_image" src="{{ asset('storage/images/no_image.png') }}" alt="no image">  
                                                 @endif 
                                                 </td>
+                                                <td> p-10 </td>
+                                                <td> {{ $product->regular_price }} </td>
+                                                <td> {{ $product->discount  }} </td>
+                                                <td> {{ $product->sale_price }} </td>
+                                                <td>  5%  </td>
+                                                <td> <span class="badge badge-success">{{ $product->stock  }}</span> </td>
                                                 <td>
                                                     @if ($product->status==1)
-                                                        <span class="bade badge-success"> Active </span>
+                                                        <span class="badge badge-success"> Active </span>
                                                     @else
                                                     <span class="bade badge-warning"> Inactive </span>
                                                     @endif

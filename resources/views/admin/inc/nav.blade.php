@@ -4,7 +4,7 @@
         <ul class="navbar-nav theme-brand flex-row  text-center">
 
             <li class="nav-item theme-text">
-                <a href="index.html" style="    margin-left: -10px;
+                <a href="" style="    margin-left: -10px;
                 font-size: 18px;" class="nav-link"> shopolox </a>
             </li>
             <li class="nav-item toggle-sidebar">
