@@ -43,7 +43,7 @@ class productController extends Controller
 
     public function index()
     {
-        $products = Product::orderBy('id','desc')->with(['product_images','purchase_items'])->get();
+        $products = Product::orderBy('id','desc')->with(['product_images','purchase_items'])->paginate(20);
         return view('admin.product.index', compact('products'));
     }
 
@@ -80,11 +80,11 @@ class productController extends Controller
 
     public function store(Request $request)
     {   
-        // return $request->all();
+      // return $request->all();
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'categories' => 'required',
-            'attributes' => 'required',
+            'product_attributes' => 'required',
             'regular_price' => 'required',
             'sale_price' => 'required',
             'status' => 'required',
@@ -116,8 +116,8 @@ class productController extends Controller
             $product->save();
 
             //save product multiple image in store directory
-            if ($request->hasFile('image')) {
-            $files = $request->file('image');
+            if ($request->hasFile('images')) {
+            $files = $request->file('images');
             foreach ($files as $file) {
                 $product_image = new ProductImage();
                 $product_image->product_id = $product->id;
@@ -158,8 +158,8 @@ class productController extends Controller
             }
 
             //save the product properties
-            if (isset($request->attributes) && !empty($request->attributes)) {
-                    foreach ($request->attributes as $item) {
+            if (isset($request->product_attributes) && !empty($request->product_attributes) ) {
+                    foreach ($request->product_attributes as $item) {
                         $p_attribute = new ProductAttribute();
                         $p_attribute->product_id = $product->id;
                         $p_attribute->attribute_id = $item;
@@ -212,12 +212,13 @@ class productController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        $html = view('admin.product.edit', compact('product'))->render();
+        $product = Product::with(['product_images','product_attributes','product_variants','product_sub_sub_categories','product_sub_categories','product_categories'])->find($id);
+        $categories=$this->categories ;
+        $attributes=$this->attributes ;
+        $brands=$this->brands ;
+        $shipment_infos= $this->shipment_infos;
+        return view('admin.product.edit',compact(['product','categories','attributes','brands','shipment_infos']));
 
-        return response()->json([
-            'html' => $html,
-        ]);
     }
 
     /**

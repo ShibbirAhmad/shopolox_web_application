@@ -12,6 +12,7 @@
 
             </div>
 
+      
           {{-- start left section  --}}
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8  col-xs-12  layout-spacing">
                
@@ -89,11 +90,7 @@
                               
                                       </div>
                                   </div>
-                              
-
-
-                              
-
+                          
                                 </div>
 
                             </div>
@@ -116,10 +113,10 @@
                             <div class="custom-file-container" data-upload-id="mySecondImage">
                               <label>Upload (Allow Multiple) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
                               <label class="custom-file-container__custom-file" >
-                                  <input type="file" name="image" class="custom-file-container__custom-file__custom-file-input" multiple>
+                                  <input type="file"  id="image" name="images[]" class="custom-file-container__custom-file__custom-file-input" multiple>
                                   <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                                   <span class="custom-file-container__custom-file__custom-file-control"></span>
-                              </label>
+                              </label>+
                               <div class="custom-file-container__image-preview"></div>
                           </div>
                        </div>
@@ -132,14 +129,14 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>product Description </h4>
+                                    <h4>Product Description </h4>
                                 </div>
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
     
                           <div class="form-group">
-                            <label for="description">description</label>
+                            <label for="description">Description</label>
                             <textarea name="details"   id="demo1" placeholder="write details" class="form-control"></textarea>
                         </div>
                         </div>
@@ -292,7 +289,7 @@
                          <li> 
                           <div class="n-chk">
                             <label class="new-control new-checkbox checkbox-outline-secondary">
-                              <input type="checkbox" name="attributes[]" value="{{ $attribute->id }}"  class="new-control-input">
+                              <input type="checkbox" name="product_attributes[]" value="{{ $attribute->id }}"  class="new-control-input">
                               <span class="new-control-indicator"></span> {{ $attribute->name }}
                             </label>
                           </div>

@@ -32,7 +32,7 @@
 
         ///form submit
       $('#product_container').on('submit', '#submit_form', function(e) {
-                    event.preventDefault()
+                  event.preventDefault()
             let $action = $(this).attr('action');
             let $method = $(this).attr('method');
             const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -55,7 +55,7 @@
                 success: function(resp) {
                     console.log(resp)
                     if (resp.status == "OK") {
-                        
+                        window.history.back();
                         toastMessage(resp.message);
                     } else {
                         Swal.fire({
