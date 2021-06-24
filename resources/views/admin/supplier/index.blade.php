@@ -7,7 +7,6 @@
             <div class="col-lg-12">
                 <button class="btn btn-primary mb-2 mr-2 btn-rounded modal_show" route="{{ route('supplier.create') }}"
                     modal-title="Create supplier">Add</button>
-
             </div>
 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">

@@ -48,7 +48,7 @@
                                                 <td>{{ $product->name }}</td>                                         
                                                 <td>{{ $product->code }}</td>                                                                                  
                                                 <td>
-                                                @if ($product->product_images[0]->image)
+                                                @if (count($product->product_images) > 0)
                                                 <img class="small_image" src="{{ asset('storage/'.$product->product_images[0]->image ) }}" alt="image"></td>
                                                 @else
                                                     <img class="small_image" src="{{ asset('storage/images/no_image.png') }}" alt="no image">  
@@ -81,9 +81,8 @@
                                                     </a>        
                                                     @endif
 
-                                                    <a href="#" route="{{ route('product.edit', $product->id) }}"
-                                                        class="btn btn-sm btn-success modal_show_edit"
-                                                        modal-title="Edit-{{ $product->name }}">
+                                                    <a href="{{ route('product.edit', $product->id) }}" 
+                                                        class="btn btn-sm btn-success mt-1" >
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                 </td>
@@ -91,12 +90,15 @@
                                             </tr>
 
                                         @endforeach
-
+                                   
 
                                     </tbody>
                                 </table>
                             </div>
-
+                            
+                            <div class="pagination_container">
+                                {{  $products->links() }}
+                            </div>
 
                         </div>
                     </div>

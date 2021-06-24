@@ -14,9 +14,18 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id');
     }
 
-    public function product_attribute()
+    public function product_categories(){
+            return $this->hasMany(ProductCategory::class, 'product_id');
+    }
+    public function product_sub_categories(){
+            return $this->hasMany(ProductSubCategory::class, 'product_id');
+    }
+    public function product_sub_sub_categories(){
+            return $this->hasMany(ProductSubSubCategory::class, 'product_id');
+    }
+    public function product_attributes()
     {
-        return $this->hasOne(ProductAttribute::class, 'product_id');
+        return $this->hasMany(ProductAttribute::class, 'product_id');
     }
 
     public function product_variants()
