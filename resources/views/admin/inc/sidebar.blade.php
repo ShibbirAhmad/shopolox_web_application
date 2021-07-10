@@ -97,7 +97,7 @@
                         <a href="{{ route('supplier.index') }}"> Products Supplier</a>
                     </li>
                     <li>
-                        <a href="{{ route('product.index') }}"> Products Purchase</a>
+                        <a href="{{ route('purchase.index') }}"> Products Purchase</a>
                     </li>
                     <li>
                         <a href="{{ route('shipment_info.index') }}"> Shipment Info </a>

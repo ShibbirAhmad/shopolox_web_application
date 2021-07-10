@@ -234,6 +234,20 @@
         })
 
 
+
+        //purchase calculations 
+        $('#__modal').on('keyup','#purchase_price,#purchase_quantity,#purchase_paid',function(e){
+                let p_price = $('#purchase_price').val() ;
+                let p_qty = $('#purchase_quantity').val() ;
+                let p_paid = $('#purchase_paid').val() ;
+                let p_total = ( p_price * p_qty ) ;
+                let p_due = p_total - p_paid ;
+                $('#purchase_total').val(p_total);
+                $('#purchase_due').val(p_due);
+        })
+
+
+
         function toastMessage(message) {
             const Toast = Swal.mixin({
                 toast: true,
