@@ -187,12 +187,8 @@
                         <div class="form-group">
                            <select class="form-control"  name="status" >
                              <option selected disabled>status <b class="text-danger">*</b> </option>
-                             @if ($product->status==1)
-                             <option selected value="1">active</option> 
-                             @else
-                                  <option value="0">de-active</option>
-                             @endif
-                            
+                             <option @if ($product->status==1) selected @endif value="1">active</option>
+                             <option @if ($product->status==0) selected @endif value="0">de-active</option>
                            </select>
                         </div>
                      </div>
@@ -326,9 +322,7 @@
                    <div class="multi_item_container">
                     <ul>
                       @foreach ($attributes as $attribute)
-                   
                        <li> 
-                      
                         <div class="n-chk">
                           <label class="new-control attribute_control new-checkbox checkbox-outline-secondary">
                             @foreach ($product->product_attributes as $pr_attribute)

@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Variant;
 use App\Models\Category;
 use App\Models\Attribute;
-use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use App\Models\ProductImage;
 use App\Models\ShipmentInfo;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
-use App\Models\SubSubCategory;
 use App\Models\ProductCategory;
 use App\Models\ProductAttribute;
 use App\Models\ProductSubCategory;
@@ -242,6 +239,7 @@ class productController extends Controller
         ]);
 
         if (!$validator->fails()) {
+            DB::transaction(function() use($request,$id){
             $product = Product::findOrFail($id);
             $product->name = $request->name;
             $product->slug = $this->slugCreator(strtolower($request->name)).'-'.$product->code ;
@@ -274,37 +272,61 @@ class productController extends Controller
 
             //save the product categories
             if (isset($request->categories) && !empty($request->categories)) {
-                foreach ($request->categories as $item) {
-                    $p_category = new ProductCategory();
-                    $p_category->product_id = $product->id;
-                    $p_category->category_id = $item;
-                    $p_category->save();
+                //find product old categories
+                $old_categories = ProductCategory::whereIn('product_id',[$id])->get();
+                foreach ($old_categories as $c) {
+                    $c->delete() ;
+                }
+                // re inserting categories
+                foreach ($request->categories as $item) {                
+                        $p_category = new ProductCategory();
+                        $p_category->product_id = $product->id;
+                        $p_category->category_id = $item;
+                        $p_category->save();   
                 }
             }
 
              //save the product sub categories
             if (isset($request->sub_categories) && !empty($request->sub_categories)) {
+                //find product old categories
+                $old_categories = ProductSubCategory::whereIn('product_id',[$id])->get();
+                foreach ($old_categories as $c) {
+                    $c->delete() ;
+                }
+                // re storing sub categories
                 foreach ($request->sub_categories as $item) {
-                    $p_sub_category = new ProductSubCategory();
-                    $p_sub_category->product_id = $product->id;
-                    $p_sub_category->sub_category_id = $item;
-                    $p_sub_category->save();
+                        $p_sub_category = new ProductSubCategory();
+                        $p_sub_category->product_id = $product->id;
+                        $p_sub_category->sub_category_id = $item;
+                        $p_sub_category->save();                 
                 }
             }
 
             //save the product categories
             if (isset($request->sub_sub_categories) && !empty($request->sub_sub_categories)) {
+                //find product old categories
+                $old_categories = ProductSubSubCategory::whereIn('product_id',[$id])->get();
+                foreach ($old_categories as $c) {
+                    $c->delete() ;
+                }
+                // re storing sub sub categories
                 foreach ($request->sub_sub_categories as $item) {
-                    $p_sub_sub_category = new ProductSubSubCategory();
-                    $p_sub_sub_category->product_id = $product->id;
-                    $p_sub_sub_category->sub_sub_category_id = $item;
-                    $p_sub_sub_category->save();
+                        $p_sub_sub_category = new ProductSubSubCategory();
+                        $p_sub_sub_category->product_id = $product->id;
+                        $p_sub_sub_category->sub_sub_category_id = $item;
+                        $p_sub_sub_category->save();
                 }
             }
 
             //save the product properties
             if (isset($request->product_attributes) && !empty($request->product_attributes) ) {
-                    foreach ($request->product_attributes as $item) {
+                   //find product old categories
+                   $old_attributes = ProductAttribute::whereIn('product_id',[$id])->get();
+                   foreach ($old_attributes as $p) {
+                       $p->delete() ;
+                   }
+                   // re storing attributes
+                    foreach($request->product_attributes as $item) {
                         $p_attribute = new ProductAttribute();
                         $p_attribute->product_id = $product->id;
                         $p_attribute->attribute_id = $item;
@@ -313,6 +335,12 @@ class productController extends Controller
             }
             //save the product variants
             if (isset($request->variants) && !empty($request->variants)) {
+                 //find product old categories
+                 $old_variants = ProductVariant::whereIn('product_id',[$id])->get();
+                 foreach ($old_variants as $v) {
+                     $v->delete() ;
+                 }
+                 // re storing attributes
                 foreach ($request->variants as $item) {
                     $product_variant = new ProductVariant();
                     $product_variant->product_id = $product->id;
