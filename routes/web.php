@@ -56,9 +56,12 @@ Route::group([
         'city' =>      CityController::class,
         'sub_city' =>  SubCityController::class,
     ]);
-   
+
+ 
 });
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/admin/login', [HomeController::class, 'login'])->name('admin.login');
+//single routes
+Route::get('api/product/image/delele/{id}',[ProductController::class,'productImageDelete']);

@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Variant;
 use App\Models\Category;
 use App\Models\Attribute;
-use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use App\Models\ProductImage;
 use App\Models\ShipmentInfo;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
-use App\Models\SubSubCategory;
 use App\Models\ProductCategory;
 use App\Models\ProductAttribute;
 use App\Models\ProductSubCategory;
@@ -98,7 +95,7 @@ class productController extends Controller
             $product = new Product();
             $product->name = $request->name;
             $product->code = $product_code;
-            $product->slug = $this->slugCreator($request->name);
+            $product->slug = $this->slugCreator(strtolower($request->name)).'-'.$product_code;
             $product->regular_price = $request->regular_price;
             $product->discount = $request->discount ?? 0;
             $product->sale_price = $request->sale_price;
@@ -213,6 +210,7 @@ class productController extends Controller
     public function edit($id)
     {
         $product = Product::with(['product_images','product_attributes','product_variants','product_sub_sub_categories','product_sub_categories','product_categories'])->find($id);
+
         $categories=$this->categories ;
         $attributes=$this->attributes ;
         $brands=$this->brands ;
@@ -230,23 +228,133 @@ class productController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-
-            'name' => 'required|unique:products,name,' . $id,
+          // return $request->all();
+          $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'categories' => 'required',
+            'product_attributes' => 'required',
+            'regular_price' => 'required',
+            'sale_price' => 'required',
+            'status' => 'required',
         ]);
 
         if (!$validator->fails()) {
-            $product = Product::find($id);
+            DB::transaction(function() use($request,$id){
+            $product = Product::findOrFail($id);
             $product->name = $request->name;
-            $product->slug = Str::slug($request->name);
-            if ($request->hasFile('image')) {
-                $path=$request->file('image')->store('images/product','public');
-                $product->image=$path;
-            }
+            $product->slug = $this->slugCreator(strtolower($request->name)).'-'.$product->code ;
+            $product->regular_price = $request->regular_price;
+            $product->discount = $request->discount ?? 0;
+            $product->sale_price = $request->sale_price;
+            $product->details = $request->details;
+            $product->status = $request->status ;
+            $product->brand_id = $request->brand_id ?? null ;
+            $product->shiping_info_id = $request->shiping_info_id ?? null ;
+            $product->labels = $request->labels ?? null ;
+            $product->is_featured = $request->is_featured ?? null ;
+            $product->tags   = $request->tags ?? null ;
+            $product->seo_title = $request->seo_title ?? null ;
+            $product->seo_description = $request->seo_description ?? null ;
+            $product->collection_type = $request->collection ?? null ;
             $product->save();
-                return response()->json([
+
+            //save product multiple image in store directory
+            if ($request->hasFile('images')) {
+            $files = $request->file('images');
+            foreach ($files as $file) {
+                $product_image = new ProductImage();
+                $product_image->product_id = $product->id;
+                $path = $file->store('images/products', 'public');
+                $product_image->image = $path;
+                $product_image->save();
+                }
+            }
+
+            //save the product categories
+            if (isset($request->categories) && !empty($request->categories)) {
+                //find product old categories
+                $old_categories = ProductCategory::whereIn('product_id',[$id])->get();
+                foreach ($old_categories as $c) {
+                    $c->delete() ;
+                }
+                // re inserting categories
+                foreach ($request->categories as $item) {                
+                        $p_category = new ProductCategory();
+                        $p_category->product_id = $product->id;
+                        $p_category->category_id = $item;
+                        $p_category->save();   
+                }
+            }
+
+             //save the product sub categories
+            if (isset($request->sub_categories) && !empty($request->sub_categories)) {
+                //find product old categories
+                $old_categories = ProductSubCategory::whereIn('product_id',[$id])->get();
+                foreach ($old_categories as $c) {
+                    $c->delete() ;
+                }
+                // re storing sub categories
+                foreach ($request->sub_categories as $item) {
+                        $p_sub_category = new ProductSubCategory();
+                        $p_sub_category->product_id = $product->id;
+                        $p_sub_category->sub_category_id = $item;
+                        $p_sub_category->save();                 
+                }
+            }
+
+            //save the product categories
+            if (isset($request->sub_sub_categories) && !empty($request->sub_sub_categories)) {
+                //find product old categories
+                $old_categories = ProductSubSubCategory::whereIn('product_id',[$id])->get();
+                foreach ($old_categories as $c) {
+                    $c->delete() ;
+                }
+                // re storing sub sub categories
+                foreach ($request->sub_sub_categories as $item) {
+                        $p_sub_sub_category = new ProductSubSubCategory();
+                        $p_sub_sub_category->product_id = $product->id;
+                        $p_sub_sub_category->sub_sub_category_id = $item;
+                        $p_sub_sub_category->save();
+                }
+            }
+
+            //save the product properties
+            if (isset($request->product_attributes) && !empty($request->product_attributes) ) {
+                   //find product old categories
+                   $old_attributes = ProductAttribute::whereIn('product_id',[$id])->get();
+                   foreach ($old_attributes as $p) {
+                       $p->delete() ;
+                   }
+                   // re storing attributes
+                    foreach($request->product_attributes as $item) {
+                        $p_attribute = new ProductAttribute();
+                        $p_attribute->product_id = $product->id;
+                        $p_attribute->attribute_id = $item;
+                        $p_attribute->save();
+                    }
+            }
+            //save the product variants
+            if (isset($request->variants) && !empty($request->variants)) {
+                 //find product old categories
+                 $old_variants = ProductVariant::whereIn('product_id',[$id])->get();
+                 foreach ($old_variants as $v) {
+                     $v->delete() ;
+                 }
+                 // re storing attributes
+                foreach ($request->variants as $item) {
+                    $product_variant = new ProductVariant();
+                    $product_variant->product_id = $product->id;
+                    $product_variant->variant_id = $item;
+                    $product_variant->save();
+                }
+            }
+
+            
+        });
+            
+              return response()->json([
                     'status' => "OK",
-                    'message' => 'product Was Updated',
+                    'message' => 'product updated',
                 ]);
             
         }
@@ -279,6 +387,23 @@ class productController extends Controller
             ]);      
         
     
+    }
+
+
+    public function productImageDelete($id){
+
+          $product_image = ProductImage::findOrFail($id);
+          $is_file_exists=file_exists('storage/'.$product_image->image) ;
+          if ($is_file_exists) {
+              unlink('storage/'.$product_image->image) ;
+          }
+          $product_image->delete();
+          
+          return response()->json([
+              'status' => 'OK',
+              'message' => 'removed this image',
+          ]);
+           
     }
 
     

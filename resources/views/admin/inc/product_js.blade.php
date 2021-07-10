@@ -29,6 +29,8 @@
              console.log($sale_price); 
         });
 
+     
+
 
         ///form submit
       $('#product_container').on('submit', '#submit_form', function(e) {

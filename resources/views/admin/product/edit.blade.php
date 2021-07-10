@@ -9,8 +9,8 @@
             <div class="col-lg-12">
                 <a  class="btn btn-primary mb-2 mr-2 btn-rounded mt-2" href="{{ route('product.index') }}"
                     ><i class="fa fa-arrow-left mr-1"></i>back</a>
-
             </div>
+
 
           {{-- start left section  --}}
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8  col-xs-12  layout-spacing">
@@ -118,6 +118,7 @@
                               <div class="custom-file-container__image-preview">
                                 @foreach ($product->product_images as $item)
                                     <img class="product_edit_image_show" src="{{ asset('storage/'.$item->image) }}" /> 
+                                    <i onclick="deleteProductImage({{ $item->id }})"  class="fa fa-trash img_d_btn" ></i>
                                 @endforeach
                               </div>
                           </div>
@@ -186,18 +187,14 @@
                         <div class="form-group">
                            <select class="form-control"  name="status" >
                              <option selected disabled>status <b class="text-danger">*</b> </option>
-                             @if ($product->status==1)
-                             <option selected value="1">active</option> 
-                             @else
-                                  <option value="0">de-active</option>
-                             @endif
-                            
+                             <option @if ($product->status==1) selected @endif value="1">active</option>
+                             <option @if ($product->status==0) selected @endif value="0">de-active</option>
                            </select>
                         </div>
                      </div>
                      <div class="col-md-6 col-xs-12">
                        <div class="form-group text-center">
-                         <button type="submit" class="btn btn-success save_btn"><i class="fa fa-save save_icon"></i>Submit</button>
+                         <button type="submit" class="btn btn-success save_btn"><i class="fa fa-save save_icon"></i>Save</button>
                        </div>
                      </div>
                    </div>
@@ -230,9 +227,11 @@
                 <div class="card-header"> <h6>Brands</h6> </div>
                 <div class="card-body">
                    <select class="form-control " name="brand_id" >
-                         <option selected disabled >select</option>
+                         <option   disabled >select</option>
                         @foreach ($brands as $brand)
-                        <option value="{{ $brand->id }} "  @if($product->brand_id == $brand->id ) selected @endif >{{ $brand->name }}</option>
+                        <option  @if ($product->brand_id==$brand->id)
+                            selected
+                        @endif  value="{{ $brand->id }} "  @if($product->brand_id == $brand->id ) selected @endif >{{ $brand->name }}</option>
                         @endforeach
                    </select>
                 </div>
@@ -248,48 +247,65 @@
                   <div class="multi_item_container">
                   <ul>
                     @foreach ($categories as $category)
-                     @foreach ($product->product_categories as $p_category)
                      <li> 
                       <div class="n-chk">
                         <label class="new-control new-checkbox checkbox-primary">
-                          <input name="categories[]" value="{{ $category->id }}" type="checkbox" class="new-control-input" @if($category->id == $p_category->category_id) checked  @endif >
+                          @foreach ($product->product_categories as $p_category)
+                          <input type="checkbox" @if($category->id == $p_category->category_id) checked  @endif  name="categories[]" value="{{ $category->id }}" class="new-control-input" >
+                          @endforeach
                           <span class="new-control-indicator"></span>{{ $category->name }}
                         </label>
                       </div>
                      @if (count($category->sub_categories) > 0)
                      <ul>
                        <li>
-                          @foreach ($category->sub_categories as $sub_category)
-                           @foreach ($product->product_sub_categories as $p_sub_category)
+                          @foreach ($category->sub_categories as $sub_category) 
                           <div class="n-chk">
                           <label class="new-control new-checkbox checkbox-success">
-                            <input type="checkbox" name="sub_categories[]" class="new-control-input" value="{{ $sub_category->id }}" @if($sub_category->id == $p_sub_category->sub_category_id) checked  @endif  > 
+                              @foreach ($product->product_sub_categories as $item)
+                            <input type="checkbox" @if($sub_category->id == $item->sub_category_id) checked  @endif  name="sub_categories[]" class="new-control-input" value="{{ $sub_category->id }}"  > 
+                               @endforeach
                                 <span class="new-control-indicator"></span> {{ $sub_category->name }}
                           </label> 
                           </div>
                           @if (count($sub_category->sub_sub_categories) > 0)
                           <ul>
-                           <li>
-                              @foreach ($sub_category->sub_sub_categories as $sub_sub_category)
-                              @foreach ($product->product_sub_sub_categories as $p_sub_sub_category)
-                              <div class="n-chk">
-                                <label class="new-control new-checkbox checkbox-info">
-                                <input type="checkbox" name="sub_sub_categories[]" class="new-control-input" value="{{ $sub_sub_category->id }}"   @if($sub_sub_category->id == $p_sub_sub_category->sub_sub_category_id) checked  @endif > 
-                                <span class="new-control-indicator"></span> {{ $sub_sub_category->name }}
-                              </label> 
-                              </div> 
-                              @endforeach
-                              @endforeach
-                           </li>
+
+                           {{-- statement is continues if products has sub sub categories  --}}
+                           @if (count($product->product_sub_sub_categories) > 0)
+                                <li>
+                                  @foreach ($sub_category->sub_sub_categories as $sub_sub_category)
+                                  <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-info">
+                                        @foreach ($product->product_sub_sub_categories as $item)
+                                    <input type="checkbox"  @if($sub_sub_category->id == $item->sub_sub_category_id) checked  @endif name="sub_sub_categories[]" class="new-control-input" value="{{ $sub_sub_category->id }}"   > 
+                                        @endforeach
+                                    <span class="new-control-indicator"></span> {{ $sub_sub_category->name }}
+                                  </label> 
+                                  </div> 
+                                  @endforeach
+                              </li>
+                           @else
+                                <li>
+                                  @foreach ($sub_category->sub_sub_categories as $sub_sub_category)
+                                  <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-info">
+                                        <input type="checkbox" name="sub_sub_categories[]" class="new-control-input" value="{{ $sub_sub_category->id }}"   > 
+                                    <span class="new-control-indicator"></span> {{ $sub_sub_category->name }}
+                                  </label> 
+                                  </div> 
+                                  @endforeach
+                              </li> 
+                           @endif
+                           {{-- statement is continues if products has sub sub categories  --}}
+                    
                       </ul>
                           @endif 
-                          @endforeach
                           @endforeach
                        </li>
                      </ul> 
                      @endif  
                    </li>  
-                    @endforeach
                     @endforeach
                  </ul>
 
@@ -299,43 +315,48 @@
               </div>
              
 
-                <div id="tableHover" class="col-lg-12 col-12 layout-spacing">
-                  <div class="card">
-                    <div class="card-header"> <h6>Attributes & Variants</h6> </div>
-                    <div class="card-body">
-                     <div class="multi_item_container">
-                      <ul>
-                        @foreach ($attributes as $attribute)
-                        @foreach ($product->product_attributes as $p_attribute)
-                         <li> 
-                          <div class="n-chk">
-                            <label class="new-control new-checkbox checkbox-outline-secondary">
-                              <input type="checkbox" name="product_attributes[]" value="{{ $attribute->id }}"  class="new-control-input" @if($p_attribute->attribute_id == $attribute->id) checked @endif >
-                              <span class="new-control-indicator"></span> {{ $attribute->name }}
-                            </label>
-                          </div>
-                         @if (count($attribute->variants) > 0)
-                         <ul>
-                           <li>
-                              @foreach ($attribute->variants as $variant)
-                              <div class="n-chk">
-                                <label class="new-control new-checkbox checkbox-outline-warning">    
-                                <input type="checkbox" name="variants[]" value="{{ $variant->id }}"  class="new-control-input" > 
-                                  <span class="new-control-indicator"></span> {{ $variant->name }}
-                              </label> 
-                              @endforeach
-                           </li>
-                         </ul> 
-                         @endif  
-                       </li>  
-                        @endforeach
-                        @endforeach
-                       </ul>
-                     </div>
-                    </div>
+              <div id="tableHover" class="col-lg-12 col-12 layout-spacing">
+                <div class="card">
+                  <div class="card-header"> <h6>Attributes & Variants</h6> </div>
+                  <div class="card-body">
+                   <div class="multi_item_container">
+                    <ul>
+                      @foreach ($attributes as $attribute)
+                       <li> 
+                        <div class="n-chk">
+                          <label class="new-control attribute_control new-checkbox checkbox-outline-secondary">
+                            @foreach ($product->product_attributes as $pr_attribute)
+                            <input type="checkbox" @if ($pr_attribute->attribute_id==$attribute->id) checked  @endif  name="product_attributes[]" value="{{ $attribute->id }}"  class="new-control-input">
+                            @endforeach
+                            <span class="new-control-indicator"></span> {{ $attribute->name }}
+                          </label>
+                        </div>
+                         
+                       @if (count($attribute->variants) > 0)
+                       <ul>
+                         <li>
+                            @foreach ($attribute->variants as $variant)
+                            <div class="n-chk">
+                              <label class="new-control attribute_control new-checkbox checkbox-outline-warning "> 
+                                @foreach ($product->product_variants as $item) 
+                              <input  type="checkbox" @if ($item->variant_id == $variant->id)  checked @endif name="variants[]" value="{{ $variant->id }}"  class="new-control-input" >     
+                              @endforeach   
+                              <span class="new-control-indicator"></span> {{ $variant->name }}
+                            </label> 
+                            @endforeach
+                         </li>
+                       </ul> 
+                       @endif 
+                   
+                     </li>  
+                     
+                      @endforeach
+                     </ul>
+                   </div>
                   </div>
-                 
-               </div>
+                </div>
+               
+             </div>
 
                <div id="tableHover" class="col-lg-12 col-12 layout-spacing">
                 <div class="card">
@@ -346,7 +367,9 @@
                       <li> 
                        <div class="n-chk">
                         <label class="new-control new-radio square-radio radio-primary">
+                          @if ($product->collection_type=='new arrival')
                           <input type="radio" name="collection" value="new arrival" checked class="new-control-input" >
+                          @endif
                           <span class="new-control-indicator"></span> New Arrival
                         </label>
                        </div>
@@ -354,7 +377,9 @@
                       <li> 
                         <div class="n-chk">
                          <label class="new-control new-radio square-radio radio-success">
-                           <input type="radio" name="collection" value="best seller" class="new-control-input" >
+                          @if ($product->collection_type=='best seller')
+                             <input type="radio" name="collection" value="best seller" checked class="new-control-input" >
+                          @endif  
                            <span class="new-control-indicator"></span> Best Sellers
                          </label>
                         </div>
@@ -363,7 +388,9 @@
                        <li> 
                         <div class="n-chk">
                          <label class="new-control new-radio square-radio radio-danger">
-                           <input type="radio" name="collection" value="special offer" class="new-control-input" >
+                           @if ($product->collection_type=='special offer')
+                             <input checked  type="radio" name="collection"  value="special offer" class="new-control-input" >
+                           @endif
                            <span class="new-control-indicator"></span> Special Offer
                          </label>
                         </div>
@@ -389,7 +416,9 @@
                               <li>
                                 <div class="n-chk">
                                   <label class="new-control new-radio radio-primary">
+                                    @if ($product->labels=='new')
                                     <input type="radio" value="new" class="new-control-input" name="labels" checked>
+                                    @endif
                                     <span class="new-control-indicator"></span>New
                                   </label>
                                 </div>
@@ -398,7 +427,9 @@
                               <li> 
                                 <div class="n-chk">
                                   <label class="new-control new-radio radio-danger">
-                                    <input type="radio" class="new-control-input" value="hot" name="labels" >
+                                    @if ($product->labels=='hot')
+                                    <input type="radio" class="new-control-input" value="hot" name="labels" checked>
+                                    @endif
                                     <span class="new-control-indicator"></span>Hot
                                   </label>
                                 </div>
@@ -406,7 +437,9 @@
                              <li> 
                               <div class="n-chk">
                                 <label class="new-control new-radio radio-success">
-                                  <input type="radio" class="new-control-input" value="sale" name="labels" >
+                                   @if ($product->labels=='sale')
+                                    <input type="radio" class="new-control-input" value="sale" name="labels" checked >
+                                   @endif
                                   <span class="new-control-indicator"></span>Sale
                                 </label>
                               </div>
@@ -430,7 +463,9 @@
                      <select class="form-control " name="shiping_info_id" >
                            <option selected disabled >select</option>
                           @foreach ($shipment_infos as $shipment)
-                          <option value="{{ $shipment->id }}">{{ $shipment->name }}</option>
+                          <option @if ($product->shiping_info_id==$shipment->id)
+                              selected
+                          @endif value="{{ $shipment->id }}">{{ $shipment->name }}</option>
                           @endforeach
                      </select>
                   </div>
@@ -479,21 +514,79 @@
 <script src="{{ asset('admin/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
 <script>
 
-  //Second upload
-var secondUpload = new FileUploadWithPreview('mySecondImage')
 
-  new SimpleMDE({
-      element: document.getElementById("demo1"),
-      spellChecker: false,
-  });
+        //Second upload
+      var secondUpload = new FileUploadWithPreview('mySecondImage')
 
-  var ss = $("#seo_tags").select2({
-    tags: true,
-   });
+        new SimpleMDE({
+            element: document.getElementById("demo1"),
+            spellChecker: false,
+        });
 
-  function toggleSEOMeta() {
-        document.getElementById('seo_meta').classList.toggle('seo_meta_display');
-  }
+        var ss = $("#seo_tags").select2({
+          tags: true,
+        });
+
+        function toggleSEOMeta() {
+              document.getElementById('seo_meta').classList.toggle('seo_meta_display');
+        }
+
+
+
+              
+     function deleteProductImage($id){
+        if (confirm('Are your sure? Delete This')) {
+            let $action = '{{url("/api/product/image/delele")}}';
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action+'/'+$id,
+                type: "GET",
+                success: function(resp) {
+                    if (resp.status == "OK") {
+                        toastMessage(resp.message);
+                    }
+                },
+                error: function(e) {}
+            });
+
+          }
+
+      }
+
+
+
+      
+      function toastMessage(message) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal
+                        .stopTimer)
+                    toast.addEventListener('mouseleave', Swal
+                        .resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                type: 'success',
+                title: message
+            })
+
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+
+
+
+
 
   </script>
 @endpush
@@ -512,12 +605,31 @@ var secondUpload = new FileUploadWithPreview('mySecondImage')
 <link href="{{ asset('admin/assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/css/forms/theme-checkbox-radio.css') }}">
 <link href="{{ asset('admin/assets/css/scrollspyNav.css ') }}" rel="stylesheet" type="text/css" />
+
+
+
+
 <style >
+
+.attribute_control {
+  padding-left:0rem ;
+}
 
 .product_edit_image_show {
     width: 150px;
     height: 150px;
     margin: 20px 10px;
+}
+
+.img_d_btn {
+    position: absolute;
+    font-size: 26px;
+    color: red;
+    margin: 18% -14%;
+    background: #fff;
+    padding: 2px 6px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
  .seo_meta_btn {
