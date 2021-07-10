@@ -209,12 +209,11 @@ class productController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with(['product_images','product_attributes','product_variants','product_sub_sub_categories','product_sub_categories','product_categories'])->find($id);
-
-        $categories=$this->categories ;
-        $attributes=$this->attributes ;
-        $brands=$this->brands ;
-        $shipment_infos= $this->shipment_infos;
+            $product = Product::with(['product_images','product_attributes','product_variants','product_sub_sub_categories','product_sub_categories','product_categories'])->find($id);
+            $categories=$this->categories ;
+            $attributes=$this->attributes ;
+            $brands=$this->brands ;
+            $shipment_infos= $this->shipment_infos;
         return view('admin.product.edit',compact(['product','categories','attributes','brands','shipment_infos']));
 
     }

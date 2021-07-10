@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\BalanceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\SubCityController;
+use App\Http\Controllers\Admin\CreditController;
+use App\Http\Controllers\Admin\DebitController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,19 +45,22 @@ Route::group([
 
     //resoure route
     Route::resources([
-        'page' => PageController::class,
-        'brand' => BrandController::class,
-        'category' => CategoryController::class,
+        'page' =>       PageController::class,
+        'brand' =>      BrandController::class,
+        'credit' =>     CreditController::class,
+        'debit' =>      DebitController::class,
+        'balance' =>    BalanceController::class,
+        'category' =>   CategoryController::class,
         'sub_category' => SubCategoryController::class,
         'sub_sub_category' => SubSubCategoryController::class,
-        'product' =>   ProductController::class,
+        'product' =>    ProductController::class,
         'supplier' =>   SupplierController::class,
         'purchase' =>   PurchaseController::class,
         'shipment_info' =>   ShipmentInfoController::class,
-        'attribute' => AttributeController::class,
-        'variant' =>   VariantController::class,
-        'city' =>      CityController::class,
-        'sub_city' =>  SubCityController::class,
+        'attribute' =>  AttributeController::class,
+        'variant' =>    VariantController::class,
+        'city' =>       CityController::class,
+        'sub_city' =>   SubCityController::class,
     ]);
 
  
