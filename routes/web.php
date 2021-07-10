@@ -1,5 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+//frontedn classes
+use App\Http\Controllers\Frontend\IndexController ;
+
+// admin classes
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BalanceController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -17,8 +23,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\SubCityController;
 use App\Http\Controllers\Admin\CreditController;
 use App\Http\Controllers\Admin\DebitController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,11 +36,20 @@ use Illuminate\Support\Facades\Auth;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-////start admin route
+
+Route::get('/', [IndexController::class, 'index']);
+
+
+
+
+
+
+
+
+Auth::routes();
+
+//start admin route
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'admin',
@@ -66,8 +80,7 @@ Route::group([
  
 });
 
-Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::get('/admin/login', [HomeController::class, 'login'])->name('admin.login');
 //single routes
 Route::get('api/product/image/delele/{id}',[ProductController::class,'productImageDelete']);
