@@ -7,6 +7,8 @@ use App\Http\Controllers\Frontend\IndexController ;
 
 // admin classes
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BalanceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -61,6 +63,8 @@ Route::group([
     Route::resources([
         'page' =>       PageController::class,
         'brand' =>      BrandController::class,
+        'slider' =>     SliderController::class,
+        'banner' =>     BannerController::class,
         'credit' =>     CreditController::class,
         'debit' =>      DebitController::class,
         'balance' =>    BalanceController::class,
@@ -70,7 +74,7 @@ Route::group([
         'product' =>    ProductController::class,
         'supplier' =>   SupplierController::class,
         'purchase' =>   PurchaseController::class,
-        'shipment_info' =>   ShipmentInfoController::class,
+        'shipment_info' =>  ShipmentInfoController::class,
         'attribute' =>  AttributeController::class,
         'variant' =>    VariantController::class,
         'city' =>       CityController::class,

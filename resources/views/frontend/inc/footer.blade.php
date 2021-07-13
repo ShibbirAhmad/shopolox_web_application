@@ -60,12 +60,12 @@
         </div>
         <div class="ps-footer__copyright">
             <p>© 2018 Martfury. All Rights Reserved</p>
-            <p><span>We Using Safe Payment For:</span><a href="#"><img src="img/payment-method/1.jpg" alt=""></a><a href="#"><img src="img/payment-method/2.jpg" alt=""></a><a href="#"><img src="img/payment-method/3.jpg" alt=""></a><a href="#"><img src="img/payment-method/4.jpg" alt=""></a><a href="#"><img src="img/payment-method/5.jpg" alt=""></a></p>
+            <p><span>We Using Safe Payment For:</span><a href="#"><img src="{{ asset('frontend/img/payment-method/1.jpg') }}" alt=""></a><a href="#"><img src="img/payment-method/2.jpg" alt=""></a><a href="#"><img src="{{ asset('frontend/img/payment-method/3.jpg') }}" alt=""></a><a href="#"><img src="{{ asset('frontend/img/payment-method/4.jpg') }}" alt=""></a><a href="#"><img src="{{ asset('frontend/img/payment-method/5.jpg') }}" alt=""></a></p>
         </div>
     </div>
 </footer>
 <div class="ps-popup" id="subscribe" data-time="500">
-    <div class="ps-popup__content bg--cover" data-background="img/bg/subscribe.jpg"><a class="ps-popup__close" href="#"><i class="icon-cross"></i></a>
+    <div class="ps-popup__content bg--cover" data-background="{{ asset('frontend/img/bg/subscribe.jpg') }}"><a class="ps-popup__close" href="#"><i class="icon-cross"></i></a>
         <form class="ps-form--subscribe-popup" action="index.html" method="get">
             <div class="ps-form__content">
                 <h4>Get <strong>25%</strong> Discount</h4>
@@ -85,7 +85,12 @@
 <div id="back2top"><i class="pe-7s-angle-up"></i></div>
 <div class="ps-site-overlay"></div>
 <div id="loader-wrapper">
-    <div class="loader-section section-left"></div>
+    <div class="loader-section section-left">
+        <div style="margin:50% 90%" class="my_loading">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div class="loader-section section-right"></div>
 </div>
 <div class="ps-search" id="site-search"><a class="ps-btn--close" href="#"></a>

@@ -141,8 +141,11 @@
                         <a href="{{ route('sub_city.index') }}"> Sub Cities </a>
                     </li>
                     <li>
-                        <a href="element_badges.html"> Sliders </a>
+                        <a href="{{ route('slider.index') }}"> Sliders </a>
                     </li> 
+                    <li>
+                        <a href="{{ route('banner.index') }}"> Advertise Banner </a>
+                    </li>
                     <li>
                         <a href="{{ route('page.index') }}"> Pages </a>
                     </li>

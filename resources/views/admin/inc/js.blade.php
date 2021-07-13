@@ -204,6 +204,45 @@
 
 
 
+
+    //image upload  preview
+    $('#__modal').on('change','#slider_upload',function(e) {
+        console.log('working');
+    
+         let imagae_size = 500 ;
+         const file = e.target.files[0];
+        if (!file.type.match("image.*")) {
+            Swal.fire({
+             type:'warning',
+             text:'this is not any kind of image',
+           });
+           return;
+         }
+          if(file.size/1024>imagae_size){
+           Swal.fire({
+             type:'warning',
+             text:`File size can not be bigger then ${imagae_size}KB.Reference file size is ${file.size/1024} KB`,
+           });
+           return;
+         }
+    ///let image file size check
+      
+        if (file){
+        var r = new FileReader();
+        r.onload = function(e){          
+            console.log(e.target.result);
+        };
+            r.readAsText(f);
+        } 
+   
+           });
+
+     function  setImage(file, evt) {
+         console.log(file);
+         document.getElementById('previewImage').src = evt.target.result;
+       }
+
+
         //category wise sub category
         $('#__modal').on('change','#category_wise_sub_category',function(e) {
             let id=$(this).val();

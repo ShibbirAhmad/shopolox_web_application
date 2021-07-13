@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Slider;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SliderController extends Controller
 {
@@ -14,7 +15,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        //
+        $sliders= Slider::orderBy('id','desc')->get();
+        return view('admin.slider.index',compact('sliders'));
     }
 
     /**
@@ -24,7 +26,10 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+          $html= view('admin.slider.create')->render();
+          return response()->json([
+              'html' => $html ,
+          ]);
     }
 
     /**

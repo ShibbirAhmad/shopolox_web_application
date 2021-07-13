@@ -1,19 +1,22 @@
 @extends('frontend.layouts.app')
 
+@section('title','welcome')
 
 @section('content')
 @parent
+
 <div id="homepage-1">
     <div class="ps-home-banner ps-home-banner--1">
         <div class="ps-container">
             <div class="ps-section__left">
                 <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
-                    <div class="ps-banner"><a href="#"><img src="img/slider/home-1/slide-1.jpg" alt=""></a></div>
-                    <div class="ps-banner"><a href="#"><img src="img/slider/home-1/slide-2.jpg" alt=""></a></div>
-                    <div class="ps-banner"><a href="#"><img src="img/slider/home-1/slide-3.jpg" alt=""></a></div>
+                    <div class="ps-banner"><a href="#"><img src="{{ asset('frontend/img/slider/home-1/slide-1.jpg ') }}" alt=""></a></div>
+                    <div class="ps-banner"><a href="#"><img src="{{ asset('frontend/img/slider/home-1/slide-2.jpg ') }}" alt=""></a></div>
+                    <div class="ps-banner"><a href="#"><img src="{{ asset('frontend/img/slider/home-1/slide-3.jpg ') }}" alt=""></a></div>
                 </div>
             </div>
-            <div class="ps-section__right"><a class="ps-collection" href="#"><img src="img/slider/home-1/promotion-1.jpg" alt=""></a><a class="ps-collection" href="#"><img src="img/slider/home-1/promotion-2.jpg" alt=""></a></div>
+            <div class="ps-section__right"><a class="ps-collection" href="#"><img src="{{ asset('frontend/img/slider/home-1/promotion-1.jpg') }}" alt=""></a>
+                <a class="ps-collection" href="#"><img src="{{ asset('frontend/img/slider/home-1/promotion-2.jpg') }}" alt=""></a></div>
         </div>
     </div>
     <div class="ps-site-features">
@@ -109,7 +112,7 @@
                         </div>
                     </div>
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/2.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/2.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -138,7 +141,7 @@
                         </div>
                     </div>
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/3.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/3.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-25%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -167,7 +170,7 @@
                         </div>
                     </div>
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/4.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/4.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -196,7 +199,7 @@
                         </div>
                     </div>
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/5.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/5.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -225,7 +228,7 @@
                         </div>
                     </div>
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/6.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/5.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -254,7 +257,7 @@
                         </div>
                     </div>
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/7.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/7.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-46%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -303,42 +306,42 @@
             <h3>Top categories of the month</h3>
             <div class="row">
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/1.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/1.jpg') }}" alt="">
                         <p>Electronics</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/2.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/2.jpg') }}" alt="">
                         <p>Clothings</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/3.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/2.jpg') }}" alt="">
                         <p>Computers</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/4.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/3.jpg') }}" alt="">
                         <p>Home & Kitchen</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/5.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/4.jpg') }}" alt="">
                         <p>Health & Beauty</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/6.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/5.jpg') }}" alt="">
                         <p>Health & Beauty</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/7.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/6.jpg') }}" alt="">
                         <p>Jewelry & Watch</p>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="img/categories/8.jpg" alt="">
+                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/7.jpg') }}" alt="">
                         <p>Technology Toys</p>
                     </div>
                 </div>
@@ -359,7 +362,7 @@
             <div class="ps-section__content">
                 <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="false" data-owl-speed="10000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/1.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/1.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-16%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -387,7 +390,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/2.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/2.jpg') }}" alt=""></a>
                             <div class="ps-product__badge hot">hot</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -415,7 +418,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/3.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/3.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-25%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -443,7 +446,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/4.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/4.jpg') }}" alt=""></a>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
@@ -470,7 +473,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/5.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/5.jpg') }}" alt=""></a>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
@@ -497,7 +500,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/6.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/6.jpg') }}" alt=""></a>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
@@ -524,7 +527,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/7.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/7.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-46%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -552,7 +555,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/8.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/electronic/8.jpg') }}" alt=""></a>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
@@ -650,7 +653,7 @@
             <div class="ps-section__content">
                 <div class="ps-carousel--responsive owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="10000" data-owl-gap="0" data-owl-nav="false" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="2" data-owl-item-lg="4" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/1.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/clothing/1.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-16%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -678,7 +681,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/2.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/clothing/2.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -706,7 +709,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/3.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/clothing/3.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-25%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -734,7 +737,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/4.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/clothing/4.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -762,7 +765,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/5.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/clothing/5.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -790,7 +793,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/6.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/clothing/6.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -818,7 +821,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/7.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/clothing/7.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-46%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -891,7 +894,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/2.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/2.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -919,7 +922,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/3.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/3.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-25%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -947,7 +950,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/4.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/4.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -975,7 +978,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/5.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/5.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -1003,7 +1006,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/6.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/5.jpg') }}" alt=""></a>
                             <div class="ps-product__badge out-stock">Out Of Stock</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -1031,7 +1034,7 @@
                         </div>
                     </div>
                     <div class="ps-product">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/7.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/7.jpg') }}" alt=""></a>
                             <div class="ps-product__badge">-46%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -1078,7 +1081,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-block__thumbnail"><img src="img/app.png" alt=""></div>
+                            <div class="ps-block__thumbnail"><img src="{{ asset('frontend/img/app.png') }}" alt=""></div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
                             <div class="ps-block__content">
@@ -1115,7 +1118,7 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                         <div class="ps-product--horizontal">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/arrivals/1.jpg" alt=""></a></div>
+                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/arrivals/1.jpg') }}" alt=""></a></div>
                             <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Apple iPhone Retina 6s Plus 32GB</a>
                                 <p class="ps-product__price">$990.50</p>
                             </div>
@@ -1123,7 +1126,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                         <div class="ps-product--horizontal">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/arrivals/1.jpg" alt=""></a></div>
+                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/arrivals/1.jpg') }}" alt=""></a></div>
                             <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Apple iPhone Retina 6s Plus 64GB</a>
                                 <p class="ps-product__price">$1120.50</p>
                             </div>
@@ -1131,7 +1134,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                         <div class="ps-product--horizontal">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/arrivals/1.jpg" alt=""></a></div>
+                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/arrivals/1.jpg') }}" alt=""></a></div>
                             <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Apple iPhone Retina 6s Plus 128GB</a>
                                 <p class="ps-product__price">$1220.50</p>
                             </div>
@@ -1156,7 +1159,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                         <div class="ps-product--horizontal">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/arrivals/3.jpg" alt=""></a></div>
+                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/arrivals/3.jpg') }}" alt=""></a></div>
                             <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Herschel Leather Duffle Bag In Brown Color</a>
                                 <div class="ps-product__rating">
                                     <select class="ps-rating" data-read-only="true">
@@ -1173,7 +1176,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                         <div class="ps-product--horizontal">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/arrivals/4.jpg" alt=""></a></div>
+                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/arrivals/4.jpg') }}" alt=""></a></div>
                             <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Xbox One Wireless Controller Black Color</a>
                                 <div class="ps-product__rating">
                                     <select class="ps-rating" data-read-only="true">
@@ -1190,7 +1193,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                         <div class="ps-product--horizontal">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/arrivals/5.jpg" alt=""></a></div>
+                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/arrivals/5.jpg') }}" alt=""></a></div>
                             <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Grand Slam Indoor Of Show Jumping Novel</a>
                                 <div class="ps-product__rating">
                                     <select class="ps-rating" data-read-only="true">
@@ -1207,7 +1210,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                         <div class="ps-product--horizontal">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/arrivals/6.jpg" alt=""></a></div>
+                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/arrivals/6.jpg') }}" alt=""></a></div>
                             <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Sound Intone I65 Earphone White Version</a>
                                 <div class="ps-product__rating">
                                     <select class="ps-rating" data-read-only="true">
@@ -1249,4 +1252,5 @@
         </div>
     </div>
 </div>
+
 @endsection

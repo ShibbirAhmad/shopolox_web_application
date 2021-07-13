@@ -1,5 +1,5 @@
 
- <script data-cfasync="false" src="https://cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="plugins/jquery-1.12.4.min.js"></script>
+ <script src="{{ asset('frontend/plugins/jquery-1.12.4.min.js ') }}"></script>
  <script src="{{ asset('frontend/plugins/popper.min.js') }}"></script>
  <script src="{{ asset('frontend/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
  <script src="{{ asset('frontend/plugins/bootstrap4/js/bootstrap.min.js') }}"></script>
