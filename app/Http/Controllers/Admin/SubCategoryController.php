@@ -170,12 +170,13 @@ class SubCategoryController extends Controller
             $sub_category->status = 1 ;
         }
         $sub_category->save();
-            return response()->json([
+         
+        return response()->json([
                 'status' => "OK",
                 'message' => 'status changed',
             ]);      
         
-    
+
     }
 
 

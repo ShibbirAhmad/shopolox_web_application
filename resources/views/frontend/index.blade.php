@@ -8,15 +8,28 @@
 <div id="homepage-1">
     <div class="ps-home-banner ps-home-banner--1">
         <div class="ps-container">
-            <div class="ps-section__left">
-                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
-                    <div class="ps-banner"><a href="#"><img src="{{ asset('frontend/img/slider/home-1/slide-1.jpg ') }}" alt=""></a></div>
-                    <div class="ps-banner"><a href="#"><img src="{{ asset('frontend/img/slider/home-1/slide-2.jpg ') }}" alt=""></a></div>
-                    <div class="ps-banner"><a href="#"><img src="{{ asset('frontend/img/slider/home-1/slide-3.jpg ') }}" alt=""></a></div>
-                </div>
-            </div>
+            
             <div class="ps-section__right"><a class="ps-collection" href="#"><img src="{{ asset('frontend/img/slider/home-1/promotion-1.jpg') }}" alt=""></a>
                 <a class="ps-collection" href="#"><img src="{{ asset('frontend/img/slider/home-1/promotion-2.jpg') }}" alt=""></a></div>
+   
+
+            <div class="ps-section__left">
+                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+                  @foreach ($sliders as $slider)
+                  <div class="ps-banner"><a href="{{ $slider->url }}"><img src="{{ asset('storage/'.$slider->image) }}" alt="slier image"></a></div>
+                  @endforeach
+                </div>
+                <div class="row banner_row">
+                      <div class="col-md-6">
+                       <a href="{{ $banners[0]->url }}" target="_blank"><img src="{{ asset('storage/'.$banners[0]->image) }}" alt="banner" class="banner_1">
+                       </a> 
+                     </div>
+                    <div class="col-md-6">
+                       <a href="{{ $banners[1]->url }}" target="_blank"><img src="{{ asset('storage/'.$banners[1]->image) }}" alt="banner" class="banner_2">
+                       </a> 
+                     </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="ps-site-features">
@@ -61,11 +74,13 @@
         </div>
     </div>
     <div class="ps-deal-of-day">
-        <div class="ps-container">
+        @foreach ($sub_categories_with_products as $sub_category)
+
+        <div  class="ps-container">
             <div class="ps-section__header">
                 <div class="ps-block--countdown-deal">
                     <div class="ps-block__left">
-                        <h3>Deals of the day</h3>
+                        <h3>{{ $sub_category->name }}</h3>
                     </div>
                     <div class="ps-block__right">
                         <figure>
@@ -82,8 +97,10 @@
             </div>
             <div class="ps-section__content">
                 <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="false" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="3" data-owl-item-md="4" data-owl-item-lg="5" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
+                   @foreach ($sub_category->products as $product)
+
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/home/1.jpg" alt=""></a>
+                        <div class="ps-product__thumbnail"><a href="product-default.html"> @if( count($product->product_images) > 0)  <img src="{{ asset('storage/'.$product->product_images['0']->image) }}" alt="{{ $product->name }}"> @endif </a>
                             <div class="ps-product__badge">-16%</div>
                             <ul class="ps-product__actions">
                                 <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -94,7 +111,7 @@
                         </div>
                         <div class="ps-product__container">
                             <p class="ps-product__price sale">$567.99 <del>$670.00 </del><small>18% off</small></p>
-                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Korea Long Sofa Fabric In Blue Navy Color</a>
+                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{ $product->name }}</a>
                                 <div class="ps-product__rating">
                                     <select class="ps-rating" data-read-only="true">
                                         <option value="1">1</option>
@@ -111,192 +128,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/2.jpg') }}" alt=""></a>
-                            <div class="ps-product__badge out-stock">Out Of Stock</div>
-                            <ul class="ps-product__actions">
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="ps-product__container">
-                            <p class="ps-product__price">$101.99<small>18% off</small></p>
-                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Aroma Rice Cooker</a>
-                                <div class="ps-product__rating">
-                                    <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>01</span>
-                                </div>
-                                <div class="ps-product__progress-bar ps-progress" data-value="26">
-                                    <div class="ps-progress__value"><span></span></div>
-                                    <p>Sold:4</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/3.jpg') }}" alt=""></a>
-                            <div class="ps-product__badge">-25%</div>
-                            <ul class="ps-product__actions">
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="ps-product__container">
-                            <p class="ps-product__price sale">$42.00 <del>$60.00 </del><small>18% off</small></p>
-                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Simple Plastice Chair In White Color</a>
-                                <div class="ps-product__rating">
-                                    <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>02</span>
-                                </div>
-                                <div class="ps-product__progress-bar ps-progress" data-value="31">
-                                    <div class="ps-progress__value"><span></span></div>
-                                    <p>Sold:30</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/4.jpg') }}" alt=""></a>
-                            <div class="ps-product__badge out-stock">Out Of Stock</div>
-                            <ul class="ps-product__actions">
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="ps-product__container">
-                            <p class="ps-product__price">$320.00<small>18% off</small></p>
-                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Korea Fabric Chair In Brown Colorr</a>
-                                <div class="ps-product__rating">
-                                    <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>01</span>
-                                </div>
-                                <div class="ps-product__progress-bar ps-progress" data-value="99">
-                                    <div class="ps-progress__value"><span></span></div>
-                                    <p>Sold:92</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/5.jpg') }}" alt=""></a>
-                            <div class="ps-product__badge out-stock">Out Of Stock</div>
-                            <ul class="ps-product__actions">
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="ps-product__container">
-                            <p class="ps-product__price">$85.00<small>18% off</small></p>
-                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Set 14-Piece Knife From KichiKit</a>
-                                <div class="ps-product__rating">
-                                    <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>01</span>
-                                </div>
-                                <div class="ps-product__progress-bar ps-progress" data-value="89">
-                                    <div class="ps-progress__value"><span></span></div>
-                                    <p>Sold:81</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/5.jpg') }}" alt=""></a>
-                            <div class="ps-product__badge out-stock">Out Of Stock</div>
-                            <ul class="ps-product__actions">
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="ps-product__container">
-                            <p class="ps-product__price">$92.00<small>18% off</small></p>
-                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Magic Bullet NutriBullet Pro 900 Series Blender</a>
-                                <div class="ps-product__rating">
-                                    <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>01</span>
-                                </div>
-                                <div class="ps-product__progress-bar ps-progress" data-value="55">
-                                    <div class="ps-progress__value"><span></span></div>
-                                    <p>Sold:8</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{ asset('frontend/img/products/home/7.jpg') }}" alt=""></a>
-                            <div class="ps-product__badge">-46%</div>
-                            <ul class="ps-product__actions">
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="icon-eye"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="ps-product__container">
-                            <p class="ps-product__price sale">$42.00 <del>$60.00 </del><small>18% off</small></p>
-                            <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Letter Printed Cushion Cover Cotton</a>
-                                <div class="ps-product__rating">
-                                    <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>02</span>
-                                </div>
-                                <div class="ps-product__progress-bar ps-progress" data-value="6">
-                                    <div class="ps-progress__value"><span></span></div>
-                                    <p>Sold:59</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
+                  @endforeach   
                 </div>
             </div>
         </div>
+
+                    
+        @endforeach
+
     </div>
     <div class="ps-home-ads">
         <div class="ps-container">
             <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="img/collection/home-1/1.jpg" alt=""></a>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{ asset('frontend/img/collection/home-1/1.jpg') }}" alt=""></a>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="img/collection/home-1/2.jpg" alt=""></a>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{ asset('frontend/img/collection/home-1/2.jpg') }}" alt=""></a>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="img/collection/home-1/3.jpg" alt=""></a>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{ asset('frontend/img/collection/home-1/3.jpg')  }}" alt=""></a>
                 </div>
             </div>
         </div>

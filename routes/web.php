@@ -81,10 +81,12 @@ Route::group([
         'sub_city' =>   SubCityController::class,
     ]);
 
+    //single routes
+    Route::get('api/product/copy/{id}/{item}',[ProductController::class,'productCopy'])->name('product.copy');
+    Route::get('api/product/image/delele/{id}',[ProductController::class,'productImageDelete']);
+
  
 });
 
 
 Route::get('/admin/login', [HomeController::class, 'login'])->name('admin.login');
-//single routes
-Route::get('api/product/image/delele/{id}',[ProductController::class,'productImageDelete']);

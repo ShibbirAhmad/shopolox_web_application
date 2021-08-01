@@ -28,7 +28,6 @@
              $('#s_price').val($sale_price);
              console.log($sale_price); 
         });
-
      
 
 

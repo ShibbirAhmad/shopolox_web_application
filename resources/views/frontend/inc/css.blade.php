@@ -10,3 +10,4 @@
 <link rel="stylesheet" href="{{ asset('frontend/plugins/jquery-ui/jquery-ui.min.css ') }}">
 <link rel="stylesheet" href="{{ asset('frontend/plugins/select2/dist/css/select2.min.css ') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">

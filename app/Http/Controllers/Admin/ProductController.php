@@ -195,9 +195,112 @@ class productController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function productCopy($id,$item)
     {
-           
+        $product = Product::findOrFail($id);
+        // DB::transaction(function() use($product,$item){
+            for($i =1 ; $i <= $item; $i++) {  
+            $max_id= Product::max('id') ?? 1 ;
+            $product_code = $max_id + 1000 ;
+            //inseting product
+            $c_product = new Product();
+            $c_product->name = $product->name;
+            $c_product->code = $product_code;
+            $c_product->slug = $this->slugCreator(strtolower($product->name)).'-'.$product_code;
+            $c_product->regular_price = $product->regular_price;
+            $c_product->discount = $product->discount ?? 0;
+            $c_product->sale_price = $product->sale_price;
+            $c_product->details = $product->details;
+            $c_product->status = $product->status ;
+            $c_product->stock = 0;
+            $c_product->brand_id = $product->brand_id ?? null ;
+            $c_product->shiping_info_id = $product->shiping_info_id ?? null ;
+            $c_product->labels = $product->labels ?? null ;
+            $c_product->is_featured = $product->is_featured ?? null ;
+            $c_product->tags   = $product->tags ?? null ;
+            $c_product->seo_title = $product->seo_title ?? null ;
+            $c_product->seo_description = $product->seo_description ?? null ;
+            $c_product->collection_type = $product->collection ?? null ;
+            $c_product->save();
+
+            //save product multiple image in store directory
+            
+                $exist_p_image=ProductImage::where('product_id',$product->id)->get();
+                if ($exist_p_image) {
+                    $product_image = new ProductImage();
+                    $product_image->product_id = $c_product->id;
+                    $product_image->image = $exist_p_image[0]->image;
+                    $product_image->save();
+                }
+                
+                
+
+            //save the product categories
+            $exist_p_categories= ProductCategory::where('product_id',$product->id)->get();
+            if ($exist_p_categories) {
+                foreach ($exist_p_categories as $item) {
+                    $p_category = new ProductCategory();
+                    $p_category->product_id = $c_product->id;
+                    $p_category->category_id = $item->category_id;
+                    $p_category->save();
+                }
+            }
+        
+
+         //save the product sub categories
+        //  $exist_p_sub_categories= ProductSubCategory::where('product_id',$product->id)->get();
+        //  if ($exist_p_sub_categories) {
+        //      foreach ($exist_p_sub_categories as $item) {
+        //         $p_sub_category = new ProductSubCategory();
+        //         $p_sub_category->product_id = $c_product->id;
+        //         $p_sub_category->sub_category_id = $item->sub_category_id;
+        //         $p_sub_category->save();
+        //      }
+        //  }
+
+
+        //save the product categories
+        // $exist_p_sub_sub_categories= ProductSubSubCategory::where('product_id',$product->id)->get();
+        // if ($exist_p_sub_sub_categories) {
+        //     foreach ($exist_p_sub_sub_categories as $item) {
+        //        $p_sub_sub_category = new ProductSubSubCategory();
+        //        $p_sub_sub_category->product_id = $c_product->id;
+        //        $p_sub_sub_category->sub_sub_category_id = $item->sub_sub_category_id;
+        //        $p_sub_sub_category->save();
+        //     }
+        // }
+
+        //save the product properties
+        // $exist_attributes = ProductAttribute::where('product_id',$product->id)->get();
+        // if ($exist_attributes) {
+        //         foreach ($exist_attributes as $item) {
+        //             $p_attribute = new ProductAttribute();
+        //             $p_attribute->product_id = $c_product->id;
+        //             $p_attribute->attribute_id = $item->attribute_id;
+        //             $p_attribute->save();
+        //         }
+        // }
+        //save the product variants
+        // $exist_p_variants = ProductVariant::where('product_id',$product->id)->get();
+        // if ($exist_p_variants) {
+        //     foreach ($exist_p_variants as $item) {
+        //         $product_variant = new ProductVariant();
+        //         $product_variant->product_id = $c_product->id;
+        //         $product_variant->variant_id = $item->variant_id;
+        //         $product_variant->save();
+        //     }
+        // }
+
+            
+            
+          } 
+        // }); 
+            return response()->json([
+               'status' => "OK",
+                'message' => 'duplicated successfully!'. $item . 'times',
+            ]);      
+        
+    
         
     }
 

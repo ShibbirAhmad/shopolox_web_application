@@ -85,6 +85,7 @@
                                                         class="btn btn-sm btn-success mt-1" >
                                                         <i class="fa fa-edit"></i>
                                                     </a>
+                                                    <a onclick="copyProduct({{ $product->id }})"  class="btn btn-sm btn-success copy_btn mt-1"> <i class="fa fa-clone"></i>  </a>
                                                 </td>
 
                                             </tr>
@@ -112,3 +113,68 @@
 
     </div>
 @endsection
+
+
+
+@push('extra_js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.js"></script>
+
+<script>
+    
+              
+    function copyProduct($id){
+            var item = prompt('Number of copy item') ;
+            if (item.length > 0) {
+            let $action = '{{url("admin/api/product/copy")}}';
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action+'/'+$id+'/'+item,
+                type: "GET",
+                success: function(resp) {
+                    console.log(resp);
+                    if (resp.status == "OK") {
+                        toastMessage(resp.message);
+                    }
+                },
+                error: function(e) {}
+            });
+
+            }
+          }
+
+
+
+      
+      function toastMessage(message) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal
+                        .stopTimer)
+                    toast.addEventListener('mouseleave', Swal
+                        .resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                type: 'success',
+                title: message
+            })
+
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+
+
+</script>
+    
+@endpush

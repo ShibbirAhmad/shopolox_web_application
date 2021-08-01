@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SliderController extends Controller
 {
@@ -40,7 +41,31 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'image' => 'required',
+        ]);
+
+        if (!$validator->fails()) {
+            $slider = new Slider();
+            $slider->url = $request->url ?? '#';
+            $slider->status = 1 ;
+            $path=$request->file('image')->store('images/slider','public');
+            $slider->image=$path;
+            $slider->save();
+                return response()->json([
+                    'status' => "OK",
+                    'message' => 'Slider Was Created',
+                ]);
+            
+        }else{
+
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
+        }
+
+
     }
 
     /**
@@ -62,7 +87,12 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        $html = view('admin.slider.edit', compact('slider'))->render();
+
+        return response()->json([
+            'html' => $html,
+        ]);
     }
 
     /**
@@ -74,7 +104,21 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+            $slider = Slider::findOrFail($id);
+            $slider->url = $request->url ?? '#';
+            if ($request->hasFile('image')) {
+                $path=$request->file('image')->store('images/slider','public');
+                $slider->image=$path;
+            }
+            $slider->save();
+                return response()->json([
+                    'status' => "OK",
+                    'message' => 'Slider Was updated',
+                ]);
+            
+        
+
     }
 
     /**
@@ -85,6 +129,18 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        if ($slider->status== 1 ) {
+            $slider->status= 0;
+        }else {
+            $slider->status = 1 ;
+        }
+        $slider->save();
+         
+        return response()->json([
+                'status' => "OK",
+                'message' => 'status changed',
+            ]);      
+        
     }
 }

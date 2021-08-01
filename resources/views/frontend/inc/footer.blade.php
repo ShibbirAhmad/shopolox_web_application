@@ -64,7 +64,7 @@
         </div>
     </div>
 </footer>
-<div class="ps-popup" id="subscribe" data-time="500">
+{{-- <div class="ps-popup" id="subscribe" data-time="500">
     <div class="ps-popup__content bg--cover" data-background="{{ asset('frontend/img/bg/subscribe.jpg') }}"><a class="ps-popup__close" href="#"><i class="icon-cross"></i></a>
         <form class="ps-form--subscribe-popup" action="index.html" method="get">
             <div class="ps-form__content">
@@ -81,7 +81,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 <div id="back2top"><i class="pe-7s-angle-up"></i></div>
 <div class="ps-site-overlay"></div>
 <div id="loader-wrapper">
