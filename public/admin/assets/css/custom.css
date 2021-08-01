@@ -4,6 +4,10 @@
     border-radius: 50%;
 }
 
+.small_banner {
+    width: 150px;
+    height: 60px;
+}
 
 .pagination_container{
         width: 100%;

@@ -1,7 +1,5 @@
 <form action="{{route('purchase.store')}}" method="post" enctype="multipart/form-data" id="submit_form">
-    @csrf
-
-          
+    @csrf      
     <div class="row">
         <div class="col-lg-4">
           <div class="form-group">
@@ -119,11 +117,13 @@
             </div>
           </div>
           
-         <div class="col-lg-4 col-sm-12">
+         <div class="col-lg-6 col-sm-12">
             <div class="form-group">
-                <select class="form-control" name="balance_id" required>
-                    <option disabled selected >paid by</option>
-                    <option value="1">cash</option>
+              <label for="balance">Paid By  (select one) <b class="text-danger">*</b> </label>
+                <select class="form-control" name="balance_id" required>   
+                   @foreach ($balances as $balance)    
+                     <option value="{{ $balance->id }}">{{ $balance->name }}</option>         
+                   @endforeach
                 </select>
             </div>
          </div>

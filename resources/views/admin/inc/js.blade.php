@@ -204,6 +204,123 @@
 
 
 
+
+    //image upload  preview
+    $('#__modal').on('change','#slider_upload',function(e) {
+        console.log('working');
+    
+         let imagae_size = 500 ;
+         const file = e.target.files[0];
+        if (!file.type.match("image.*")) {
+            Swal.fire({
+             type:'warning',
+             text:'this is not any kind of image',
+           });
+           return;
+         }
+          if(file.size/1024>imagae_size){
+           Swal.fire({
+             type:'warning',
+             text:`File size can not be bigger then ${imagae_size}KB.Reference file size is ${file.size/1024} KB`,
+           });
+           return;
+         }
+        ///let image file size check
+      
+        if (file){
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (evt) => {
+        let img = new Image();
+        img.onload = () => {
+          console.log(img.width, img.height);
+          if (
+            img.width == 1020 &&
+            img.height == 360
+          ) {
+            setSlider(evt);
+            return;
+          } else {
+            Swal.fire({
+              type:'error',
+              text:  "Image size need " + 1020 +"*" + 360 +  "px. But Upload imaze size " + img.width+ "*" +
+                img.height +
+                "px"
+            })
+            $('#submit_btn').prop('disabled', true);
+            return;
+          }
+        };
+        img.src = evt.target.result;
+      };
+            
+        } 
+   
+    });
+
+    function  setSlider(evt) {
+        $('#submit_btn').prop('disabled', false);
+         document.getElementById('previewImage').src = evt.target.result;
+       }
+
+
+    $('#__modal').on('change','#banner_upload',function(e) {
+       
+         let imagae_size = 500 ;
+         const file = e.target.files[0];
+        if (!file.type.match("image.*")) {
+            Swal.fire({
+             type:'warning',
+             text:'this is not any kind of image',
+           });
+           return;
+         }
+          if(file.size/1024>imagae_size){
+           Swal.fire({
+             type:'warning',
+             text:`File size can not be bigger then ${imagae_size}KB.Reference file size is ${file.size/1024} KB`,
+           });
+           return;
+         }
+        ///let image file size check
+      
+        if (file){
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (evt) => {
+        let img = new Image();
+        img.onload = () => {
+          console.log(img.width, img.height);
+          if (
+            img.width == 505 &&
+            img.height == 150
+          ) {
+            setBanner(evt);
+            return;
+          } else {
+            Swal.fire({
+              type:'error',
+              text:  "Image size need " + 505 +"*" + 150 +  "px. But Upload imaze size " + img.width+ "*" +
+                img.height +
+                "px"
+            })
+            $('#submit_btn').prop('disabled', true);
+            return;
+          }
+        };
+        img.src = evt.target.result;
+      };
+            
+        } 
+   
+    });
+
+    function  setBanner(evt) {
+        $('#submit_btn').prop('disabled', false);
+         document.getElementById('previewBanner').src = evt.target.result;
+       }
+
+
         //category wise sub category
         $('#__modal').on('change','#category_wise_sub_category',function(e) {
             let id=$(this).val();

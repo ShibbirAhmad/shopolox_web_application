@@ -116,10 +116,13 @@
                 <a href="#elements" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-zap">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-zap">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                       </svg>
                         <span>Basic Setup</span>
                     </div>
                     <div>
@@ -138,8 +141,11 @@
                         <a href="{{ route('sub_city.index') }}"> Sub Cities </a>
                     </li>
                     <li>
-                        <a href="element_badges.html"> Sliders </a>
+                        <a href="{{ route('slider.index') }}"> Sliders </a>
                     </li> 
+                    <li>
+                        <a href="{{ route('banner.index') }}"> Advertise Banner </a>
+                    </li>
                     <li>
                         <a href="{{ route('page.index') }}"> Pages </a>
                     </li>
@@ -147,20 +153,48 @@
                 </ul>
             </li>
 
+
             <li class="menu">
-                <a href="fonticons.html" aria-expanded="false" class="dropdown-toggle">
+                <a href="#accounts" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-zap">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                             <polygon></polygon>
+                       </svg>
+                        <span>Accounts</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-target">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <circle cx="12" cy="12" r="6"></circle>
-                            <circle cx="12" cy="12" r="2"></circle>
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
-                        <span>Font Icons</span>
                     </div>
                 </a>
+                <ul class="collapse submenu list-unstyled" id="accounts" data-parent="#accordionExample">
+                    <li>
+                        <a href="{{ route('credit.index') }}"> Credit </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('credit.index') }}"> Credit Due </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('debit.index') }}"> Debit </a>
+                    </li>
+                    <li>
+                        <a href="element_badges.html"> Fund Transfer </a>
+                    </li> 
+                    <li>
+                        <a href="{{ route('balance.index') }}"> Balance </a>
+                    </li>
+      
+                </ul>
             </li>
+
 
             <li class="menu">
                 <a href="widgets.html" aria-expanded="false" class="dropdown-toggle">

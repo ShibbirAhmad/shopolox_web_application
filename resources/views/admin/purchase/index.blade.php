@@ -24,56 +24,35 @@
                                 <table class="table table-bordered text-center table-striped table-hover mb-4">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Company</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Status</th>
+                                            <th>#</th>
+                                            <th>Supplier</th>
+                                            <th>invoice</th>
+                                            <th>Total</th>
+                                            <th>Paid</th>
+                                            <th>Due</th>
                                             <th>Action</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($purchases as $purchase)
-
+                                        @foreach ($purchases as $key=>$purchase)
                                             <tr>
-                                                <td>{{ $purchase->name }}</td>                                         
-                                                <td>{{ $purchase->company_name }}</td>                                         
-                                                <td>{{ $purchase->phone }}</td>                                         
-                                                <td>{{ $purchase->email }}</td>                                         
-                                           
+                                                <td>{{ $key+1 }} </td>
+                                                <td>{{ $purchase->supplier->company_name }} </td>
+                                                <td>{{ $purchase->invoice_no }} </td>
+                                                <td>{{ $purchase->total }} </td>
+                                                <td>  <span class="badge badge-success"> &#2547; {{ $purchase->paid }} </span> </td>
+                                                <td> <span class="badge badge-warning"> &#2547; {{ $purchase->total - $purchase->paid }}</span> </td>
                                                 <td>
-                                                    @if ($purchase->status==1)
-                                                        <span class="bade badge-success"> Active </span>
-                                                    @else
-                                                    <span class="bade badge-warning"> Inactive </span>
-                                                    @endif
-                                                </td>
-                                                <td>
-
-                                                 @if ($purchase->status==1)
-                                                    <a href="#" route="{{ route('purchase.destroy', $purchase->id) }}"
-                                                        class="btn btn-sm btn-warning btn_status_change">
-                                                        <i class="fa fa-ban"></i>
-                                                    </a>
-                                                    @else
-                                                    <a href="#" route="{{ route('purchase.destroy', $purchase->id) }}"
-                                                        class="btn btn-sm btn-success btn_status_change">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>        
-                                                    @endif
-
-                                                    <a href="#" route="{{ route('purchase.edit', $purchase->id) }}"
+                                                     <a class="btn btn-sm btn-primary" href=""><i class="fa fa-eye"></i></a>
+                                                     <a href="#" route="{{ route('purchase.edit', $purchase->id) }}"
                                                         class="btn btn-sm btn-success modal_show_edit"
-                                                        modal-title="Edit-{{ $purchase->name }}">
+                                                        modal-title="Edit purchase of {{ $purchase->supplier->company_name }} ">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                </td>
-
+                                                 </td>
                                             </tr>
-
-                                        @endforeach --}}
-
+                                        @endforeach
 
                                     </tbody>
                                 </table>
