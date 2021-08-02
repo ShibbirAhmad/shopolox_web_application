@@ -74,6 +74,7 @@
         </div>
     </div>
     <div class="ps-deal-of-day">
+        <div class="scrolling-pagination">
         @foreach ($sub_categories_with_products as $sub_category)
 
         <div  class="ps-container">
@@ -129,14 +130,15 @@
                         </div>
                     </div>
                 
-                  @endforeach   
+                   @endforeach   
                 </div>
             </div>
         </div>
 
                     
         @endforeach
-
+        {{ $sub_categories_with_products->links() }}
+    </div>
     </div>
     <div class="ps-home-ads">
         <div class="ps-container">
@@ -1103,3 +1105,8 @@
 </div>
 
 @endsection
+
+
+@push('extra_js')
+
+@endpush
