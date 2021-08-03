@@ -95,7 +95,7 @@
                             </li>
                         </ul>
                     </div>
-                </div><a class="ps-logo" href="index.html"><img src="{{ asset('frontend/img/logo_light.png') }}" alt=""></a>
+                </div><a class="ps-logo" href="{{ url('/') }}"><img src="{{ asset('frontend/img/logo_light.png') }}" alt=""></a>
             </div>
             <div class="header__center">
                 <form class="ps-form--quick-search" action="index.html" method="get">
@@ -535,7 +535,7 @@
         </div>
     </div>
     <div class="navigation--mobile">
-        <div class="navigation__left"><a class="ps-logo" href="index.html"><img src="img/logo_light.png" alt=""></a></div>
+        <div class="navigation__left"><a class="ps-logo" href="{{ url('/') }}"><img src="img/logo_light.png" alt=""></a></div>
         <div class="navigation__right">
             <div class="header__actions">
                 <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>

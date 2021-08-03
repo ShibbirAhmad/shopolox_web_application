@@ -41,6 +41,7 @@ use App\Http\Controllers\Admin\DebitController;
 
 
 Route::get('/', [IndexController::class, 'index']);
+Route::get('/product/{slug}', [IndexController::class, 'product'])->name('product');
 
 
 
