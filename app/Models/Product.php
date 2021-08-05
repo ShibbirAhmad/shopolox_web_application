@@ -33,6 +33,11 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class, 'product_id');
     }
 
+    
+    public  function shipment(){
+        return $this->belongsTo(ShipmentInfo::class,'shiping_info_id','id');
+    }
+
     public  function supplier(){
         return $this->belongsTo(Supplier::class,'merchant_id');
     }

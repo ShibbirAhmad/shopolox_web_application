@@ -28,7 +28,7 @@ class IndexController extends Controller
          $sliders = Slider::where('status',1)->orderBy('id','desc')->get();
          $banners = Banner::latest()->where('status',1)->orderBy('id','desc')->take(2)->get();
          //sub categories and products start query
-         $sub_categories_with_products =SubCategory::where('status',1)->orderBy('position','desc')->get();
+         $sub_categories_with_products =SubCategory::where('status',1)->orderBy('position','desc')->with('sub_sub_categories')->get();
          foreach($sub_categories_with_products as $sub_category){
            $products_id=ProductSubCategory::where('sub_category_id',$sub_category->id)->select('product_id')->pluck('product_id');
            $sub_category->{'products'}=Product::whereIn('id',$products_id)->with('product_images')
@@ -48,23 +48,34 @@ class IndexController extends Controller
      */
     public function product($slug)
     {
-        $product = Product::where('slug',$slug)->with(['product_images'])->first();
+        $product = Product::where('slug',$slug)->with(['product_images','shipment'])->first();
         //finding attributes
-        $p_attributes=ProductAttribute::where('product_id',$product->id)->select('attribute_id')->pluck('attribute_id');
-        $product_attributes=Attribute::whereIn('id',$p_attributes)->get();
-        //finding variants
-        $p_variants=ProductVariant::where('product_id',$product->id)->select('variant_id')->pluck('variant_id');
-        $product_variants=Variant::whereIn('id',$p_variants)->get();
+        $product_attributes=ProductAttribute::where('product_id',$product->id)->with(['attributes'])->get()->each((function($value){
+                  $value->attributes->{'varaints'}=ProductVariant::where('product_id',$value->product_id)->with('variants')->get();
+       }));
+
+        //finding related sub category products
+        $product_sub_category=ProductSubCategory::where('product_id',$product->id)->first();
+        $s_products_id=ProductSubCategory::where('sub_category_id',$product_sub_category->sub_category_id)->select('product_id')->pluck('product_id');
+        $related_products=Product::whereIn('id',$s_products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(10);
+
         //finding related category products
         $product_category=ProductCategory::where('product_id',$product->id)->first();
         $c_products_id=ProductCategory::where('category_id',$product_category->category_id)->select('product_id')->pluck('product_id');
-        $related_category_products=Product::whereIn('id',$c_products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(12);
-        //finding related sub category products
-        $product_sub_category=ProductSubCategory::where('product_id',$product->id)->first();
-        $products_id=ProductSubCategory::where('sub_category_id',$product_sub_category->sub_category_id)->select('product_id')->pluck('product_id');
-        $related_products=Product::whereIn('id',$products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(20);
-
-        return view('frontend.single_product',compact(['product','product_attributes','product_variants','related_products','related_category_products']));
+         $after_four=[];
+         $before_four=[];
+         foreach($c_products_id as $k=> $id){
+             if($k+1 < 4){
+                 array_push($before_four,$id);
+             }
+             if($k+1 >= 4){
+                array_push($after_four,$id);
+            }
+         }
+        $related_category_products=Product::whereIn('id',$after_four)->whereNotIn('id',$s_products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(12);
+        $recommend_products=Product::whereIn('id',$before_four)->whereNotIn('id',$s_products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(12);
+       
+        return view('frontend.single_product',compact(['product','product_attributes','related_products','related_category_products','recommend_products']));
     }
 
     /**

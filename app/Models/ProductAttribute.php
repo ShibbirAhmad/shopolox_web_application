@@ -10,4 +10,9 @@ class ProductAttribute extends Model
     use HasFactory;
 
 
+    public function attributes(){
+        return $this->belongsTo(Attribute::class,'attribute_id');
+    }
+
+
 }
