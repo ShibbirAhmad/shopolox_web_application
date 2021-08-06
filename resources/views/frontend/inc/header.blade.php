@@ -1,3 +1,8 @@
+@php
+        $cart_content=Cart::content();
+        $cart_total=Cart::total();
+        $cart_item=Cart::count();
+@endphp
 <header class="header header--1" data-sticky="true">
     <div class="header__top">
         <div class="ps-container">
@@ -178,25 +183,23 @@
                 </form>
             </div>
             <div class="header__right">
-                <div class="header__actions"><a class="header__extra" href="#"><i class="icon-chart-bars"></i><span><i>0</i></span></a><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
-                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
-                        <div class="ps-cart__content">
-                            <div class="ps-cart__items">
+                <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
+                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i id="__cart_count">{{ $cart_item }}</i></span></a>
+                        <div id="__cart_content_parent" class="ps-cart__content">
+                            <div id="__cart_content_container" class="ps-cart__items">
+                               @foreach ($cart_content as $item)
+
                                 <div class="ps-product--cart-mobile">
-                                    <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('frontend/img/products/clothing/7.jpg') }}" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
-                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                    <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
+                                    <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="{{ $item->rowId }}" class="icon-cross __remove_cart"></i></a>{{ $item->name }}
+                                       <small>{{ $item->qty }} x &#2547; {{ $item->price }}</small>
                                     </div>
                                 </div>
-                                <div class="ps-product--cart-mobile">
-                                    <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('frontend/img/products/clothing/5.jpg') }}" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend Caro Pane Shirt</a>
-                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
-                                    </div>
-                                </div>
+                                                                  
+                              @endforeach
                             </div>
                             <div class="ps-cart__footer">
-                                <h3>Sub Total:<strong>$59.99</strong></h3>
+                                <h3 >Sub Total:<strong> <span>&#2547;</span> <span id="__cart_total" >{{ $cart_total }}</span> </strong></h3>
                                 <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
                             </div>
                         </div>
@@ -509,28 +512,20 @@
 <header class="header header--mobile" data-sticky="true">
     <div class="header__top">
         <div class="header__left">
-            <p>Welcome to Martfury Online Shopping Store !</p>
+            <p>Welcome to Shopolox Online Shopping Store !</p>
         </div>
         <div class="header__right">
             <ul class="navigation__extra">
-                <li><a href="#">Sell on Martfury</a></li>
+                {{-- <li><a href="#">Sell on Martfury</a></li> --}}
                 <li><a href="#">Tract your order</a></li>
-                <li>
+                {{-- <li>
                     <div class="ps-dropdown"><a href="#">US Dollar</a>
                         <ul class="ps-dropdown-menu">
                             <li><a href="#">Us Dollar</a></li>
                             <li><a href="#">Euro</a></li>
                         </ul>
                     </div>
-                </li>
-                <li>
-                    <div class="ps-dropdown language"><a href="#"><img src="" alt="">English</a>
-                        <ul class="ps-dropdown-menu">
-                            <li><a href="#"><img src="{{ asset('frontend/img/flag/germany.png"') }} alt=""> Germany</a></li>
-                            <li><a href="#"><img src="{{ asset('frontend/img/flag/fr.png') }}" alt=""> France</a></li>
-                        </ul>
-                    </div>
-                </li>
+                </li>                     --}}
             </ul>
         </div>
     </div>

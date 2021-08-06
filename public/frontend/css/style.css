@@ -1753,7 +1753,7 @@ button {
 
 .ps-btn, button.ps-btn {
   display: inline-block;
-  padding: 15px 45px;
+  padding: 10px 45px;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -6975,13 +6975,13 @@ textarea.form-control {
   background-color: #f4f4f4;
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 40px;
+  margin-bottom:10px;
   margin-top: 0;
   color: #000;
 }
 
 .widget_same-brand .widget__content {
-  padding: 20px;
+  padding:0px 5px;
 }
 
 .widget_same-brand .ps-product {
@@ -8434,10 +8434,13 @@ textarea.form-control {
 .ps-product--detail .ps-product__desc {
   margin-bottom: 20px;
   border-bottom: 1px solid #e1e1e1;
+  border: 2px dotted #f2b309;
+  overflow-y: auto;
 }
 
 .ps-product--detail .ps-product__desc p {
   color: #000;
+  padding: 10px;
 }
 
 .ps-product--detail .ps-product__desc p a {
@@ -8609,7 +8612,8 @@ textarea.form-control {
     margin-bottom: 10px;
   }
   .ps-product--detail .ps-product__shopping .ps-btn {
-    width: 50%;
+    width: 30%;
+    height: 40px;
     text-align: center;
   }
 }
@@ -8804,10 +8808,9 @@ textarea.form-control {
 }
 
 .ps-product--detail .ps-product__variations figure figcaption {
-  margin-bottom: 15px;
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .ps-product--detail .ps-product__variations figure figcaption strong {
@@ -9663,6 +9666,7 @@ textarea.form-control {
   top: 0;
   right: 0;
   font-size: 18px;
+  cursor: pointer;
   color: #666;
 }
 
@@ -12023,9 +12027,9 @@ textarea.form-control {
 
 .ps-deal-of-day .ps-section__header {
   margin-bottom: 65px;
-  padding-bottom: 10px;
+  padding: 10px 15px;
   display: -webkit-box;
-  display: flex;
+  /* display: flex; */
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
           flex-flow: row nowrap;
@@ -12038,10 +12042,10 @@ textarea.form-control {
 
 .ps-deal-of-day .ps-section__header > a {
   display: inline-block;
-  padding-bottom: 2px;
   color: #000;
   border-bottom: 1px solid #000;
-  min-width: 60px;
+  /* min-width: 60px; */
+  margin: 10px 10px;
 }
 
 .ps-deal-of-day .ps-section__header > a:hover {
@@ -16473,3 +16477,241 @@ html .bg--parallax {
   padding: 0;
   list-style: none;
 }
+
+
+.Black {
+  background-color: #000;
+}
+.Red {
+  background-color: red;
+}
+.Green {
+  background-color: green;
+}
+
+.Yellow {
+  background-color: yellow;
+}
+
+.Navy {
+  background-color: navy;
+}
+
+
+.p_attribute_item {
+  list-style-type: none;
+  margin-left: -50px;
+
+}
+
+.p_attribute_item  ul{
+    margin-left: 35px;
+    margin-top: -26px;
+}
+
+
+.p_variant_item {
+    display: inline-block;
+    list-style-type: none;
+
+}
+
+
+
+
+
+.attribute-swatches-wrapper.form-group {
+  margin-bottom: 10px;
+}
+
+.product__color {
+  padding-bottom: 10px;
+}
+
+.product__attribute {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.product__attribute>label {
+  margin-bottom: 0;
+  max-width: 60px;
+}
+
+.form-group>label {
+  color: #000;
+  font-weight: 400;
+  line-height: 1em;
+  margin-bottom: 1.5rem;
+}
+
+.product__attribute>* {
+  flex-basis: 100%;
+}
+
+.ps-product--detail .ps-product__info {
+  text-align: left;
+}
+
+
+.attribute-values ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.product__color .color-swatch li {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+.custom-checkbox label, .custom-radio label {
+  display: block;
+}
+
+.text-swatch li input[type=checkbox], .text-swatch li input[type=radio] {
+  display: none;
+}
+.text-swatch li input[type=checkbox]:checked~span, .text-swatch li input[type=radio]:checked~span {
+  border: 1px solid #f2b309;
+}
+
+.custom-checkbox input[type=checkbox], .custom-checkbox input[type=radio], .custom-radio input[type=checkbox], .custom-radio input[type=radio] {
+  display: none;
+}
+
+
+.product__attribute .form-control {
+  border: none;
+}
+
+.product__color .color-swatch li span {
+  margin-bottom: 0;
+}
+.product__color .color-swatch li {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: top;
+}
+
+* {
+  font-family: 'Work Sans', sans-serif ;
+  font-weight: 400;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+.form-control {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  box-shadow: 0 0 transparent;
+  box-shadow: 0 0 0 #000;
+  font-size: 14px;
+  height: 50px;
+  outline: 0;
+  padding: 0 20px;
+  transition: all .4s ease;
+}
+
+.text-swatch li span {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 5px 15px;
+  position: relative;
+  transition: .2s;
+}
+
+.custom-checkbox input[type=checkbox]:checked~span:before, .custom-checkbox input[type=radio]:checked~span:before, .custom-radio input[type=checkbox]:checked~span:before, .custom-radio input[type=radio]:checked~span:before {
+  border: 2px solid #f2b309;
+  border-radius: 50%;
+  bottom: -4px;
+  content: "";
+  display: block;
+  left: -4px;
+  position: absolute;
+  right: -4px;
+  top: -4px;
+}
+
+.text-swatch li input[type=checkbox]:checked~span:before, .text-swatch li input[type=radio]:checked~span:before {
+  border: 16px solid transparent;
+  border-bottom: 16px solid #f2b309;
+  bottom: -1px;
+  content: "";
+  position: absolute;
+  right: -16px;
+}
+
+.text-swatch li input[type=checkbox]:checked~span:after, .text-swatch li input[type=radio]:checked~span:after {
+  bottom: -5px;
+  color: #fff;
+  content: "";
+  font-family: Linearicons!important;
+  font-size: 8px;
+  height: 16px;
+  overflow: hidden;
+  position: absolute;
+  right: -8px;
+  width: 16px;
+}
+
+[type=checkbox], [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+
+button, input {
+  overflow: visible;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  margin: 0;
+}
+
+
+.custom-checkbox span, .custom-radio span {
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
+  height: 25px;
+  position: relative;
+  width: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
