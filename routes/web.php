@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 //frontedn classes
 use App\Http\Controllers\Frontend\IndexController ;
+use App\Http\Controllers\Frontend\CartController ;
 
 // admin classes
 use App\Http\Controllers\Admin\BrandController;
@@ -42,6 +43,8 @@ use App\Http\Controllers\Admin\DebitController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/product/{slug}', [IndexController::class, 'product'])->name('product');
+//cart routes
+Route::post('/api/add/cart/{id}', [CartController::class, 'addCart'])->name('cart_add');
 
 
 

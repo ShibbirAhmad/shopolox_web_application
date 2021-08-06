@@ -11,3 +11,8 @@
 <link rel="stylesheet" href="{{ asset('frontend/plugins/select2/dist/css/select2.min.css ') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
+
+<script src="{{ asset('admin/assets/js/libs/jquery-3.1.1.min.js') }}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.css">
+
+

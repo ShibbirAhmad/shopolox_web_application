@@ -1753,7 +1753,7 @@ button {
 
 .ps-btn, button.ps-btn {
   display: inline-block;
-  padding: 15px 45px;
+  padding: 10px 45px;
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -6975,13 +6975,13 @@ textarea.form-control {
   background-color: #f4f4f4;
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 40px;
+  margin-bottom:10px;
   margin-top: 0;
   color: #000;
 }
 
 .widget_same-brand .widget__content {
-  padding: 20px;
+  padding:0px 5px;
 }
 
 .widget_same-brand .ps-product {
@@ -8434,10 +8434,13 @@ textarea.form-control {
 .ps-product--detail .ps-product__desc {
   margin-bottom: 20px;
   border-bottom: 1px solid #e1e1e1;
+  border: 2px dotted #f2b309;
+  overflow-y: auto;
 }
 
 .ps-product--detail .ps-product__desc p {
   color: #000;
+  padding: 10px;
 }
 
 .ps-product--detail .ps-product__desc p a {
@@ -8609,7 +8612,8 @@ textarea.form-control {
     margin-bottom: 10px;
   }
   .ps-product--detail .ps-product__shopping .ps-btn {
-    width: 50%;
+    width: 30%;
+    height: 40px;
     text-align: center;
   }
 }
@@ -16567,6 +16571,12 @@ html .bg--parallax {
   display: block;
 }
 
+.text-swatch li input[type=checkbox], .text-swatch li input[type=radio] {
+  display: none;
+}
+.text-swatch li input[type=checkbox]:checked~span, .text-swatch li input[type=radio]:checked~span {
+  border: 1px solid #f2b309;
+}
 
 .custom-checkbox input[type=checkbox], .custom-checkbox input[type=radio], .custom-radio input[type=checkbox], .custom-radio input[type=radio] {
   display: none;
@@ -16577,7 +16587,23 @@ html .bg--parallax {
   border: none;
 }
 
+.product__color .color-swatch li span {
+  margin-bottom: 0;
+}
+.product__color .color-swatch li {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: top;
+}
 
+* {
+  font-family: 'Work Sans', sans-serif ;
+  font-weight: 400;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
 
 .form-control {
   background-color: transparent;
@@ -16592,6 +16618,50 @@ html .bg--parallax {
   transition: all .4s ease;
 }
 
+.text-swatch li span {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 5px 15px;
+  position: relative;
+  transition: .2s;
+}
+
+.custom-checkbox input[type=checkbox]:checked~span:before, .custom-checkbox input[type=radio]:checked~span:before, .custom-radio input[type=checkbox]:checked~span:before, .custom-radio input[type=radio]:checked~span:before {
+  border: 2px solid #f2b309;
+  border-radius: 50%;
+  bottom: -4px;
+  content: "";
+  display: block;
+  left: -4px;
+  position: absolute;
+  right: -4px;
+  top: -4px;
+}
+
+.text-swatch li input[type=checkbox]:checked~span:before, .text-swatch li input[type=radio]:checked~span:before {
+  border: 16px solid transparent;
+  border-bottom: 16px solid #f2b309;
+  bottom: -1px;
+  content: "";
+  position: absolute;
+  right: -16px;
+}
+
+.text-swatch li input[type=checkbox]:checked~span:after, .text-swatch li input[type=radio]:checked~span:after {
+  bottom: -5px;
+  color: #fff;
+  content: "";
+  font-family: Linearicons!important;
+  font-size: 8px;
+  height: 16px;
+  overflow: hidden;
+  position: absolute;
+  right: -8px;
+  width: 16px;
+}
 
 [type=checkbox], [type=radio] {
   box-sizing: border-box;
@@ -16618,9 +16688,7 @@ button, input, select, textarea {
   width: 25px;
 }
 
-.product__color .color-swatch li span {
-  margin-bottom: 0;
-}
+
 
 
 

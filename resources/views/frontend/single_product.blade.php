@@ -32,20 +32,10 @@
                             </div>
                             <div class="ps-product__info">
                                 <h1>{{ $product->name }}</h1>
-                                <div class="ps-product__meta">
-                                    <p>Brand:<a href="shop-default.html">Sony</a></p>
-                                    <div class="ps-product__rating">
-                                        <select class="ps-rating" data-read-only="true">
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                            <option value="1">4</option>
-                                            <option value="2">5</option>
-                                        </select><span>(1 review)</span>
-                                    </div>
-                                </div>
+                                <div class="ps-product__meta">  </div>
                                 <h4 class="ps-product__price">&#2547;{{ $product->sale_price }} @if ($product->discount > 0)
-                                        <del>&#2547;{{ $product->regular_price }}</del> @endif
+                                        <del>&#2547;{{ $product->regular_price }}</del>
+                                    @endif
                                 </h4>
                                 @if ($product->shipment)
                                     <div class="ps-product__desc">
@@ -54,111 +44,78 @@
                                 @endif
 
                                 <div class="ps-product__variations">
-                                 {{-- <ul class="text-swatch attribute-swatch color-swatch">
-                                    @foreach ($product_attributes as $item)
-                                           @if (strtolower($item->attributes->name)=='color')
-                                               <figure>
-                                                <li class="p_attribute_item">
-                                                    <figcaption> {{ $item->attributes->name }} </figcaption>
-                                                    <ul>
-                                                        @foreach ($item->attributes->variants as $variant)
-                                                            <li class="p_variant_item">
-                                                                <div class="ps-variant ps-variant--color {{ $variant->name }} "><span
-                                                                    class="ps-variant__tooltip">{{ $variant->name }}</span></div>
-                                                            <label for="{{ $variant->name }}">
-                                                                <input value="{{ $variant->name }}" type="checkbox" name="variant" >
-                                                             </label>  
+                                    <div class="pr_switch_wrap">
+                                        <div class="product-attributes">
+                                            @foreach ($product_attributes as $item)
+                                                @if (strtolower($item->attributes->name) === 'color')
+                                                    <div class="visual-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
+                                                        data-type="visual">
+                                                        <label class="attribute-name">Color</label>
+                                                        <div class="attribute-values">
+                                                            <ul class="visual-swatch color-swatch attribute-swatch">
+                                                                @foreach ($item->attributes->variants as $key => $variant)
+                                                                    <li data-slug="blue" data-id="2"
+                                                                        class="attribute-swatch-item"
+                                                                        title="{{ $variant->name }}">
+                                                                        <div class="custom-radio">
+                                                                            <label>
+                                                                                <input
+                                                                                    class="form-control product-filter-item variant_color"
+                                                                                    type="radio" name="color"
+                                                                                    value="{{ $variant->name }}" @if ($key == 0) checked @endif>
+                                                                                <span
+                                                                                    class="{{ $variant->name }}"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                @endif
 
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </li>
-                                            </figure> 
-                                           @endif
+                                                @if (strtolower($item->attributes->name) === 'size')
+                                                    <div class="text-swatches-wrapper attribute-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
+                                                        data-type="text">
+                                                        <label class="attribute-name">Size</label>
+                                                        <div class="attribute-values">
+                                                            <ul class="text-swatch attribute-swatch color-swatch">
+                                                                @foreach ($item->attributes->variants as $key => $variant)
+                                                                    <li data-slug="xl" data-id="9"
+                                                                        class="attribute-swatch-item pe-none">
+                                                                        <div>
+                                                                            <label>
+                                                                                <input class="product-filter-item variant_size"
+                                                                                    type="radio" name="size"
+                                                                                    value="{{ $variant->name }}" @if ($key == 0) checked @endif>
+                                                                                <span>{{ $variant->name }}</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                @endif
 
-                                           @if (strtolower($item->attributes->name)=='size')
-                                           <figure>
-                                            <li class="p_attribute_item">
-                                                <figcaption> {{ $item->attributes->name }} </figcaption>
-                                                <ul>
-                                                    @foreach ($item->attributes->variants as $variant)
-                                                        <li class="p_variant_item">
-                                                        <label for="{{ $variant->name }}">
-                                                            <input value="{{ $variant->name }}" type="checkbox" name="size" > {{ $variant->name }}
-                                                         </label>  
-
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                                </li>
-                                            </figure> 
-                                        @endif
-                                          
-                                    @endforeach
-                                </ul> --}}
-                                <div class="pr_switch_wrap">
-                                    <div class="product-attributes" data-target="https://martfury.botble.com/product-variation/19">
-                                    <div class="visual-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color" data-type="visual">
-                                    <label class="attribute-name">Color</label>
-                                    <div class="attribute-values">
-                                    <ul class="visual-swatch color-swatch attribute-swatch">
-                                    <li data-slug="blue" data-id="2" class="attribute-swatch-item" title="Blue">
-                                    <div class="custom-radio">
-                                    <label>
-                                    <input class="form-control product-filter-item" type="radio" name="attribute_color" value="2" checked="">
-                                    <span style="background-color: #333333;"></span>
-                                    </label>
-                                    </div>
-                                    </li>
-                                    <li data-slug="red" data-id="3" class="attribute-swatch-item" title="Red">
-                                    <div class="custom-radio">
-                                    <label>
-                                    <input class="form-control product-filter-item" type="radio" name="attribute_color" value="3">
-                                    <span style="background-color: #DA323F;"></span>
-                                    </label>
-                                    </div>
-                                    </li>
-                                    </ul>
-                                    </div>
-                                    </div>
-                                    <div class="text-swatches-wrapper attribute-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color" data-type="text">
-                                    <label class="attribute-name">Size</label>
-                                    <div class="attribute-values">
-                                    <ul class="text-swatch attribute-swatch color-swatch">
-                                    <li data-slug="xl" data-id="9" class="attribute-swatch-item pe-none">
-                                    <div>
-                                    <label>
-                                    <input class="product-filter-item" type="radio" name="attribute_size" value="9" checked="">
-                                    <span>XL</span>
-                                    </label>
-                                    </div>
-                                    </li>
-                                    <li data-slug="xxl" data-id="10" class="attribute-swatch-item">
-                                    <div>
-                                    <label>
-                                    <input class="product-filter-item" type="radio" name="attribute_size" value="10">
-                                    <span>XXL</span>
-                                    </label>
-                                    </div>
-                                    </li>
-                                    </ul>
-                                    </div>
-                                    </div>
-                                    </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="ps-product__shopping">
                                     <figure>
                                         <figcaption>Quantity</figcaption>
                                         <div class="form-group--number">
-                                            <button class="up"><i class="fa fa-plus"></i></button>
-                                            <button class="down"><i class="fa fa-minus"></i></button>
-                                            <input class="form-control" type="text" placeholder="1">
+                                            <button onclick="incrementQty()" class="up"><i class="fa fa-plus"></i></button>
+                                            <button onclick="dicrementQty()" class="down"><i
+                                                    class="fa fa-minus"></i></button>
+                                            <input id="p_quantity" class="form-control" name="quantity" type="text"
+                                                value="1">
                                         </div>
-                                    </figure><a class="ps-btn ps-btn--gray" href="#">Add to cart</a><a class="ps-btn"
-                                        href="#">Buy Now</a>
-                                    <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a
-                                            href="#"><i class="icon-chart-bars"></i></a></div>
+                                    </figure><a id="cart_btn" class="ps-btn ps-btn--gray"
+                                        route="{{ route('cart_add', $product->id) }}">Add to cart</a>
+                                    <a class="ps-btn" href="#">Buy Now</a>
+                                    <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a></div>
                                 </div>
 
                             </div>
@@ -173,25 +130,7 @@
                             <div class="ps-tabs">
                                 <div class="ps-tab active" id="tab-1">
                                     <div class="ps-document">
-                                        <h5>Embodying the Raw, Wayward Spirit of Rock 'N' Roll</h5>
-                                        <h5>What do you get</h5>
-                                        <p>The FM radio is perhaps gone for good, the assumption apparently being that the
-                                            jury has ruled in favor of streaming over the internet. The IR blaster is
-                                            another feature due for retirement – the S6 had it, then the Note5 didn’t, and
-                                            now with the S7 the trend is clear.</p>
-                                        <h5>Perfectly Done</h5>
-                                        <p>Meanwhile, the IP68 water resistance has improved from the S5, allowing
-                                            submersion of up to five feet for 30 minutes, plus there’s no annoying flap
-                                            covering the charging port</p>
-                                        <ul class="pl-0">
-                                            <li>No FM radio (except for T-Mobile units in the US, so far)</li>
-                                            <li>No IR blaster</li>
-                                            <li>No stereo speakers</li>
-                                        </ul>
-                                        <p>If you’ve taken the phone for a plunge in the bath, you’ll need to dry the
-                                            charging port before plugging in. Samsung hasn’t reinvented the wheel with the
-                                            design of the Galaxy S7, but it didn’t need to. The Gala S6 was an excellently
-                                            styled device, and the S7 has managed to improve on that.</p>
+                                        <p> {!! $product->details !!} </p>
                                     </div>
                                 </div>
                                 <div class="ps-tab" id="tab-2">
@@ -306,15 +245,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="ps-tab" id="tab-5">
-                                <div class="ps-block--questions-answers">
-                                    <h3>Questions and Answers</h3>
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Have a question? Search for answer?">
-                                    </div>
-                                </div>
-                            </div> --}}
-
                             </div>
                         </div>
                     </div>
@@ -345,15 +275,6 @@
                                     <div class="ps-product__container">
                                         <div class="ps-product__content"><a class="ps-product__title"
                                                 href="{{ route('product', $r_product->slug) }}">{{ $r_product->name }}</a>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                    <option value="1">4</option>
-                                                    <option value="2">5</option>
-                                                </select><span>01</span>
-                                            </div>
                                             <p class="ps-product__price">&#2547;{{ $r_product->sale_price }}</p>
                                         </div>
                                         <div class="ps-product__content hover"><a class="ps-product__title"
@@ -396,15 +317,6 @@
                                     <div class="ps-product__container">
                                         <div class="ps-product__content"><a class="ps-product__title"
                                                 href="{{ route('product', $c_product->slug) }}">{{ $c_product->name }}</a>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                    <option value="1">4</option>
-                                                    <option value="2">5</option>
-                                                </select><span>01</span>
-                                            </div>
                                             <p class="ps-product__price">&#2547;{{ $c_product->sale_price }}</p>
                                         </div>
                                         <div class="ps-product__content hover"><a class="ps-product__title"
@@ -430,7 +342,8 @@
                         data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
                         @foreach ($related_products as $r_product)
                             <div class="ps-product">
-                                <div class="ps-product__thumbnail"><a href="{{ route('product', $r_product->slug) }}"><img
+                                <div class="ps-product__thumbnail"><a
+                                        href="{{ route('product', $r_product->slug) }}"><img
                                             src="{{ asset('storage/' . $r_product->product_images[0]->image) }}"
                                             alt=""></a>
                                     <ul class="ps-product__actions">
@@ -447,15 +360,6 @@
                                 <div class="ps-product__container">
                                     <div class="ps-product__content"><a class="ps-product__title"
                                             href="{{ route('product', $r_product->slug) }}">{{ $r_product->name }}</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>01</span>
-                                        </div>
                                         <p class="ps-product__price">&#2547;{{ $r_product->sale_price }}</p>
                                     </div>
                                     <div class="ps-product__content hover"><a class="ps-product__title"
@@ -478,5 +382,22 @@
 
 
 @push('extra_js')
+
+    <script>
+        function incrementQty() {
+            let input_value = document.getElementById('p_quantity').value;
+            document.getElementById('p_quantity').value = parseInt(input_value) + 1;
+        }
+
+        function dicrementQty() {
+            let input_value = document.getElementById('p_quantity').value;
+            if (parseInt(input_value) > 1) {
+                document.getElementById('p_quantity').value = parseInt(input_value) - 1;
+            } else {
+                alert('quantity should be at least one');
+            }
+
+        }
+    </script>
 
 @endpush

@@ -12,8 +12,6 @@ use App\Models\ProductSubCategory;
 use App\Http\Controllers\Controller;
 use App\Models\ProductAttribute;
 use App\Models\ProductVariant;
-use App\Models\Attribute;
-use App\Models\Variant;
 
 
 class IndexController extends Controller

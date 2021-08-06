@@ -11,7 +11,7 @@
     <meta name="keywords" content="ecommerce,online retail shop,online shop in Bangladesh">
     <meta name="description" content="online retail shop,online shop in Bangladesh">
     <title>
-        @yield('title') || shopolox
+        shopolox || @yield('title') 
     </title>
     @include('frontend.inc.css')
     @stack('extra_css')
