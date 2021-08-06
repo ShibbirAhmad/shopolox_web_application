@@ -9666,6 +9666,7 @@ textarea.form-control {
   top: 0;
   right: 0;
   font-size: 18px;
+  cursor: pointer;
   color: #666;
 }
 

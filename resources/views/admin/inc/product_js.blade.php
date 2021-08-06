@@ -33,7 +33,7 @@
 
         ///form submit
       $('#product_container').on('submit', '#submit_form', function(e) {
-                  event.preventDefault()
+             event.preventDefault()
             let $action = $(this).attr('action');
             let $method = $(this).attr('method');
             const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

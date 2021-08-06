@@ -7,11 +7,12 @@ use App\Models\Slider;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Models\ProductVariant;
 use App\Models\ProductCategory;
+use App\Models\ProductAttribute;
 use App\Models\ProductSubCategory;
 use App\Http\Controllers\Controller;
-use App\Models\ProductAttribute;
-use App\Models\ProductVariant;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class IndexController extends Controller
@@ -23,6 +24,7 @@ class IndexController extends Controller
      */
     public function index()
     {
+        // return Cart::content();
          $sliders = Slider::where('status',1)->orderBy('id','desc')->get();
          $banners = Banner::latest()->where('status',1)->orderBy('id','desc')->take(2)->get();
          //sub categories and products start query

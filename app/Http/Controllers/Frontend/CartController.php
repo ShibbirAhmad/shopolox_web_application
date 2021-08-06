@@ -57,13 +57,12 @@ class CartController extends Controller
         
 
  }
- public function carToContent(){
-
+ public function cartContent(){
 
     $cart_content=Cart::content();
     $cart_total=Cart::total();
-
         return response()->json([
+            'status' => 'OK',
             'cart_total'=>$cart_total,
             'cart_content'=>$cart_content,
             'item_count'=>Cart::count()
@@ -85,15 +84,14 @@ class CartController extends Controller
 
     }
 
-    public  function carToDestroy(Request $request){
-
-       // return $request->all();
-
-        $rowId =$request->rowId ;
+    public  function cartDestroy($rowId){
         Cart::remove($rowId);
+        $cart_total=Cart::total();
         return response()->json([
             'status'=>'OK',
-
+            'message' => 'item removed from your cart',
+            'cart_total'=>$cart_total,
+            'item_count'=>Cart::count(),
         ]);
 
 

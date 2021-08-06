@@ -45,6 +45,8 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/product/{slug}', [IndexController::class, 'product'])->name('product');
 //cart routes
 Route::post('/api/add/cart/{id}', [CartController::class, 'addCart'])->name('cart_add');
+Route::get('/api/cart/remove/{rowId}', [CartController::class, 'cartDestroy'])->name('cart_remove');
+Route::get('/api/cart/content', [CartController::class, 'cartContent'])->name('cart_content');
 
 
 

@@ -184,14 +184,14 @@
             </div>
             <div class="header__right">
                 <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
-                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>{{ $cart_item }}</i></span></a>
-                        <div class="ps-cart__content">
-                            <div class="ps-cart__items">
+                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i id="__cart_count">{{ $cart_item }}</i></span></a>
+                        <div id="__cart_content_parent" class="ps-cart__content">
+                            <div id="__cart_content_container" class="ps-cart__items">
                                @foreach ($cart_content as $item)
 
                                 <div class="ps-product--cart-mobile">
                                     <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">{{ $item->name }}</a>
+                                    <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="{{ $item->rowId }}" class="icon-cross __remove_cart"></i></a>{{ $item->name }}
                                        <small>{{ $item->qty }} x &#2547; {{ $item->price }}</small>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@
                               @endforeach
                             </div>
                             <div class="ps-cart__footer">
-                                <h3>Sub Total:<strong>&#2547;{{ $cart_total }}</strong></h3>
+                                <h3 >Sub Total:<strong> <span>&#2547;</span> <span id="__cart_total" >{{ $cart_total }}</span> </strong></h3>
                                 <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
                             </div>
                         </div>
