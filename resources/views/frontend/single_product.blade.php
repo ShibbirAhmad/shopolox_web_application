@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'product')
+@section('title', '{{ $product->name }}')
 
 @section('content')
     @parent

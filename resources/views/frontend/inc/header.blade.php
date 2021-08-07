@@ -192,15 +192,15 @@
                                 <div class="ps-product--cart-mobile">
                                     <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
                                     <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="{{ $item->rowId }}" class="icon-cross __remove_cart"></i></a>{{ $item->name }}
-                                       <small>{{ $item->qty }} x &#2547; {{ $item->price }}</small>
+                                       <small>{{ $item->qty }} x &#2547;{{ $item->price }}</small>
                                     </div>
                                 </div>
                                                                   
                               @endforeach
                             </div>
                             <div class="ps-cart__footer">
-                                <h3 >Sub Total:<strong> <span>&#2547;</span> <span id="__cart_total" >{{ $cart_total }}</span> </strong></h3>
-                                <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                                <h3 >Sub Total:<strong> <span>&#2547;</span> <span id="__cart_total_in_header" >{{ $cart_total }}</span> </strong></h3>
+                                <figure><a class="ps-btn" href="{{ route('cart_view') }}">View Cart</a><a class="ps-btn" href="{{ route('order.index') }}">Checkout</a></figure>
                             </div>
                         </div>
                     </div>

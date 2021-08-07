@@ -113,7 +113,7 @@
                     if (resp.status == "OK") {
                       //  console.log(resp.cart_content);
                         document.getElementById('__cart_count').innerHTML = resp.item_count;
-                        document.getElementById('__cart_total').innerHTML = resp.cart_total;
+                        document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
                         let template = "";
                         Object.keys(resp.cart_content).forEach(item => {
                             let ele = resp.cart_content[item]
@@ -133,6 +133,73 @@
             });
         }
 
+        //increase   cart content
+        $('body').on('click','.cart_item_increment',function(){
+            $rowId = $(this).attr('cart_row_id') ;
+            let c_qty = document.getElementById('__cart_update_input_'+$rowId).value ;
+            let quantity = parseInt(c_qty) + 1 ;
+            let $action = '{{ url('api/cart/item/update') }}';
+            $data = { 'rowId' : $rowId,  'qty' : quantity } ;
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action ,
+                type: "POST",
+                data : $data ,
+                success: function(resp) {
+                    console.log(resp);
+                    if (resp.status == "OK") {
+                        document.getElementById('__cart_count').innerHTML = resp.item_count;
+                        document.getElementById('__cart_update_input_'+resp.rowId).value = resp.updated_qty;
+                        document.getElementById('__cart_total_in_cart_view').innerHTML = resp.cart_total;
+                        document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
+                        document.getElementById('__total_of_cart_item_'+resp.rowId).innerHTML = resp.updated_qty * resp.item_price;
+                    }
+                },
+                error: function(e) {}
+            });
+        });
+
+
+
+        //increase   cart content
+        $('body').on('click','.cart_item_dicrement',function(){
+           $rowId = $(this).attr('cart_row_id') ;
+           let c_qty = document.getElementById('__cart_update_input_'+$rowId).value ;
+           let quantity = parseInt(c_qty) - 1 ;
+            if (quantity ==0 ) {
+                alert('qty should be at least one') ;
+                document.getElementById('__cart_update_input_'+$rowId).value  = 1;
+                return ;
+            }
+            let $action = '{{ url('api/cart/item/update') }}';
+            $data = { 'rowId' : $rowId,  'qty' : quantity } ;
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action ,
+                type: "POST",
+                data : $data ,
+                success: function(resp) {
+                    console.log(resp);
+                    if (resp.status == "OK") {
+                        document.getElementById('__cart_count').innerHTML = resp.item_count;
+                        document.getElementById('__cart_update_input_'+resp.rowId).value = resp.updated_qty;
+                        document.getElementById('__cart_total_in_cart_view').innerHTML = resp.cart_total;
+                        document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
+                        document.getElementById('__total_of_cart_item_'+resp.rowId).innerHTML =  resp.updated_qty * resp.item_price;
+                    }
+                },
+                error: function(e) {}
+            });
+        });
+
+
+
 
         //remove  cart content
         $('body').on('click','.__remove_cart',function(e){
@@ -149,8 +216,9 @@
                 success: function(resp) {
                     if (resp.status == "OK") {
                         document.getElementById('__cart_count').innerHTML = resp.item_count;
-                        document.getElementById('__cart_total').innerHTML = resp.cart_total;
+                        document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
                         e.target.parentElement.parentElement.parentElement.remove()
+                        $('body').find()
                         toastMessage(resp.message);
                     }
                 },

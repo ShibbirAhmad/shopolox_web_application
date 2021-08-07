@@ -14,26 +14,7 @@ class CartController extends Controller
     public function addCart(Request $request,$id){
 
         $product=Product::findOrFail($id);
-        //  $product_attribute=ProductAttribute::where('product_id',$product->id)->get();
-
-        //  if($product_attribute->count()>=1 && $request->attribute_id==null){
-        //     return response()->json([
-        //         'status'=>'error',
-        //         'message'=>'missing product information'
-        //      ]);
-        // }else if($product->stock<=0){
-        //     return response()->json([
-        //     'status'=>'error',
-        //     'message'=>"Product Stock Out"
-        //     ]);
-        // }
-        //  else if($request->quantity > $product->stock){
-        //     return response()->json([
-        //             'status'=>'error',
-        //             'message'=>"Product Highest Quantity '$product->stock'"
-        //     ]);
-        // }
- 
+        
             Cart::add([
                 'id' => $product->id,
                 'name'=>$product->name,
@@ -46,6 +27,7 @@ class CartController extends Controller
                          'size' => $request->size,
                          'color'=>$request->color,
                          'weight'=>$request->weight,
+                         'slug'=>$product->slug,
                          'image'=>ProductImage::where('product_id',$product->id)->first()
                       ]
             ]);
@@ -57,6 +39,7 @@ class CartController extends Controller
         
 
  }
+
  public function cartContent(){
 
     $cart_content=Cart::content();
@@ -71,16 +54,42 @@ class CartController extends Controller
     }
 
 
+    
+ public function viewCart(){
 
-    public  function carToUpdate(Request $request){
+    $cart_content=Cart::content();
+    $cart_total=Cart::total();
+    $cart_item = Cart::count() ;
+    return view('frontend.cart',compact(['cart_content','cart_total','cart_item']));
 
+    }
+
+
+
+    public  function cartUpdate(Request $request){
+    //    return $request->all();
         $rowId =$request->rowId ;
-        if(Cart::update($rowId, $request->qty)){
-            return response()->json([
-                'status'=>'OK',
-
-            ]);
+        Cart::update($rowId, $request->qty) ;
+        $cart_content = Cart::content();
+        $cart_total=Cart::total();
+        $cart_item = Cart::count() ;
+        $updated_qty =0;
+        $item_price =0;
+        foreach($cart_content as $item) {
+            if ($item->rowId==$rowId) {
+                $updated_qty += $item->qty ;
+                $item_price += $item->price ;
+            }
         }
+        return response()->json([
+                'status'=>'OK',
+                'updated_qty'=>$updated_qty,
+                'item_price'=>$item_price,
+                'cart_total'=>$cart_total,
+                'cart_content'=>$cart_content,
+                'item_count'=> $cart_item ,
+                'rowId'=> $rowId ,
+            ]);
 
     }
 
@@ -92,6 +101,7 @@ class CartController extends Controller
             'message' => 'item removed from your cart',
             'cart_total'=>$cart_total,
             'item_count'=>Cart::count(),
+            'rowId'=>$rowId,
         ]);
 
 
