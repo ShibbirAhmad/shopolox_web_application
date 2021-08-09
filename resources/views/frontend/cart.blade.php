@@ -31,7 +31,7 @@
                             </thead>
                             <tbody>
                                @foreach ($cart_content as $item)
-                                    <tr>
+                                    <tr class="{{$item->rowId  }}" >
                                         <td>
                                             <div class="ps-product--cart">
                                                 <div class="ps-product__thumbnail"><a href="{{ route('product',$item->options->slug) }}"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>

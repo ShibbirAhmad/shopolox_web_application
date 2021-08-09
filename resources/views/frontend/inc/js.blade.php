@@ -118,10 +118,10 @@
                         Object.keys(resp.cart_content).forEach(item => {
                             let ele = resp.cart_content[item]
                             console.log(ele.options.image.image);
-                            template += ` <div class="ps-product--cart-mobile">
+                            template += ` <div class="ps-product--cart-mobile  ${ele.rowId}">
                             <div class="ps-product__thumbnail"><img src="/storage/${ele.options.image.image}" > </div>
                             <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="${ele.rowId}" class="icon-cross __remove_cart"></i></a>${ele.name }
-                                <small> ${ele.qty} x &#2547; ${ele.price}</small>
+                                <small> <span id="header_cart_qty_${ele.rowId}"> ${ele.qty} </span> x &#2547; ${ele.price}</small>
                                 </div>
                             </div> `
                         })
@@ -152,10 +152,11 @@
                     console.log(resp);
                     if (resp.status == "OK") {
                         document.getElementById('__cart_count').innerHTML = resp.item_count;
-                        document.getElementById('__cart_update_input_'+resp.rowId).value = resp.updated_qty;
+                        document.getElementById('__cart_update_input_'+$rowId).value = resp.updated_qty;
+                        document.getElementById('header_cart_qty_'+$rowId).innerHTML = resp.updated_qty;
                         document.getElementById('__cart_total_in_cart_view').innerHTML = resp.cart_total;
                         document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
-                        document.getElementById('__total_of_cart_item_'+resp.rowId).innerHTML = resp.updated_qty * resp.item_price;
+                        document.getElementById('__total_of_cart_item_'+$rowId).innerHTML = resp.updated_qty * resp.item_price;
                     }
                 },
                 error: function(e) {}
@@ -188,10 +189,11 @@
                     console.log(resp);
                     if (resp.status == "OK") {
                         document.getElementById('__cart_count').innerHTML = resp.item_count;
-                        document.getElementById('__cart_update_input_'+resp.rowId).value = resp.updated_qty;
+                        document.getElementById('__cart_update_input_'+$rowId).value = resp.updated_qty;
+                        document.getElementById('header_cart_qty_'+$rowId).innerHTML = resp.updated_qty;
                         document.getElementById('__cart_total_in_cart_view').innerHTML = resp.cart_total;
                         document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
-                        document.getElementById('__total_of_cart_item_'+resp.rowId).innerHTML =  resp.updated_qty * resp.item_price;
+                        document.getElementById('__total_of_cart_item_'+$rowId).innerHTML =  resp.updated_qty * resp.item_price;
                     }
                 },
                 error: function(e) {}
@@ -214,11 +216,11 @@
                 url: $action + '/' + $rowId,
                 type: "GET",
                 success: function(resp) {
+                    console.log(resp);
                     if (resp.status == "OK") {
                         document.getElementById('__cart_count').innerHTML = resp.item_count;
                         document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
-                        e.target.parentElement.parentElement.parentElement.remove()
-                        $('body').find()
+                        $('.'+$rowId).remove();
                         toastMessage(resp.message);
                     }
                 },

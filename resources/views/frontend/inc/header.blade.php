@@ -189,10 +189,10 @@
                             <div id="__cart_content_container" class="ps-cart__items">
                                @foreach ($cart_content as $item)
 
-                                <div class="ps-product--cart-mobile">
+                                <div class="ps-product--cart-mobile {{ $item->rowId }}">
                                     <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
                                     <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="{{ $item->rowId }}" class="icon-cross __remove_cart"></i></a>{{ $item->name }}
-                                       <small>{{ $item->qty }} x &#2547;{{ $item->price }}</small>
+                                       <small><span id="header_cart_qty_{{ $item->rowId }}" > {{ $item->qty }} </span> x &#2547;{{ $item->price }}</small>
                                     </div>
                                 </div>
                                                                   
@@ -530,7 +530,7 @@
         </div>
     </div>
     <div class="navigation--mobile">
-        <div class="navigation__left"><a class="ps-logo" href="{{ url('/') }}"><img src="img/logo_light.png" alt=""></a></div>
+        <div class="navigation__left"><a class="ps-logo" href="{{ url('/') }}"><img src="img/logo_light.png" ></a></div>
         <div class="navigation__right">
             <div class="header__actions">
                 <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>

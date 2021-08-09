@@ -88,7 +88,6 @@ class CartController extends Controller
                 'cart_total'=>$cart_total,
                 'cart_content'=>$cart_content,
                 'item_count'=> $cart_item ,
-                'rowId'=> $rowId ,
             ]);
 
     }
@@ -101,7 +100,6 @@ class CartController extends Controller
             'message' => 'item removed from your cart',
             'cart_total'=>$cart_total,
             'item_count'=>Cart::count(),
-            'rowId'=>$rowId,
         ]);
 
 

@@ -15012,6 +15012,11 @@ textarea.form-control {
   margin-right: 30px;
 }
 
+.ps-logo img {
+  height: 42px;
+  width: 100%;
+}
+
 .header--standard .header__content-center {
   max-width: 600px;
 }
@@ -16692,7 +16697,7 @@ button, input, select, textarea {
 
 
 .__cart_destroy__ {
-
+     cursor: pointer;
      margin-right: 40%;
 
 }
