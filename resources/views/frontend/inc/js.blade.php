@@ -25,7 +25,8 @@
 
 <script>
     $(document).ready(function() {
-
+       
+        //cart from single product
         $('.ps-product__shopping').find('#cart_btn').on('click', function(e) {
             console.log("adding cart");
             let $action = $(this).attr('route');
@@ -96,7 +97,52 @@
 
         });
 
+        //quick cart check 
+         $('.ps-product__actions').find('.quick_cart_btn').on('click',function(){
+              let $prdouct_id = $(this).attr('product_id') ;
+              let $action = '{{ url('api/add/cart') }}';
+              let csrf_token = $('meta[name="csrf-token"]').attr('content');
+              $data = {
+                'quantity': 1,
+                'size': '',
+                'color': '',
+                'weight': '',
+            };
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action+'/'+$prdouct_id,
+                method: 'POST',
+                data: $data,
+                cache: false,
+                contentType: false,
+                processData: false,
 
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        getCartContent();
+                        toastMessage(resp.message);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+         });
 
         //get cart content
         function getCartContent() {
@@ -201,7 +247,7 @@
         });
 
 
-
+       
 
         //remove  cart content
         $('body').on('click','.__remove_cart',function(e){

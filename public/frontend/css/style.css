@@ -7741,6 +7741,7 @@ textarea.form-control {
 
 .ps-product .ps-product__actions li {
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .ps-product .ps-product__actions li a {
