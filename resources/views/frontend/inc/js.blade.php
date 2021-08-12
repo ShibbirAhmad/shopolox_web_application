@@ -53,13 +53,13 @@
                     $size += document.getElementsByClassName("variant_weight")[i].value
                 }
             }
-
-            $data = {
-                'quantity': $quantity,
-                'size': $size,
-                'color': $color,
-                'weight': $weight,
-            };
+             
+             $data = {
+                    'quantity': $quantity,
+                    'size': $size,
+                    'color': $color,
+                    'weight': $weight,
+                } ;
             //ajax action is here
             $.ajax({
                 headers: {
@@ -68,10 +68,6 @@
                 url: $action,
                 method: 'POST',
                 data: $data,
-                cache: false,
-                contentType: false,
-                processData: false,
-
                 success: function(resp) {
                     console.log(resp)
                     if (resp.status == "OK") {
@@ -102,11 +98,7 @@
               let $prdouct_id = $(this).attr('product_id') ;
               let $action = '{{ url('api/add/cart') }}';
               let csrf_token = $('meta[name="csrf-token"]').attr('content');
-              $data = {
-                'quantity': 1,
-                'size': '',
-                'color': '',
-                'weight': '',
+              $data = { 'quantity': 1, 'size': '', 'color': '', 'weight': '',
             };
             //ajax action is here
             $.ajax({
@@ -116,10 +108,6 @@
                 url: $action+'/'+$prdouct_id,
                 method: 'POST',
                 data: $data,
-                cache: false,
-                contentType: false,
-                processData: false,
-
                 success: function(resp) {
                     console.log(resp)
                     if (resp.status == "OK") {
@@ -266,6 +254,7 @@
                     if (resp.status == "OK") {
                         document.getElementById('__cart_count').innerHTML = resp.item_count;
                         document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
+                        document.getElementById('__cart_total_in_cart_view').innerHTML = resp.cart_total;
                         $('.'+$rowId).remove();
                         toastMessage(resp.message);
                     }

@@ -21,7 +21,7 @@ class CartController extends Controller
          
            $size='';
            $color= $request->color ?? '';
-           $weight= $request->size ?? '';
+           $weight= $request->weight ?? '';
            if(empty($request->size)) {
                 //firstly i am finding the attributes of products and checking what type of attribute are there.
                 // Then after initializing variant according to attribute
