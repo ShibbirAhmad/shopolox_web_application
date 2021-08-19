@@ -11236,7 +11236,9 @@ textarea.form-control {
 .ps-form--account {
   max-width: 430px;
   margin: 0 auto;
-  padding-top: 130px;
+  padding-top: 0px;
+ 
+
 }
 
 .ps-form--account .ps-tab-list {
@@ -11331,6 +11333,7 @@ textarea.form-control {
 
 .ps-form--account .ps-form__content {
   padding: 30px 30px 0;
+
 }
 
 .ps-form--account .ps-form__content h5 {
@@ -16704,9 +16707,16 @@ button, input, select, textarea {
 }
 
 
+.checkout_total_section h4 {
+     
+     padding: 3% 0%;
+}
 
-
-
+.checkout_c_img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
 
 
 

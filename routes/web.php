@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Frontend\IndexController ;
 use App\Http\Controllers\Frontend\CartController ;
 use App\Http\Controllers\Frontend\OrderController ;
+use App\Http\Controllers\Frontend\UserController ;
+use App\Http\Controllers\Auth\LoginController ;
+use Laravel\Socialite\Facades\Socialite;
 
 // admin classes
 use App\Http\Controllers\Admin\BrandController;
@@ -45,18 +48,56 @@ use App\Http\Controllers\Admin\DebitController;
 Route::get('/', [IndexController::class, 'index']);
 Route::get('product/{slug}', [IndexController::class, 'product'])->name('product');
 //order routes
-Route::resources([
-    'order' => OrderController::class ,
-]);
+Route::group([ 'middleware' => 'auth' ], function(){
+    Route::resources([
+        'order' => OrderController::class ,
+    ]);
+    //order routes
+    Route::get('api/city/wise/sub/city/{id}', [OrderController::class, 'subCities']);
+});
+
 //cart routes
 Route::get('cart/view', [CartController::class, 'viewCart'])->name('cart_view');
 Route::post('api/add/cart/{id}', [CartController::class, 'addCart'])->name('cart_add');
 Route::post('api/cart/item/update', [CartController::class, 'cartUpdate'])->name('cart_update');
 Route::get('api/cart/remove/{rowId}', [CartController::class, 'cartDestroy'])->name('cart_remove');
 Route::get('api/cart/content', [CartController::class, 'cartContent'])->name('cart_content');
+//user and customer routes 
+Route::post('api/user/registration', [LoginController::class, 'userRegistration'])->name('user_registration');
+//otp login routes
+Route::get('/otp/login', function () {
+     return view('frontend.user.otp_login');
+});
+Route::post('api/send/otp/code', [LoginController::class, 'sendOtp'])->name('send_otp');
+Route::post('api/verify/otp/code', [LoginController::class, 'verifyOtpCode'])->name('verify_otp');
+//socialite login routes 
+Route::get('/login/facebook', function () {
+    return Socialite::driver('facebook')->redirect();
+});
 
+Route::get('/login/facebook/callback', function () {
+            $user = Socialite::driver('facebook')->user();
+            $user->getId();
+            $user->getNickname();
+            return  $user->getName();
+            $user->getEmail();
+            $user->getAvatar();
 
+});
 
+Route::get('auth/google', function(){
+      return Socialite::driver('google')->redirect();
+});
+Route::get('auth/google/callback', function(){
+        
+            $user = Socialite::driver('google')->user();
+            return $user ;
+            $user->getId();
+            $user->getNickname();
+            $user->getName();
+            $user->getEmail();
+            $user->getAvatar();
+});
 
 
 

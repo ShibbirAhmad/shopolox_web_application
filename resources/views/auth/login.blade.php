@@ -1,73 +1,124 @@
-@extends('layouts.app')
+@extends('frontend.layouts.app')
+
+@section('title', 'Authentication')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    @parent
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+    <div class="ps-page--my-account">
+        <div class="ps-breadcrumb">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li>My account</li>
+                </ul>
+            </div>
+        </div>
+        <div class="ps-my-account">
+            <div class="container">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+                <div class="ps-form--account ps-tab-root user_authentication">
+                    <ul class="login_tabs">
+                        <li onclick="displayLoginForm()" id="login_tab" class="login_border">Login</li>
+                        <li onclick="displayRegisterForm()" id="register_tab" >Register</li>
+                    </ul>
+                    {{-- login form start --}}
+                     <form method="POST" id="user_login_form"  action="{{ route('login') }}">
+                        <div class="form_inside">
+                            <div class="ps-form__content">
+                                <h5>Log In Your Account</h5>
+                                <div class="form-group">
+                                    <input class="form-control" name="email" required type="email" placeholder="example@gmail.com">
+                                </div>
+                                <div class="form-group form-forgot">
+                                    <input class="form-control" required name="password" type="password" ><a href="">Forgot?</a>
+                                </div>
+                                <div class="form-group submtit">
+                                    <button  class="ps-btn ps-btn--fullwidth">Login</button>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                            <div class="ps-form__footer">
+                                <p>Connect with:</p>
+                                <ul class="ps-list--social">
+                                    <li><a class="facebook" href="{{ url('/login/facebook') }}"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a class="google" href="{{ url('/auth/google') }}"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
                             </div>
                         </div>
-                    </form>
+                     </form>
+                    {{-- login form end --}}
+
+
+                     {{-- register form start  --}}
+                     <form method="POST" id="user_register_form" class="form_display_toggle" action="{{ route('user_registration') }}">
+                        <div class="form_inside">
+                            <div class="ps-form__content">
+                                <h5>Register An Account</h5>
+                                <div class="form-group">
+                                    <input class="form-control" required name="name" type="text" placeholder="Ex: Mohammad">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" required name="email" type="email" placeholder="example@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" required name="password" type="password">
+                                </div>
+                                <div class="form-group submtit">
+                                    <button class="ps-btn ps-btn--fullwidth">Register</button>
+                                </div>
+                            </div>
+                            <div class="ps-form__footer">
+                                <p>Connect with:</p>
+                                <ul class="ps-list--social">
+                                    <li><a class="facebook" href="{{ url('/login/facebook') }}"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a class="google" href="{{ url('/auth/google') }}"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                     </form>   
+                     {{-- register form end --}}
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection
+
+
+@push('extra_js')
+
+<script>
+
+    function displayRegisterForm(){
+
+        document.getElementById('user_login_form').classList.toggle('form_display_toggle');
+        document.getElementById('login_tab').classList.remove('login_border');
+        
+        document.getElementById('user_register_form').classList.toggle('form_display_toggle');
+        document.getElementById('register_tab').classList.add('login_border');
+    }
+
+
+    
+    function displayLoginForm(){   
+
+        document.getElementById('user_register_form').classList.toggle('form_display_toggle');
+        document.getElementById('register_tab').classList.remove('login_border');
+
+        document.getElementById('user_login_form').classList.toggle('form_display_toggle');
+        document.getElementById('login_tab').classList.add('login_border');
+     
+    }
+
+
+</script>
+
+@endpush

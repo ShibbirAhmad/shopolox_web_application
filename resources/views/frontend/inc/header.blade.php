@@ -1,6 +1,6 @@
 @php
         $cart_content=Cart::content();
-        $cart_total=Cart::total();
+        $cart_total=Cart::subtotal();
         $cart_item=Cart::count();
 @endphp
 <header class="header header--1" data-sticky="true">
@@ -205,8 +205,28 @@
                         </div>
                     </div>
                     <div class="ps-block--user-header">
-                        <div class="ps-block__left"><i class="icon-user"></i></div>
-                        <div class="ps-block__right"><a href="my-account.html">Login</a><a href="my-account.html">Register</a></div>
+                       @if (auth()->guest())
+                         <div class="ps-block__left"><a href="{{ route('login') }}"><i class="icon-user"></i></a></div>     
+                       @else
+                        <li class="nav-item dropdown user_drop_nav">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right user_drop_nav_item" aria-labelledby="navbarDropdown">
+                                <a href="">Dashboard</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                       @endif
                     </div>
                 </div>
             </div>
@@ -551,7 +571,7 @@
                         </div>
                         <div class="ps-cart__footer">
                             <h3>Sub Total:<strong>$59.99</strong></h3>
-                            <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                            <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="{{ route('order.create') }}">Checkout</a></figure>
                         </div>
                     </div>
                 </div>

@@ -3,3 +3,48 @@
 
     margin-top: 10px;
 }
+
+.form_inside {
+    background: #fff;
+}
+
+.form_display_toggle {
+    display: none;
+}
+.login_tabs  {
+    display: flex;
+}
+
+.login_tabs li {
+    cursor: pointer;
+    width: 40%;
+    height: 50px;
+    background: #fff;
+    padding: 7px 48px;
+    font-size: 22px;
+    margin: 10px 20px;
+    box-shadow: 0 1pt 12pt rgb(150 165 237);
+    border-radius: 5px;
+}
+
+.login_border {
+  border: 2px dotted black ;
+}
+
+.icon-user:hover{
+    color: #000;
+}
+
+.user_drop_nav {
+    list-style-type: none;
+    font-size: 16px;
+}
+
+
+.user_drop_nav_item a {
+     font-size: 15px;
+     padding: 5px;
+}
+.user_drop_nav a:hover {
+    color: #000;
+}

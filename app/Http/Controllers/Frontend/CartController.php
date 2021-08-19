@@ -27,28 +27,15 @@ class CartController extends Controller
                 // Then after initializing variant according to attribute
                 $p_attributs=ProductAttribute::where('product_id',$product->id)->select('attribute_id')->pluck('attribute_id');
                 $attributs = Attribute::whereIn('id',$p_attributs)->get();
-                //global variants 
-                $variant_id =  ProductVariant::where('product_id',$product->id)->first();
-                $variant    =  Variant::findOrFail($variant_id->variant_id);
-                $variant_name = strtolower($variant->name)  ;
-
                 for ($i=0; $i < count($attributs) ; $i++) { 
                     if (strtolower($attributs[$i]->name) == 'size') {
-                        if ($variant_name=='m'|| $variant_name=='l'|| $variant_name=='xl' || $variant_name=='xxl') {
-                            $size= $variant_name ;
-                        }
+                            $size= 'L' ;     
                     }else if (strtolower($attributs[$i]->name) == 'color') {
-                        if ($variant_name=='purple'|| $variant_name=='blue'|| $variant_name=='yellow'|| $variant_name=='black'|| $variant_name=='red'|| $variant_name=='navy blue' || $variant_name=='white' || $variant_name=='green' || $variant_name=='pink' ) {
-                            $color= $variant_name ;
-                        }
+                            $color= 'Black' ;
                     }else if (strtolower($attributs[$i]->name) == 'weight') {
-                        if ($variant_name=='.5 gm'|| $variant_name=='l000 gm'|| $variant_name=='.250 gm' || $variant_name=='1500 gm') {
-                            $size= $variant_name ;
-                        }
+                        $weight= '500 gm' ;
                     }
-
                 }
-            
            }else{
                $size = $request->size ;
            }
@@ -81,7 +68,7 @@ class CartController extends Controller
  public function cartContent(){
 
     $cart_content=Cart::content();
-    $cart_total=Cart::total();
+    $cart_total=Cart::subtotal();
         return response()->json([
             'status' => 'OK',
             'cart_total'=>$cart_total,
@@ -96,7 +83,7 @@ class CartController extends Controller
  public function viewCart(){
 
     $cart_content=Cart::content();
-    $cart_total=Cart::total();
+    $cart_total=Cart::subtotal();
     $cart_item = Cart::count() ;
     return view('frontend.cart',compact(['cart_content','cart_total','cart_item']));
 
@@ -109,7 +96,7 @@ class CartController extends Controller
         $rowId =$request->rowId ;
         Cart::update($rowId, $request->qty) ;
         $cart_content = Cart::content();
-        $cart_total=Cart::total();
+        $cart_total=Cart::subtotal();
         $cart_item = Cart::count() ;
         $updated_qty =0;
         $item_price =0;
@@ -132,7 +119,7 @@ class CartController extends Controller
 
     public  function cartDestroy($rowId){
         Cart::remove($rowId);
-        $cart_total=Cart::total();
+        $cart_total=Cart::subtotal();
         return response()->json([
             'status'=>'OK',
             'message' => 'item removed from your cart',
