@@ -91,12 +91,12 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="checkout_total_section">
-                                                  <h4>Subtotal : &#2547;<span id="checkout_sub_total">{{ $cart_total }}</span></h4>
-                                             
-                                                  <h4>Shipping Cost : &#2547;<span id="shipping_cost">  </span> </h4>
-                                                
-                                                  <h4>Total : &#2547;<span id="checkout_total">{{ $cart_total }}</span></h4>
-                                              
+                                                  
+                                                   <ul>
+                                                       <li>    <h4>Subtotal : &#2547;<span id="checkout_sub_total">{{ $cart_total }}</span></h4> </li>
+                                                       <li>    <h4>Shipping Cost : &#2547;<span id="shipping_cost">  </span> </h4> </li>
+                                                       <li>    <h4>Total : &#2547;<span id="checkout_total">{{ $cart_total }}</span></h4></li>
+                                                   </ul>
                                                  
                                                     <div  class="coupon">
                                                         <label for="">

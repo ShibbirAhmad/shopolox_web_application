@@ -53,7 +53,10 @@ Route::group([ 'middleware' => 'auth' ], function(){
         'order' => OrderController::class ,
     ]);
     //order routes
+    Route::get('customer/order/list', [OrderController::class, 'orderList'])->name('orders');
+    Route::get('customer/order/details/{id}', [OrderController::class, 'orderDetails'])->name('order');
     Route::get('api/city/wise/sub/city/{id}', [OrderController::class, 'subCities']);
+
 });
 
 //cart routes

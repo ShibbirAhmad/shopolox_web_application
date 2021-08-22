@@ -98,13 +98,14 @@ class OrderController extends Controller
                     $order->customer_id=$customer->id;
                     $order->invoice_no=$invoice;
                     $order->city_id=$request->city;
-                    $order->shipping_cost=$request->shipping_cost ?? 0;
+                    $city= City::findOrFail($request->city);
+                    $order->shipping_cost=$city->delivery_charge;
                     $order->discount=$request->discount ?? 0;
                     $order->paid=$request->paid ?? 0;
                     $order->total=$total;
                     $order->coupon_id=$request->coupon_id ?? null;
                     $order->coupon_discount=$request->coupon_discount ?? null;
-                    $order->status=0;
+                    $order->status='order placed';
                     $order->sub_city_id=$request->sub_city;
                     $order->save();
                     //if order save then save the order details
@@ -185,4 +186,47 @@ class OrderController extends Controller
     {
         //
     }
+
+
+
+    
+
+    public function orderList(){
+
+        $user=Auth::user();
+        $customer=Customer::where('phone',$user->phone)->first();
+        $orders=Order::where('customer_id',$customer->id)->orderBy('id','desc')->paginate(10);
+        return view('frontend.user.dashboard',compact('orders'));
+         
+     }
+ 
+ 
+     public function orderDetails($id){
+ 
+           $order =  Order::findOrFail($id);
+           $customer = Customer::findOrFail($order->customer_id);
+           if ($order->customer_id == $customer->id) {
+                      $order_items=OrderItem::where('order_id',$order->id)->with(['product.product_images'])->get();
+               return view('frontend.user.order',compact(['order_items','order','customer']));
+           }else {
+               return redirect()->back();
+           }
+          
+     }
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
