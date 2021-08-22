@@ -3,3 +3,109 @@
 
     margin-top: 10px;
 }
+
+.form_inside {
+    background: #fff;
+}
+
+.form_display_toggle {
+    display: none;
+}
+.login_tabs  {
+    display: flex;
+}
+
+.login_tabs li {
+    cursor: pointer;
+    width: 40%;
+    height: 50px;
+    background: #fff;
+    padding: 7px 48px;
+    font-size: 22px;
+    margin: 10px 20px;
+    box-shadow: 0 1pt 12pt rgb(150 165 237);
+    border-radius: 5px;
+}
+
+.login_border {
+  border: 2px dotted black ;
+}
+
+.icon-user:hover{
+    color: #000;
+}
+
+.user_drop_nav {
+    list-style-type: none;
+    font-size: 16px;
+}
+
+
+.user_drop_nav_item a {
+     font-size: 15px;
+     padding: 5px;
+}
+.user_drop_nav a:hover {
+    color: #000;
+}
+
+.checkout_total_section ul li {
+    list-style-type: none;
+    padding: 5px 0px;
+    margin-left: -10%;
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    transition: all .2s ease;
+}
+
+.checkout_total_section ul li:hover {
+    background-color: #0111331c;
+    padding-left: 0.275rem;
+}
+
+
+.sidebar_menu_container li {
+    list-style-type: none;
+    padding: 15px 0px;
+    margin-left: -22%;
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    transition: all .2s ease;
+}
+
+.sidebar_menu_container  li:hover {
+    background-color: #0111331c;
+    padding-left: 0.275rem;
+}
+
+
+.sidebar_menu_container li a  {
+    font-size: 16px; 
+}
+
+
+.s_profile_container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px dashed #fd7e14;
+    margin-left: 10%;
+}
+
+.customer_profile {
+    font-size: 10rem;
+    padding: 6px 20px;
+    color: #ffc107;
+}
+
+.customer_name{
+        text-transform: uppercase;
+        padding-top: 15px;
+        padding-left: 10px;
+        font-size: 20px;
+        font-family: -webkit-body;
+}

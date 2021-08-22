@@ -23,6 +23,12 @@ class Admin
 
         }
 
+        
+        if (auth()->user() && auth()->user()->role==1 ) {
+            return $next($request);
+
+        }
+
         return redirect()->route('admin.login')->withErrors(['msg' => 'Login Required']);
 
     }

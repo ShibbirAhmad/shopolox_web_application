@@ -23,6 +23,8 @@
                             <thead>
                                 <tr>
                                     <th>Product </th>
+                                    <th>Size </th>
+                                    <th>Color </th>
                                     <th>PRICE</th>
                                     <th>QUANTITY</th>
                                     <th>TOTAL</th>
@@ -39,6 +41,8 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <td > {{ $item->options->size ? $item->options->size : 'Null' }} </td>
+                                        <td > {{ $item->options->color ? $item->options->color : 'Null' }} </td>
                                         <td class="price">&#2547;{{ $item->price }}</td>
                                         <td>
                                             <div class="form-group--number">

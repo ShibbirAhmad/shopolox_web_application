@@ -25,7 +25,8 @@
 
 <script>
     $(document).ready(function() {
-
+       
+        //cart from single product
         $('.ps-product__shopping').find('#cart_btn').on('click', function(e) {
             console.log("adding cart");
             let $action = $(this).attr('route');
@@ -52,13 +53,13 @@
                     $size += document.getElementsByClassName("variant_weight")[i].value
                 }
             }
-
-            $data = {
-                'quantity': $quantity,
-                'size': $size,
-                'color': $color,
-                'weight': $weight,
-            };
+             
+             $data = {
+                    'quantity': $quantity,
+                    'size': $size,
+                    'color': $color,
+                    'weight': $weight,
+                } ;
             //ajax action is here
             $.ajax({
                 headers: {
@@ -67,10 +68,6 @@
                 url: $action,
                 method: 'POST',
                 data: $data,
-                cache: false,
-                contentType: false,
-                processData: false,
-
                 success: function(resp) {
                     console.log(resp)
                     if (resp.status == "OK") {
@@ -96,7 +93,44 @@
 
         });
 
+        //quick cart check 
+         $('.ps-product__actions').find('.quick_cart_btn').on('click',function(){
+              let $prdouct_id = $(this).attr('product_id') ;
+              let $action = '{{ url('api/add/cart') }}';
+              let csrf_token = $('meta[name="csrf-token"]').attr('content');
+              $data = { 'quantity': 1, 'size': '', 'color': '', 'weight': '',
+            };
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action+'/'+$prdouct_id,
+                method: 'POST',
+                data: $data,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        getCartContent();
+                        toastMessage(resp.message);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
 
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+         });
 
         //get cart content
         function getCartContent() {
@@ -117,8 +151,7 @@
                         let template = "";
                         Object.keys(resp.cart_content).forEach(item => {
                             let ele = resp.cart_content[item]
-                            console.log(ele.options.image.image);
-                            template += ` <div class="ps-product--cart-mobile  ${ele.rowId}">
+                            template += ` <div class="ps-product--cart-mobile ${ele.rowId}">
                             <div class="ps-product__thumbnail"><img src="/storage/${ele.options.image.image}" > </div>
                             <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="${ele.rowId}" class="icon-cross __remove_cart"></i></a>${ele.name }
                                 <small> <span id="header_cart_qty_${ele.rowId}"> ${ele.qty} </span> x &#2547; ${ele.price}</small>
@@ -201,8 +234,6 @@
         });
 
 
-
-
         //remove  cart content
         $('body').on('click','.__remove_cart',function(e){
             let $action = '{{ url('api/cart/remove') }}';
@@ -220,11 +251,260 @@
                     if (resp.status == "OK") {
                         document.getElementById('__cart_count').innerHTML = resp.item_count;
                         document.getElementById('__cart_total_in_header').innerHTML = resp.cart_total;
-                        $('.'+$rowId).remove();
+                        document.getElementById('__cart_total_in_cart_view').innerHTML = resp.cart_total;
+                        $('body').find('.'+$rowId).remove(); 
                         toastMessage(resp.message);
                     }
                 },
                 error: function(e) {}
+            });
+        });
+
+
+        //category wise sub category
+        $('#checkout_form').on('change','#customer_city',function(e) {
+                let id=$(this).val();
+                let $action = '{{ url('api/city/wise/sub/city') }}'
+                $.ajax({
+                    url: $action+'/'+id,
+                    type: "GET",
+                    cache: false,
+                    success: function(resp) {
+                        console.log(resp);
+                        let option=`<option disabled> Select  Sub City</option>`;
+                        if(resp.sub_cities.length>0){
+                            resp.sub_cities.forEach(element=>{
+                                option+=`<option value=${element.id}>${element.name}</option>`
+                            })
+                          let sub_total = document.getElementById('checkout_sub_total').innerHTML  ;
+                          document.getElementById('shipping_cost').innerHTML = resp.city.delivery_charge  ;
+                          document.getElementById('checkout_total').innerHTML = parseInt(sub_total) + parseInt(resp.city.delivery_charge) ;
+                        }else{
+                            option=`<option disabled>Select  Sub City</option>`;
+                        }                    
+                        $('#checkout_form').find("#customer_sub_city").html(option);
+                    },
+                    error: function(e) {
+                        alert("something went wrong");
+                    }
+            });
+            
+        })
+
+
+
+        //user login
+        $('.user_authentication').on('submit', '#user_login_form', function(e) {
+            event.preventDefault();
+
+            let $action = $(this).attr('action');
+            let $method = $(this).attr('method');
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            let formData = new FormData($(this)[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action,
+                method: $method,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        toastMessage(resp.message);
+                        var url = "http://127.0.0.1:8000/order";
+                        $(location).attr('href',url);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.message,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+        });
+
+
+
+        //user register
+        $('.user_authentication').on('submit', '#user_register_form', function(e) {
+            event.preventDefault();
+
+            let $action = $(this).attr('action');
+            let $method = $(this).attr('method');
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            let formData = new FormData($(this)[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action,
+                method: $method,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        toastMessage(resp.message);
+                        var url = "http://127.0.0.1:8000/order";
+                        $(location).attr('href',url);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+        });
+        
+
+        //otp login 
+        $('.user_authentication').on('submit', '#user_otp_login_form', function(e) {
+            event.preventDefault();
+
+            let $action = $(this).attr('action');
+            let $method = $(this).attr('method');
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            let formData = new FormData($(this)[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action,
+                method: $method,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        toastMessage(resp.message);
+                        
+                        document.getElementById('user_otp_login_form').classList.toggle('form_display_toggle');
+                        document.getElementById('user_otp_validation_form').classList.toggle('form_display_toggle');
+
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+        });
+
+
+        //verirfy otp code  
+        $('.user_authentication').on('submit', '#user_otp_validation_form', function(e) {
+            event.preventDefault();
+
+            let $action = $(this).attr('action');
+            let $method = $(this).attr('method');
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            let formData = new FormData($(this)[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action,
+                method: $method,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        toastMessage(resp.message);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.message,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+        });
+
+
+       //place order 
+        $('body').on('submit', '#checkout_form', function(e) {
+            event.preventDefault();
+
+            let $action = $(this).attr('action');
+            let $method = $(this).attr('method');
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            let formData = new FormData($(this)[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action,
+                method: $method,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        toastMessage(resp.message);
+                        var url = "http://127.0.0.1:8000/";
+                        $(location).attr('href',url);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
             });
         });
 

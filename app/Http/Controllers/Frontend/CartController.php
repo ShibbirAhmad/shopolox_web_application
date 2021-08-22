@@ -3,18 +3,43 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Product;
+use App\Models\Variant;
+use App\Models\Attribute;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use App\Models\ProductVariant;
 use App\Models\ProductAttribute;
 use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
+
 
 class CartController extends Controller
 {
     public function addCart(Request $request,$id){
 
         $product=Product::findOrFail($id);
-        
+         
+           $size='';
+           $color= $request->color ?? '';
+           $weight= $request->weight ?? '';
+           if(empty($request->size)) {
+                //firstly i am finding the attributes of products and checking what type of attribute are there.
+                // Then after initializing variant according to attribute
+                $p_attributs=ProductAttribute::where('product_id',$product->id)->select('attribute_id')->pluck('attribute_id');
+                $attributs = Attribute::whereIn('id',$p_attributs)->get();
+                for ($i=0; $i < count($attributs) ; $i++) { 
+                    if (strtolower($attributs[$i]->name) == 'size') {
+                            $size= 'L' ;     
+                    }else if (strtolower($attributs[$i]->name) == 'color') {
+                            $color= 'Black' ;
+                    }else if (strtolower($attributs[$i]->name) == 'weight') {
+                        $weight= '500 gm' ;
+                    }
+                }
+           }else{
+               $size = $request->size ;
+           }
+
             Cart::add([
                 'id' => $product->id,
                 'name'=>$product->name,
@@ -24,9 +49,9 @@ class CartController extends Controller
                 'tax' => 0,
                 'options' =>
                      [
-                         'size' => $request->size,
-                         'color'=>$request->color,
-                         'weight'=>$request->weight,
+                         'size' => $size,
+                         'color'=>$color,
+                         'weight'=>$weight,
                          'slug'=>$product->slug,
                          'image'=>ProductImage::where('product_id',$product->id)->first()
                       ]
@@ -43,7 +68,7 @@ class CartController extends Controller
  public function cartContent(){
 
     $cart_content=Cart::content();
-    $cart_total=Cart::total();
+    $cart_total=Cart::subtotal();
         return response()->json([
             'status' => 'OK',
             'cart_total'=>$cart_total,
@@ -58,7 +83,7 @@ class CartController extends Controller
  public function viewCart(){
 
     $cart_content=Cart::content();
-    $cart_total=Cart::total();
+    $cart_total=Cart::subtotal();
     $cart_item = Cart::count() ;
     return view('frontend.cart',compact(['cart_content','cart_total','cart_item']));
 
@@ -71,7 +96,7 @@ class CartController extends Controller
         $rowId =$request->rowId ;
         Cart::update($rowId, $request->qty) ;
         $cart_content = Cart::content();
-        $cart_total=Cart::total();
+        $cart_total=Cart::subtotal();
         $cart_item = Cart::count() ;
         $updated_qty =0;
         $item_price =0;
@@ -94,7 +119,7 @@ class CartController extends Controller
 
     public  function cartDestroy($rowId){
         Cart::remove($rowId);
-        $cart_total=Cart::total();
+        $cart_total=Cart::subtotal();
         return response()->json([
             'status'=>'OK',
             'message' => 'item removed from your cart',
