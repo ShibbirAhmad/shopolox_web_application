@@ -509,6 +509,52 @@
         });
 
 
+        //user profile update
+        $('body').on('submit', '#user_profile_update_form', function(e) {
+            event.preventDefault();
+
+            let $action = $(this).attr('action');
+            let $method = $(this).attr('method');
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            let formData = new FormData($(this)[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action,
+                method: $method,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        document.getElementById('user_name').value = resp.user.name ;
+                        document.getElementById('user_email').value = resp.user.email ;
+                        document.getElementById('user_phone').value = resp.user.phone ;
+                        document.getElementById('user_address').value = resp.user.address ;
+                        document.getElementById('user_city').value = resp.user.city_id ;
+                        toastMessage(resp.message);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+        });
+
+
         function toastMessage(message) {
             const Toast = Swal.mixin({
                 toast: true,
