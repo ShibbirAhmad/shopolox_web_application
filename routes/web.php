@@ -53,6 +53,10 @@ Route::group([ 'middleware' => 'auth' ], function(){
         'order' => OrderController::class ,
     ]);
     //order routes
+    Route::get('user/profile',function(){
+        return view('frontend.user.profile');
+    })->name('profile');
+    Route::post('api/user/profile/info/edit',[UserController::class,'updateProfile'])->name('profile_update');
     Route::get('customer/order/list', [OrderController::class, 'orderList'])->name('orders');
     Route::get('customer/order/details/{id}', [OrderController::class, 'orderDetails'])->name('order');
     Route::get('api/city/wise/sub/city/{id}', [OrderController::class, 'subCities']);
