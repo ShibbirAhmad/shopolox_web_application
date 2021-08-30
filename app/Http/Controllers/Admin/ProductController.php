@@ -17,6 +17,7 @@ use App\Models\ProductSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\ProductSubSubCategory;
+use App\Models\RequestProduct;
 use Illuminate\Support\Facades\Validator;
 
 class productController extends Controller
@@ -499,6 +500,45 @@ class productController extends Controller
            
     }
 
+
+
+     
+    public function requestForProduct(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'product_one_link' => 'required',
+            'product_one_variant' => 'required',
+            'phone' => ['required', 'digits:11'],
+            'email' => ['required', 'string', 'email'],
+        ]);
+
+        if (!$validator->fails()) {
+            $product = new RequestProduct();
+            $product->name = $request->name;
+            $product->email = $request->email;
+            $product->phone = $request->phone;
+            $product->product_one_link = $request->product_one_link;
+            $product->product_one_variant = $request->product_one_variant;
+            $product->product_two_link = $request->product_two_link ?? null;
+            $product->product_two_variant = $request->product_two_variant ?? null;
+            $product->save();
+            return response()->json([
+                'status' => "OK",
+                'message' => 'Thanks for request. we will contact with you as soon as possible',
+            ]);
+            
+        }else{
+            return response()->json([
+                'status' => 'FAILD',
+                'errors' => $validator->errors()->all(),
+            ]);
+        }
+    }
+
+    
+
+    
     
 
 

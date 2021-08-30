@@ -53,16 +53,20 @@ Route::group([ 'middleware' => 'auth' ], function(){
         'order' => OrderController::class ,
     ]);
     //order routes
-    Route::get('user/profile',function(){
-        return view('frontend.user.profile');
-    })->name('profile');
+    Route::view('user/profile', 'frontend.user.profile')->name('profile');
+    Route::view('new/password','frontend.user.new_password') ;
+    Route::view('change/password','frontend.user.change_password') ;
     Route::post('api/user/profile/info/edit',[UserController::class,'updateProfile'])->name('profile_update');
+    Route::post('api/user/password/update',[UserController::class,'updatePassword'])->name('change_password');
+    Route::post('api/user/set/new/password',[UserController::class,'setNewPassword'])->name('set_new_password');
     Route::get('customer/order/list', [OrderController::class, 'orderList'])->name('orders');
     Route::get('customer/order/details/{id}', [OrderController::class, 'orderDetails'])->name('order');
     Route::get('api/city/wise/sub/city/{id}', [OrderController::class, 'subCities']);
 
 });
-
+//request product 
+Route::view('request/for/product','frontend.request_product') ;
+Route::post('api/request/product',[ProductController::class,'requestForProduct'])->name('request_product') ;
 //cart routes
 Route::get('cart/view', [CartController::class, 'viewCart'])->name('cart_view');
 Route::post('api/add/cart/{id}', [CartController::class, 'addCart'])->name('cart_add');
