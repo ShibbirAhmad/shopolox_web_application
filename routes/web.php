@@ -64,7 +64,9 @@ Route::group([ 'middleware' => 'auth' ], function(){
     Route::get('api/city/wise/sub/city/{id}', [OrderController::class, 'subCities']);
 
 });
-
+//request product 
+Route::view('request/for/product','frontend.request_product') ;
+Route::post('api/request/product',[ProductController::class,'requestForProduct'])->name('request_product') ;
 //cart routes
 Route::get('cart/view', [CartController::class, 'viewCart'])->name('cart_view');
 Route::post('api/add/cart/{id}', [CartController::class, 'addCart'])->name('cart_add');

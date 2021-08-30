@@ -506,24 +506,9 @@
                     </li>
                 </ul>
                 <ul class="navigation__extra">
-                    <li><a href="#">Sell on Martfury</a></li>
+                    <li><a href="{{ url('/request/for/product') }}">Request For Product</a></li>
                     <li><a href="#">Tract your order</a></li>
-                    <li>
-                        <div class="ps-dropdown"><a href="#">US Dollar</a>
-                            <ul class="ps-dropdown-menu">
-                                <li><a href="#">Us Dollar</a></li>
-                                <li><a href="#">Euro</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ps-dropdown language"><a href="#"><img src="{{ asset('frontend/img/flag/en.png') }}" alt="">English</a>
-                            <ul class="ps-dropdown-menu">
-                                <li><a href="#"><img src="{{ asset('frontend/img/flag/germany.png') }} "  alt=""> Germany</a></li>
-                                <li><a href="#"><img src="{{ asset('frontend/img/flag/fr.png') }}" alt=""> France</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                
                 </ul>
             </div>
         </div>
