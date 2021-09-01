@@ -5,11 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Team;
 use App\Models\Debit;
 use App\Models\Credit;
-use App\Models\Loaner;
-use App\Models\Investor;
-use App\Models\LoanPaid;
 use App\Models\Supplier;
-use App\Models\PrintHouse;
 use Illuminate\Http\Request;
 use App\Exports\DebitExport ;
 use App\Exports\CreditExport ;
@@ -19,8 +15,6 @@ use App\Models\Account_purpose;
 use App\Models\SupplierPayment;
 use App\Models\InvestmentReturn;
 use App\Models\BillPaidStatement;
-use App\Models\PrintHousePayment;
-use App\Models\InvestorProfitPaid;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
@@ -276,19 +270,6 @@ class AccountController extends Controller
                     Team::sendMessageToEmployeer($emplye,$employee_salary->amount);
                 }
 
-                if(!empty($request->loaner_id)){
-                    $loaner=Loaner::where('id',$request->loaner_id)->first();
-                    $loan_paid=new LoanPaid();
-                    $loan_paid->loaner_id=$loaner->id;
-                    $loan_paid->amount=  $debit->amount;
-                    $loan_paid->date= $debit->date;
-                    $loan_paid->comment=$debit->comment;
-                    $loan_paid->paid_by=$debit->balance_id;
-                    $loan_paid->save();
-                    //update comment
-                    $debit->comment = $debit->comment.'('. $loaner->name .')';
-                    $debit->save();
-                }
 
                 //save a supplier paid amount
                     if(!empty($request->supplier_id)){
@@ -304,52 +285,6 @@ class AccountController extends Controller
                         $debit->save();
 
                     }
-
-
-                //investor payment inserting
-                if(!empty($request->investor_id)){
-                    $investor=Investor::where('id',$request->investor_id)->first();
-                    $investor_profit_paid=new InvestorProfitPaid();
-                    $investor_profit_paid->investor_id=$investor->id;
-                    $investor_profit_paid->amount=  $debit->amount;
-                    $investor_profit_paid->profit_month= $request->profit_month;
-                    $investor_profit_paid->date= $debit->date;
-                    $investor_profit_paid->comment=$debit->comment;
-                    $investor_profit_paid->paid_by=$debit->balance_id;
-                    $investor_profit_paid->save();
-                    $debit->comment = $debit->comment.'('. $investor->name .')';
-                    $debit->save();
-                }
-
-
-                //investor payment return
-                if(!empty($request->investor_return_id)){
-                    $investor=Investor::where('id',$request->investor_return_id)->first();
-                    $invest_return=new InvestmentReturn();
-                    $invest_return->investor_id=$investor->id;
-                    $invest_return->amount=  $debit->amount;
-                    $invest_return->date= $debit->date;
-                    $invest_return->comment=$debit->comment;
-                    $invest_return->paid_by=$debit->balance_id;
-                    $invest_return->save();
-                    $debit->comment = $debit->comment.'('. $investor->name .')';
-                    $debit->save();
-                }
-
-                    //print house payment inserting
-                    if(!empty($request->print_house_id)){
-                    $print_house=PrintHouse::where('id',$request->print_house_id)->first();
-                    $print_house_paid=new PrintHousePayment();
-                    $print_house_paid->print_house_id=$print_house->id;
-                    $print_house_paid->amount=  $debit->amount;
-                    $print_house_paid->date= $debit->date;
-                    $print_house_paid->comment=$debit->comment;
-                    $print_house_paid->paid_by=$debit->balance_id;
-                    $print_house_paid->save();
-                    //update debit comment
-                    $debit->comment = $debit->comment.'('.$print_house->name.')';
-                    $debit->save();
-                }
 
 
                 //storing bill statement payment
