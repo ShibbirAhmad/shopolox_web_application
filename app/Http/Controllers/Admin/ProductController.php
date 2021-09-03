@@ -539,7 +539,12 @@ class productController extends Controller
     
 
     
-    
+    public function requestProductList(){
+
+       $products = RequestProduct::orderBy('id','desc')->paginate(20);
+       return view('admin.product.request_product',compact('products'));
+
+    }
 
 
 }

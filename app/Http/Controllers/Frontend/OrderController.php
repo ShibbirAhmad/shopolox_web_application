@@ -68,7 +68,11 @@ class OrderController extends Controller
                 'city' => 'required',
                 'sub_city' => 'required',
             ]);
-    
+            if (Cart::total() < 1) {
+                return response()->json([
+                    'message' => 'cart is empty'
+                ]);
+            }
             if (!$validator->fails()) {
                 DB::transaction(function() use($request){
                     $user=User::where('id',Auth::user()->id)->first();
