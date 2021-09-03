@@ -18,7 +18,7 @@
         <div class="row layout-top-spacing justify-content-center">
 
             <div class="col-lg-12">
-                <a class="btn btn-primary mb-2 mr-2 btn-rounded " href="{{ route('backend_orders') }} " 
+                <a class="btn btn-primary mb-2 mr-2 btn-rounded " href="{{ route('admin.home') }} " 
                   ><i class="fa fa-arrow-left"></i></a>
 
             </div>
@@ -81,7 +81,7 @@
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                  Dropdown
+                                                  action
                                                 </button>
                                                 <div class="dropdown-menu text-center" aria-labelledby="dropdownMenu2">
   

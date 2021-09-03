@@ -150,7 +150,9 @@ Route::group([
     //single routes
     Route::get('api/product/copy/{id}/{item}',[ProductController::class,'productCopy'])->name('product.copy');
     Route::get('api/product/image/delele/{id}',[ProductController::class,'productImageDelete']);
+    Route::get('backend/reqeusted/product/list',[ProductController::class,'requestProductList'])->name('backend_requested_product');
     //order routes
+    Route::get('backend/customer/list',[backendOrderController::class,'customers'])->name('customer_list');
     Route::get('backend/order/list',[backendOrderController::class,'index'])->name('backend_orders');
     Route::get('backend/order/details/{id}',[backendOrderController::class,'orderDetails'])->name('backend_order_details');
     Route::get('api/order/status/change/{id}/{status}',[backendOrderController::class,'statusChange']);

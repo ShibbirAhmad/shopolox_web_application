@@ -1,11 +1,49 @@
 @extends('admin.layouts.app')
 @section('title', 'order details')
+
+
+@push('extra_css')
+
+  <style>
+    .order_p_image {
+        width:60px;
+        height:60px;
+    }
+    .text_decoration {
+        text-align: left ;
+    }
+
+    .customer_info {
+        margin-top: 60px;
+    }
+
+    .customer_info ul li {
+        list-style-type: none;
+        padding: 5px 0px;
+        font-size: 16px;
+    }
+
+  </style>
+  
+@endpush
+
 @section('content')
     <div id="order_details_container" class="layout-px-spacing">
 
       <div class="ps-block__content">
-        <div class="table-responsive">
-            <table class="table table-hover text-center  ps-table ps-table--vendor">
+
+        <div class="customer_info ">
+            <ul>
+                <li> Name: {{ $order->customer->name }} </li>
+                <li> Phone: {{ $order->customer->phone }} </li>
+                <li> City: {{ $order->city->name }} </li>
+                <li> Sub-City: {{ $order->sub_city->name }} </li>
+                <li> Address Details: {{ $order->customer->address }} </li>
+            </ul>
+        </div>
+
+        <div class="table-responsive mt-5">      
+            <table class="table table-hover text-center  ps-table ps-table--vendor ">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -16,7 +54,7 @@
                         <th>Color</th>
                         <th>Weight</th>
                     </tr>
-                    @foreach ($order_items as $key => $item)
+                    @foreach ($order->order_items as $key => $item)
 
                      <tr>
                          <td>{{ $key + 1 }}</td>
@@ -74,12 +112,3 @@
 @endpush
 
 
-
-
-@push('extra_css')
-
-  <style>
-
-  </style>
-  
-@endpush
