@@ -93,6 +93,75 @@
 
         });
 
+         //buy from single product
+        $('.ps-product__shopping').find('#buy_now_button').on('click', function(e) {
+            let $action = $(this).attr('route');
+            let $quantity = document.getElementById('p_quantity').value;
+            const csrf_token = $('meta[name="csrf-token"]').attr('content');
+            let $color = '';
+            for (var i in document.getElementsByClassName("variant_color")) {
+                if (document.getElementsByClassName("variant_color")[i].checked) {
+                    $color += document.getElementsByClassName("variant_color")[i].value
+                }
+            }
+
+            let $size = '';
+            for (var i in document.getElementsByClassName("variant_size")) {
+                if (document.getElementsByClassName("variant_size")[i].checked) {
+                    $size += document.getElementsByClassName("variant_size")[i].value
+                }
+            }
+
+
+            let $weight = '';
+            for (var i in document.getElementsByClassName("variant_weight")) {
+                if (document.getElementsByClassName("variant_weight")[i].checked) {
+                    $size += document.getElementsByClassName("variant_weight")[i].value
+                }
+            }
+             
+             $data = {
+                    'quantity': $quantity,
+                    'size': $size,
+                    'color': $color,
+                    'weight': $weight,
+                } ;
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action,
+                method: 'POST',
+                data: $data,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        getCartContent();
+                        toastMessage(resp.message);
+                        var url = "http://127.0.0.1:8000/order";
+                        $(location).attr('href',url);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+        });
+
+
         //quick cart check 
          $('.ps-product__actions').find('.quick_cart_btn').on('click',function(){
               let $prdouct_id = $(this).attr('product_id') ;

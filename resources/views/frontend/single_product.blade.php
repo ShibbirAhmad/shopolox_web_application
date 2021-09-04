@@ -114,7 +114,7 @@
                                         </div>
                                     </figure><a id="cart_btn" class="ps-btn ps-btn--gray"
                                         route="{{ route('cart_add', $product->id) }}">Add to cart</a>
-                                    <a class="ps-btn" href="#">Buy Now</a>
+                                    <a class="ps-btn"  route="{{ route('cart_add', $product->id) }}" id="buy_now_button" href="#">Buy Now</a>
                                     <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a></div>
                                 </div>
 

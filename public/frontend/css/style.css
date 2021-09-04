@@ -8435,7 +8435,7 @@ textarea.form-control {
 .ps-product--detail .ps-product__desc {
   margin-bottom: 20px;
   border-bottom: 1px solid #e1e1e1;
-  border: 2px dotted #f2b309;
+  border: 4px dashed #f2b309;
   overflow-y: auto;
 }
 
@@ -13679,8 +13679,7 @@ textarea.form-control {
 }
 
 #homepage-1 .ps-home-banner .ps-container .ps-section__left {
-  padding-left: 30px;
-  max-width: calc(100% - 390px);
+  max-width:100% ;
 }
 
 #homepage-1 .ps-home-banner .ps-container .ps-section__right {

@@ -11,7 +11,7 @@
     </div>
 
     <div class="form-group">
-        <label for="image">Banner (size : 505px*150px )</label>
+        <label for="image">Banner (size : 730px*150px )</label>
           <input required type="file"  id="banner_upload" name="image" class="form-control" >
     </div>
   
@@ -24,7 +24,7 @@
 
 <style>
     .preview_banner {
-        width:505px;
+        width:730px;
         height:150px;
     }
 

@@ -11,7 +11,7 @@
     </div>
 
     <div class="form-group">
-        <label for="image">Slide (size : 120px*360px )</label>
+        <label for="image">Slider Size ( 1460px*360px )</label>
           <input required type="file"  id="slider_upload" name="image" class="form-control" >
     </div>
   
