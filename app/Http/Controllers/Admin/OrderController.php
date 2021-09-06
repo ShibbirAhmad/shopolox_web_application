@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Customer;
+use App\Models\User;
 use App\Models\Order;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
@@ -17,10 +18,16 @@ class OrderController extends Controller
       }
 
 
+    public function users(){
+            $users = User::where('role',1)->orderby('id','desc')->paginate(30);
+            return view('admin.order.users',compact('users')) ;
+    }
+
+
     public function customers(){
             $customers = Customer::orderby('id','desc')->paginate(30);
             return view('admin.order.customers',compact('customers')) ;
-        }
+    }
 
 
     public function orderDetails($id){

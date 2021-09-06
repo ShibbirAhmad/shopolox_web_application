@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class Admin
+class AuthUser
 {
     /**
      * Handle an incoming request.
@@ -17,13 +16,11 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if (auth()->user() && auth()->user()->role==2 ) {
+       
+        if (auth()->user() && auth()->user()->role == 1) {
             return $next($request);
-
         }
 
-        return redirect()->route('admin.login')->withErrors(['msg' => 'Login Required']);
-
+        return redirect('/');
     }
 }

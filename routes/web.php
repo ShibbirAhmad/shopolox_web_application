@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController ;
 use Laravel\Socialite\Facades\Socialite;
 
 // admin classes
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\BannerController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\SubCityController;
 use App\Http\Controllers\Admin\CreditController;
 use App\Http\Controllers\Admin\DebitController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController as backendOrderController;
 
 
@@ -49,7 +51,7 @@ use App\Http\Controllers\Admin\OrderController as backendOrderController;
 Route::get('/', [IndexController::class, 'index']);
 Route::get('product/{slug}', [IndexController::class, 'product'])->name('product');
 //order routes
-Route::group([ 'middleware' => 'auth' ], function(){
+Route::group([ 'middleware' => ['auth','authuser'] ], function(){
     Route::resources([
         'order' => OrderController::class ,
     ]);
@@ -112,11 +114,7 @@ Route::get('auth/google/callback', function(){
 });
 
 
-
-
-
 Auth::routes();
-
 //start admin route
 Route::group([
     'prefix' => 'admin/',
@@ -145,6 +143,8 @@ Route::group([
         'variant' =>    VariantController::class,
         'city' =>       CityController::class,
         'sub_city' =>   SubCityController::class,
+        'coupon' =>     CouponController::class,
+        'admin' =>      AdminController::class,
     ]);
 
     //single routes
@@ -152,6 +152,7 @@ Route::group([
     Route::get('api/product/image/delele/{id}',[ProductController::class,'productImageDelete']);
     Route::get('backend/reqeusted/product/list',[ProductController::class,'requestProductList'])->name('backend_requested_product');
     //order routes
+    Route::get('backend/user/list',[backendOrderController::class,'users'])->name('user_list');
     Route::get('backend/customer/list',[backendOrderController::class,'customers'])->name('customer_list');
     Route::get('backend/order/list',[backendOrderController::class,'index'])->name('backend_orders');
     Route::get('backend/order/details/{id}',[backendOrderController::class,'orderDetails'])->name('backend_order_details');
