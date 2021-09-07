@@ -310,8 +310,6 @@
                                                         class="icon-eye"></i></a></li>
                                             <li><a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i
-                                                        class="icon-chart-bars"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="ps-product__container">

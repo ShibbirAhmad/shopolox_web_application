@@ -50,7 +50,11 @@ use App\Http\Controllers\Admin\OrderController as backendOrderController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('product/{slug}', [IndexController::class, 'product'])->name('product');
-//order routes
+Route::get('{slug}', [IndexController::class, 'categoryWiseProduct'])->name('category_product');
+Route::get('collections/{slug}', [IndexController::class, 'subCategoryWiseProduct'])->name('sub_category_product');
+Route::get('product/collections/{slug}', [IndexController::class, 'subSubCategoryWiseProduct'])->name('sub_sub_category_product');
+
+//authenticates routes
 Route::group([ 'middleware' => ['auth','authuser'] ], function(){
     Route::resources([
         'order' => OrderController::class ,
