@@ -197,7 +197,7 @@
                 //error function
                 error: function(e) {
                     console.log(e);
-                    alert("some thing went wrong");
+                    alert("something went wrong");
                 }
             });
         });
@@ -209,7 +209,7 @@
     $('#__modal').on('change','#slider_upload',function(e) {
         console.log('working');
     
-         let imagae_size = 500 ;
+         let imagae_size = 1024 ;
          const file = e.target.files[0];
         if (!file.type.match("image.*")) {
             Swal.fire({
@@ -235,7 +235,7 @@
         img.onload = () => {
           console.log(img.width, img.height);
           if (
-            img.width == 1020 &&
+            img.width == 1460 &&
             img.height == 360
           ) {
             setSlider(evt);
@@ -243,7 +243,7 @@
           } else {
             Swal.fire({
               type:'error',
-              text:  "Image size need " + 1020 +"*" + 360 +  "px. But Upload imaze size " + img.width+ "*" +
+              text:  "Image size need " + 1460 +"*" + 360 +  "px. But Upload imaze size " + img.width+ "*" +
                 img.height +
                 "px"
             })
@@ -292,7 +292,7 @@
         img.onload = () => {
           console.log(img.width, img.height);
           if (
-            img.width == 505 &&
+            img.width == 730 &&
             img.height == 150
           ) {
             setBanner(evt);
@@ -300,7 +300,7 @@
           } else {
             Swal.fire({
               type:'error',
-              text:  "Image size need " + 505 +"*" + 150 +  "px. But Upload imaze size " + img.width+ "*" +
+              text:  "Image size need " + 730 +"*" + 150 +  "px. But Upload imaze size " + img.width+ "*" +
                 img.height +
                 "px"
             })

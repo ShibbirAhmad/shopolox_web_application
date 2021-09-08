@@ -5,13 +5,17 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Banner;
 use App\Models\Slider;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
+use App\Models\SubSubCategory;
 use App\Models\ProductCategory;
 use App\Models\ProductAttribute;
 use App\Models\ProductSubCategory;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\ProductSubSubCategory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 
@@ -46,8 +50,7 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function product($slug)
-    {
+    public function product($slug){
         $product = Product::where('slug',$slug)->with(['product_images','shipment'])->first();
         //finding attributes
         $product_attributes=ProductAttribute::where('product_id',$product->id)->with(['attributes'])->get()->each((function($value){
@@ -77,6 +80,57 @@ class IndexController extends Controller
        
         return view('frontend.single_product',compact(['product','product_attributes','related_products','related_category_products','recommend_products']));
     }
+
+
+
+     
+
+
+    public function categoryWiseProduct($slug){
+            
+            $category = Category::where('slug',$slug)->first();
+            $related_categories=Category::where('status',1)->where('id','!=',$category->id)->with('sub_categories')->get();
+            //finding related sub category products
+            $c_products_id=ProductCategory::where('category_id',$category->id)->select('product_id')->pluck('product_id');
+            $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
+            $brands= Brand::where('status',1)->get();
+
+            return view('frontend.category_product',compact(['category','brands','products','related_categories']));
+
+    }
+
+
+
+    public function subCategoryWiseProduct($slug){
+
+            $category = SubCategory::where('slug',$slug)->first();
+            $related_categories=SubCategory::where('id','!=',$category->id)->where('status',1)->with('sub_sub_categories')->get();
+            //finding related sub category products
+            $c_products_id=ProductSubCategory::where('sub_category_id',$category->id)->select('product_id')->pluck('product_id');
+            $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
+            $brands= Brand::where('status',1)->get();
+
+            return view('frontend.sub_category_product',compact(['category','brands','products','related_categories']));
+
+    }
+
+
+    
+    public function subSubCategoryWiseProduct($slug){
+
+        $category = SubSubCategory::where('slug',$slug)->first();
+        $related_categories=SubSubCategory::where('status',1)->where('id','!=',$category->id)->get();
+        //finding related sub category products
+        $c_products_id=ProductSubSubCategory::where('sub_sub_category_id',$category->id)->select('product_id')->pluck('product_id');
+        $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
+        $brands= Brand::where('status',1)->get();
+
+        return view('frontend.sub_sub_category_product',compact(['category','brands','products','related_categories']));
+
+   }
+
+     
+ 
 
     /**
      * Store a newly created resource in storage.

@@ -96,7 +96,7 @@ class LoginController extends Controller
             $user->password = Hash::make($request->password);
             $user->role = 1;
             $user->save();
-            Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+            Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role' => 1]);
             return response()->json([
                 'status' => "OK",
                 'message' => 'you have registered',

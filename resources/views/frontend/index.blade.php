@@ -9,10 +9,6 @@
     <div class="ps-home-banner ps-home-banner--1">
         <div class="ps-container">
             
-            <div class="ps-section__right"><a class="ps-collection" href="#"><img src="{{ asset('frontend/img/slider/home-1/promotion-1.jpg') }}" alt=""></a>
-                <a class="ps-collection" href="#"><img src="{{ asset('frontend/img/slider/home-1/promotion-2.jpg') }}" alt=""></a></div>
-   
-
             <div class="ps-section__left">
                 <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
                   @foreach ($sliders as $slider)
@@ -81,7 +77,7 @@
             <div class="ps-section__header">
                 <div class="ps-block--countdown-deal">
                     <div class="ps-block__left">
-                        <h3>{{ $sub_category->name }}</h3>
+                        <h3>  {{ $sub_category->name }} </h3>
                     </div>
                     {{-- <div class="ps-block__right">
                         <figure>
@@ -96,9 +92,10 @@
                     </div> --}}
                 </div> 
                 @foreach ($sub_category->sub_sub_categories as $item)
-                         <a target="_blank" href="{{ $item->name }}">{{ $item->name }}</a>
+                         <a  href="{{ route('sub_sub_category_product',$item->slug) }}">{{ $item->name }}</a>
                 @endforeach
-               
+                <a  href="{{ route('sub_category_product',$sub_category->slug) }}">view all</a>
+
             </div>
             <div class="ps-section__content">
                 <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="false" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="3" data-owl-item-md="4" data-owl-item-lg="5" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
@@ -153,55 +150,9 @@
             </div>
         </div>
     </div>
-    <div class="ps-top-categories">
-        <div class="ps-container">
-            <h3>Top categories of the month</h3>
-            <div class="row">
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/1.jpg') }}" alt="">
-                        <p>Electronics</p>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/2.jpg') }}" alt="">
-                        <p>Clothings</p>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/2.jpg') }}" alt="">
-                        <p>Computers</p>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/3.jpg') }}" alt="">
-                        <p>Home & Kitchen</p>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/4.jpg') }}" alt="">
-                        <p>Health & Beauty</p>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/5.jpg') }}" alt="">
-                        <p>Health & Beauty</p>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/6.jpg') }}" alt="">
-                        <p>Jewelry & Watch</p>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                    <div class="ps-block--category"><a class="ps-block__overlay" href="shop-default.html"></a><img src="{{ asset('frontend/img/categories/7.jpg') }}" alt="">
-                        <p>Technology Toys</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  
  
-    <div class="ps-product-list ps-new-arrivals">
+    <div class="ps-product-list ps-new-arrivals mt-5">
         <div class="ps-container">
             <div class="ps-section__header">
                 <h3>Hot New Arrivals</h3>
