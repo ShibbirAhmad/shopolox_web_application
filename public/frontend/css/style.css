@@ -14314,6 +14314,8 @@ textarea.form-control {
 
 .mega-menu .mega-menu__column {
   min-width: 180px;
+  min-height: 400px;
+  overflow-y: auto;
 }
 
 .mega-menu .mega-menu__list {

@@ -345,14 +345,9 @@
                                             src="{{ asset('storage/' . $r_product->product_images[0]->image) }}"
                                             alt=""></a>
                                     <ul class="ps-product__actions">
-                                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i
-                                                    class="icon-bag2"></i></a></li>
-                                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i
-                                                    class="icon-eye"></i></a></li>
-                                        <li><a href="#" data-toggle="tooltip" data-placement="top"
-                                                title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i
-                                                    class="icon-chart-bars"></i></a></li>
+                                        <li><a class="quick_cart_btn" r_product={{ $product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
+                                        <li><a  title="Quick View"><i class="icon-eye"></i></a></li>
+                                        <li><a  title="Add to Whishlist"><i class="icon-heart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="ps-product__container">

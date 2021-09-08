@@ -14,6 +14,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductAttribute;
 use App\Models\ProductSubCategory;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\ProductSubSubCategory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -86,14 +87,15 @@ class IndexController extends Controller
 
 
     public function categoryWiseProduct($slug){
-
+            
             $category = Category::where('slug',$slug)->first();
             $related_categories=Category::where('status',1)->where('id','!=',$category->id)->with('sub_categories')->get();
             //finding related sub category products
             $c_products_id=ProductCategory::where('category_id',$category->id)->select('product_id')->pluck('product_id');
             $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
-          
-            return view('frontend.category_product',compact(['category','products','related_categories']));
+            $brands= Brand::where('status',1)->get();
+
+            return view('frontend.category_product',compact(['category','brands','products','related_categories']));
 
     }
 
@@ -106,8 +108,9 @@ class IndexController extends Controller
             //finding related sub category products
             $c_products_id=ProductSubCategory::where('sub_category_id',$category->id)->select('product_id')->pluck('product_id');
             $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
-        
-            return view('frontend.sub_category_product',compact(['category','products','related_categories']));
+            $brands= Brand::where('status',1)->get();
+
+            return view('frontend.sub_category_product',compact(['category','brands','products','related_categories']));
 
     }
 
@@ -120,13 +123,14 @@ class IndexController extends Controller
         //finding related sub category products
         $c_products_id=ProductSubSubCategory::where('sub_sub_category_id',$category->id)->select('product_id')->pluck('product_id');
         $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
-      
-        return view('frontend.sub_sub_category_product',compact(['category','products','related_categories']));
+        $brands= Brand::where('status',1)->get();
 
-}
+        return view('frontend.sub_sub_category_product',compact(['category','brands','products','related_categories']));
 
+   }
 
-
+     
+ 
 
     /**
      * Store a newly created resource in storage.
