@@ -201,6 +201,42 @@
 
          });
 
+         //quick view product 
+         $('.ps-product__actions').find('.quick_view_btn').on('click',function(){
+              let $prdouct_id = $(this).attr('product_id') ;
+              let $action = '{{ url('api/quick/view/product') }}';
+              let csrf_token = $('meta[name="csrf-token"]').attr('content');
+            };
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action+'/'+$prdouct_id,
+                method: 'GET',
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        getCartContent();
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+         });
+
         //get cart content
         function getCartContent() {
 

@@ -437,3 +437,127 @@
         </ul>
     </div>
 </div>
+
+
+
+    {{-- product quick view modal  --}}
+
+    <div class="modal fade show" id="product-quickview" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-modal="true" style="padding-right: 16px; display: block;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content"><span class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
+        <article class="ps-product--detail ps-product--fullwidth ps-product--quickview"><div class="ps-product__header">
+            <div class="ps-product__thumbnail" data-vertical="false">
+                <div class="ps-product__images slick-initialized slick-slider" data-arrow="true">
+                    <img src="https://martfury.botble.com/storage/products/1.jpg" alt="Smart Watches">
+                </div>
+            </div>
+            <div class="ps-product__info">
+                <h1><a href="https://martfury.botble.com/products/smart-watches">Smart Watches</a></h1>
+                <div class="ps-product__meta">
+            </div>
+                <h4 class="ps-product__price  sale "><span>$13.37</span>  <del>$40.50 </del> </h4>
+                <div class="ps-product__desc">
+                    <div class="ps-list--dot">
+                    <ul><li> Unrestrained and portable active stereo speaker</li>
+                    <li> Free from the confines of wires and chords</li>
+                    <li> 20 hours of portable capabilities</li>
+                    <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>
+                    <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li></ul>  
+                    </div>
+                </div>
+        <div class="pr_switch_wrap">
+        <div class="product-attributes" data-target="https://martfury.botble.com/product-variation/2">
+        <div class="visual-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color" data-type="visual">
+            <label class="attribute-name">Color</label>
+            <div class="attribute-values">
+                <ul class="visual-swatch color-swatch attribute-swatch">
+                    <li data-slug="green" data-id="1" class="attribute-swatch-item " title="Green">
+                            <div class="custom-radio">
+                                <label>
+                                    <input class="form-control product-filter-item" type="radio" name="attribute_color" value="1" checked="">
+                                    <span style="background-color: #5FB7D4;"></span>
+                                </label>
+                            </div>
+                        </li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-swatches-wrapper attribute-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color" data-type="text">
+            <label class="attribute-name">Size</label>
+            <div class="attribute-values">
+                <ul class="text-swatch attribute-swatch color-swatch">
+                    <li data-slug="m" data-id="7" class="attribute-swatch-item ">
+                            <div>
+                                <label>
+                                    <input class="product-filter-item" type="radio" name="attribute_size" value="7" checked="">
+                                    <span>M</span>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        </div>
+        
+                    </div>
+                    <div class="number-items-available" style="display: none; margin-bottom: 10px;"></div>
+                        <form class="add-to-cart-form" method="POST" action="https://martfury.botble.com/cart/add-to-cart">
+                    <input type="hidden" name="_token" value="KuNmrWJNVOc7BP1YDmIgtXaz6VcGExHMpgBqMRfg">            <div class="ps-product__shopping">
+                        <input type="hidden" name="id" class="hidden-product-id" value="28">
+                        <input type="hidden" name="qty" value="1">
+                                            <button class="ps-btn" type="submit">Add to cart</button>
+                                                    <button class="ps-btn" type="submit" name="checkout">Buy Now</button>
+                                                            <div class="ps-product__actions">
+                            <a class="js-add-to-wishlist-button" href="#" data-url="https://martfury.botble.com/wishlist/2"><i class="icon-heart"></i></a>
+                        
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </article>
+        </div>
+        </div>
+        </div>
+
+
+    {{-- quick view closed  --}}
+
+
+
+
+    {{-- search content  --}}
+
+
+    <div class="ps-panel--search-result active"><div class="ps-panel__content">
+        <div class="ps-product ps-product--wide ps-product--search-result">
+    <div class="ps-product__thumbnail">
+        <a href="https://martfury.botble.com/products/audio-equipment">
+            <img src="https://martfury.botble.com/storage/products/7-300x300.jpg" alt="Audio Equipment">
+        </a>
+    </div>
+        <div class="ps-product__content">
+        <a class="ps-product__title" href="https://martfury.botble.com/products/audio-equipment">Audio Equipment</a>
+                                                            <div class="rating_wrap">
+                    <div class="rating">
+                        <div class="product_rate" style="width: 60%"></div>
+                    </div>
+                    <span class="rating_num">(1)</span>
+                </div>
+                                                    <p class="ps-product__price  sale ">$282.80  <del>$505.00 </del> </p>
+    </div>
+        </div>
+            <div class="ps-product ps-product--wide ps-product--search-result">
+        <div class="ps-product__thumbnail">
+            <a href="https://martfury.botble.com/products/baxter-care-hair-kit-for-bearded-mens">
+                <img src="https://martfury.botble.com/storage/products/22-300x300.jpg" alt="Baxter Care Hair Kit For Bearded Mens">
+            </a>
+        </div>
+            <div class="ps-product__content">
+            <a class="ps-product__title" href="https://martfury.botble.com/products/baxter-care-hair-kit-for-bearded-mens">Baxter Care Hair Kit For Bearded Mens</a>
+                                                                            <p class="ps-product__price ">$434.00 </p>
+        </div>
+    </div>
+    </div>
+    <div class="ps-panel__footer text-center"><a href="https://martfury.botble.com/products?q=men">See all results</a></div>
+    </div>

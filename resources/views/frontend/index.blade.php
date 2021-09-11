@@ -112,7 +112,7 @@
                          @endif  
                             <ul class="ps-product__actions">
                                 <li><a class="quick_cart_btn" product_id={{ $product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
-                                <li><a  title="Quick View"><i class="icon-eye"></i></a></li>
+                                <li><a class="quick_view_btn"  product_id={{ $product->id }} title="Quick View"><i class="icon-eye"></i></a></li>
                                 <li><a  title="Add to Whishlist"><i class="icon-heart"></i></a></li>
                              </ul>
                         </div>
