@@ -25,6 +25,7 @@
 
 <script>
     $(document).ready(function() {
+        
        
         //cart from single product
         $('.ps-product__shopping').find('#cart_btn').on('click', function(e) {
@@ -206,7 +207,7 @@
               let $prdouct_id = $(this).attr('product_id') ;
               let $action = '{{ url('api/quick/view/product') }}';
               let csrf_token = $('meta[name="csrf-token"]').attr('content');
-            };
+
             //ajax action is here
             $.ajax({
                 headers: {
@@ -217,7 +218,60 @@
                 success: function(resp) {
                     console.log(resp)
                     if (resp.status == "OK") {
-                        getCartContent();
+                        let p_colors = "";
+                        let p_size = "" ;
+                        resp.variants.forEach((item)=>{
+                        
+                          
+                            if (item.name==="Black" || item.name==="Red" || item.name==="White" || item.name==="Green" || item.name==="Yellow" || item.name==="Navy") {
+                                p_colors += `<li data-slug="blue" data-id="2"
+                                                    class="attribute-swatch-item"
+                                                    title="${item.name }">
+                                                    <div class="custom-radio">
+                                                        <label>
+                                                            <input
+                                                                class="form-control product-filter-item variant_color"
+                                                                type="radio" name="color"
+                                                                value="${item.name }" >
+                                                            <span
+                                                                class="${item.name }"></span>
+                                                        </label>
+                                                    </div>
+                                                 </li>` 
+                            }else if (item.name==="M" || item.name==="L" || item.name==="XL" || item.name==="XXL" || item.name==="S") {
+                                            p_size += 
+                                            `<li data-slug="xl" data-id="9"
+                                                    class="attribute-swatch-item pe-none">
+                                                    <div>
+                                                        <label>
+                                                            <input class="product-filter-item variant_size"
+                                                                type="radio" name="size"
+                                                                value="${item.name}">
+                                                            <span>${item.name}</span>
+                                                        </label>
+                                                    </div>
+                                                </li>`
+                            }
+                                    
+
+                            $('#product_quickview_modal').find('#quick_p_color_list').html(p_colors);
+                            $('#product_quickview_modal').find('#quick_p_size_list').html(p_size);
+         
+                      });
+
+                     let img  = `<img src="storage/images/thumbnail_img/${resp.product.thumbnail_img}) }}" alt="product imgae">`
+                     $('#product_quickview_modal').find('#quick_p_img_container').html(img) ;
+                     let route = 'http://127.0.0.1:8000/api/add/cart/'+resp.product.id; 
+                     $('#product_quickview_modal').find('#quick_p_cart_btn').attr('route',route); 
+                     $('#product_quickview_modal').find('#quick_p_buy_btn').attr('route',route); 
+                     $('#product_quickview_modal').find('#quick_p_wishlist_btn').attr('route',route); 
+
+                     document.getElementById('quick_p_name').innerHTML = resp.product.name ;
+                     document.getElementById('quick_p_sale_price').innerHTML = resp.product.sale_price ;
+                     document.getElementById('quick_p_regular_price').innerHTML = resp.product.regular_price ;
+                     document.getElementById('quick_p_details').innerHTML = resp.product.details ;
+                     document.getElementById('product_quickview_modal').style.display = "block" ;
+                     
                     } else {
                         Swal.fire({
                             type: 'error',
@@ -237,6 +291,150 @@
 
          });
 
+
+         //quick product modal close 
+         $('#product_quickview_modal').find('#quick_p_modal_close').on('click', function(e) {
+            $('#product_quickview_modal').hide();
+         });    
+
+
+         //quick product cart from quick view
+         $('#product_quickview_modal').find('#quick_p_cart_btn').on('click', function(e) {
+            console.log("adding cart");
+            let $action = $(this).attr('route');
+            let $quantity = document.getElementById('quick_p_quantity').value;
+            const csrf_token = $('meta[name="csrf-token"]').attr('content');
+            let $color = '';
+            for (var i in document.getElementsByClassName("variant_color")) {
+                if (document.getElementsByClassName("variant_color")[i].checked) {
+                    $color += document.getElementsByClassName("variant_color")[i].value
+                }
+            }
+
+            let $size = '';
+            for (var i in document.getElementsByClassName("variant_size")) {
+                if (document.getElementsByClassName("variant_size")[i].checked) {
+                    $size += document.getElementsByClassName("variant_size")[i].value
+                }
+            }
+
+
+            let $weight = '';
+            for (var i in document.getElementsByClassName("variant_weight")) {
+                if (document.getElementsByClassName("variant_weight")[i].checked) {
+                    $size += document.getElementsByClassName("variant_weight")[i].value
+                }
+            }
+             
+             $data = {
+                    'quantity': $quantity,
+                    'size': $size,
+                    'color': $color,
+                    'weight': $weight,
+                } ;
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action,
+                method: 'POST',
+                data: $data,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        getCartContent();
+                        toastMessage(resp.message);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+         });
+
+         //quick product buy from quick view
+         $('#product_quickview_modal').find('#quick_p_buy_btn').on('click', function(e) {
+            console.log("adding cart");
+            let $action = $(this).attr('route');
+            let $quantity = document.getElementById('quick_p_quantity').value;
+            const csrf_token = $('meta[name="csrf-token"]').attr('content');
+            let $color = '';
+            for (var i in document.getElementsByClassName("variant_color")) {
+                if (document.getElementsByClassName("variant_color")[i].checked) {
+                    $color += document.getElementsByClassName("variant_color")[i].value
+                }
+            }
+
+            let $size = '';
+            for (var i in document.getElementsByClassName("variant_size")) {
+                if (document.getElementsByClassName("variant_size")[i].checked) {
+                    $size += document.getElementsByClassName("variant_size")[i].value
+                }
+            }
+
+
+            let $weight = '';
+            for (var i in document.getElementsByClassName("variant_weight")) {
+                if (document.getElementsByClassName("variant_weight")[i].checked) {
+                    $size += document.getElementsByClassName("variant_weight")[i].value
+                }
+            }
+             
+             $data = {
+                    'quantity': $quantity,
+                    'size': $size,
+                    'color': $color,
+                    'weight': $weight,
+                } ;
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action,
+                method: 'POST',
+                data: $data,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        getCartContent();
+                        toastMessage(resp.message);
+                        var url = "http://127.0.0.1:8000/order";
+                        $(location).attr('href',url);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+         });
+
+        
         //get cart content
         function getCartContent() {
 
@@ -364,6 +562,47 @@
                 error: function(e) {}
             });
         });
+
+
+
+        //quick cart check 
+        $('.ps-product__actions').find('.quick_wishlist_btn').on('click',function(){
+              let $prdouct_id = $(this).attr('product_id') ;
+              let $action = '{{ url('api/add/wishlist') }}';
+              let csrf_token = $('meta[name="csrf-token"]').attr('content');
+              $data = { 'quantity': 1 };
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action+'/'+$prdouct_id,
+                method: 'POST',
+                data: $data,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        document.getElementById('wilist_item_header').innerHTML = resp.wishlist_item ;
+                        toastMessage(resp.message);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+        });
+
 
 
         //category wise sub category

@@ -81,6 +81,11 @@ Route::post('api/add/cart/{id}', [CartController::class, 'addCart'])->name('cart
 Route::post('api/cart/item/update', [CartController::class, 'cartUpdate'])->name('cart_update');
 Route::get('api/cart/remove/{rowId}', [CartController::class, 'cartDestroy'])->name('cart_remove');
 Route::get('api/cart/content', [CartController::class, 'cartContent'])->name('cart_content');
+//wishlist routes
+Route::get('wishlist/view', [CartController::class, 'viewWishlist'])->name('wishlist_view');
+Route::post('api/add/wishlist/{id}', [CartController::class, 'addWishlist'])->name('wishlist_add');
+Route::get('api/wishlist/remove/{rowId}', [CartController::class, 'wishlistDestroy'])->name('wishlist_remove');
+
 //user and customer routes 
 Route::post('api/user/registration', [LoginController::class, 'userRegistration'])->name('user_registration');
 //otp login routes

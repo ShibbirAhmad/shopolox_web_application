@@ -16,6 +16,8 @@ use App\Models\ProductSubCategory;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\ProductSubSubCategory;
+use App\Models\Variant;
+use Attribute;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 
@@ -140,10 +142,15 @@ class IndexController extends Controller
      */
     public function productQickView($id){
         
-           $product = Product::findOrFail($id);
-           return response()->json([
+            $product = Product::select('id','name','details','regular_price','sale_price','thumbnail_img')->findOrFail($id);
+            $variants_id=ProductVariant::where('product_id',$product->id)->select('variant_id')->pluck('variant_id');
+            $variants=Variant::whereIn('id',$variants_id)->select('name')->get();  
+                            
+            return response()->json([
                'status' => 'OK',
                'product' => $product,
+               'variants' => $variants,
+
            ]);
     }
 

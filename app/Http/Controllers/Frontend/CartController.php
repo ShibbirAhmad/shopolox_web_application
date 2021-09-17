@@ -129,4 +129,54 @@ class CartController extends Controller
 
 
     }
+
+
+
+
+
+
+    public function addWishlist(Request $request,$id){
+
+           $product=Product::findOrFail($id);
+           Cart::instance('wishlist')->add($product->id,$product->name,1,$product->sale_price,$product->sale_price,['size' => 'm']);
+            return response()->json([
+                'status'=>'OK',
+                'message'=>$product->name.' added to  wishlist',
+                'wishlist_item'=>Cart::instance('wishlist')->count(),
+            ]);
+            
+
+    }
+
+
+
+    public function viewWishlist(){
+
+      return  $wishlist_content=Cart::instance('wishlist')->content();
+        // $wishlist_item = Cart::instance('wishlist')->count();
+        // return view('frontend.wishlist',compact(['wishlist_content','wishlist_item']));
+
+        }
+
+
+
+
+    public  function wishlistDestroy($rowId){
+        Cart::remove($rowId);
+        $cart_total=Cart::subtotal();
+        return response()->json([
+            'status'=>'OK',
+            'message' => 'item removed from your cart',
+            'cart_total'=>$cart_total,
+            'item_count'=>Cart::count(),
+        ]);
+
+
+    }
+
+
+
+
+
+
 }

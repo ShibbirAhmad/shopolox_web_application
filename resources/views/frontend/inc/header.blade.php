@@ -2,7 +2,7 @@
         $cart_content=Cart::content();
         $cart_total=Cart::subtotal();
         $cart_item=Cart::count();
-
+        $wishlist_item = Cart::instance('wishlist')->count();
         $categories=App\Models\Category::where('status',1)->with('sub_categories.sub_sub_categories')->get();
 @endphp
 <header class="header header--1" data-sticky="true">
@@ -63,7 +63,7 @@
                 </form>
             </div>
             <div class="header__right">
-                <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
+                <div class="header__actions"><a class="header__extra" href="{{ route('wishlist_view') }}"><i class="icon-heart"></i><span id="wilist_item_header"><i>{{ $wishlist_item }}</i></span></a>
                     <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i id="__cart_count">{{ $cart_item }}</i></span></a>
                         <div id="__cart_content_parent" class="ps-cart__content">
                             <div id="__cart_content_container" class="ps-cart__items">
@@ -442,77 +442,75 @@
 
     {{-- product quick view modal  --}}
 
-    <div class="modal fade show" id="product-quickview" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-modal="true" style="padding-right: 16px; display: block;">
+    <div class="modal  " id="product_quickview_modal" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-modal="true" style="padding-right: 16px;">
         <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content"><span class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
+        <div class="modal-content"><span id="quick_p_modal_close" class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
         <article class="ps-product--detail ps-product--fullwidth ps-product--quickview"><div class="ps-product__header">
             <div class="ps-product__thumbnail" data-vertical="false">
-                <div class="ps-product__images slick-initialized slick-slider" data-arrow="true">
-                    <img src="https://martfury.botble.com/storage/products/1.jpg" alt="Smart Watches">
+                <div class="ps-product__images " id="quick_p_img_container" >
+           
                 </div>
             </div>
-            <div class="ps-product__info">
-                <h1><a href="https://martfury.botble.com/products/smart-watches">Smart Watches</a></h1>
+            <div style="margin-bottom:20px;" class="ps-product__info">
+                <h4 id="quick_p_name">  </h4>
                 <div class="ps-product__meta">
             </div>
-                <h4 class="ps-product__price  sale "><span>$13.37</span>  <del>$40.50 </del> </h4>
+                <h4 class="ps-product__price  sale "><span>&#2547;</span><span id="quick_p_sale_price"></span>  <del>&#2547;</del><del id="quick_p_regular_price"></del> </h4>
                 <div class="ps-product__desc">
                     <div class="ps-list--dot">
-                    <ul><li> Unrestrained and portable active stereo speaker</li>
-                    <li> Free from the confines of wires and chords</li>
-                    <li> 20 hours of portable capabilities</li>
-                    <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>
-                    <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li></ul>  
+                        <p id="quick_p_details">  </p>  
                     </div>
                 </div>
         <div class="pr_switch_wrap">
-        <div class="product-attributes" data-target="https://martfury.botble.com/product-variation/2">
-        <div class="visual-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color" data-type="visual">
+        <div class="product-attributes" >
+        {{-- for color  --}}
+         <div class="visual-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
+            data-type="visual">
             <label class="attribute-name">Color</label>
             <div class="attribute-values">
-                <ul class="visual-swatch color-swatch attribute-swatch">
-                    <li data-slug="green" data-id="1" class="attribute-swatch-item " title="Green">
-                            <div class="custom-radio">
-                                <label>
-                                    <input class="form-control product-filter-item" type="radio" name="attribute_color" value="1" checked="">
-                                    <span style="background-color: #5FB7D4;"></span>
-                                </label>
-                            </div>
-                        </li>
+                <ul id="quick_p_color_list" class="visual-swatch color-swatch attribute-swatch">
+                   
+                </ul>
+            </div>
+         </div>
+        {{-- for color  --}}
+
+        {{-- for size  --}}
+
+
+        <div class="text-swatches-wrapper attribute-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
+            data-type="text">
+            <label class="attribute-name">Size</label>
+            <div class="attribute-values">
+                <ul id="quick_p_size_list"  class="text-swatch attribute-swatch color-swatch">
+
                 </ul>
             </div>
         </div>
-        <div class="text-swatches-wrapper attribute-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color" data-type="text">
-            <label class="attribute-name">Size</label>
-            <div class="attribute-values">
-                <ul class="text-swatch attribute-swatch color-swatch">
-                    <li data-slug="m" data-id="7" class="attribute-swatch-item ">
-                            <div>
-                                <label>
-                                    <input class="product-filter-item" type="radio" name="attribute_size" value="7" checked="">
-                                    <span>M</span>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-            </div>
-        </div>
+
+        {{-- for size  --}}
+
+
         </div>
         
                     </div>
                     <div class="number-items-available" style="display: none; margin-bottom: 10px;"></div>
-                        <form class="add-to-cart-form" method="POST" action="https://martfury.botble.com/cart/add-to-cart">
-                    <input type="hidden" name="_token" value="KuNmrWJNVOc7BP1YDmIgtXaz6VcGExHMpgBqMRfg">            <div class="ps-product__shopping">
-                        <input type="hidden" name="id" class="hidden-product-id" value="28">
-                        <input type="hidden" name="qty" value="1">
-                                            <button class="ps-btn" type="submit">Add to cart</button>
-                                                    <button class="ps-btn" type="submit" name="checkout">Buy Now</button>
-                                                            <div class="ps-product__actions">
-                            <a class="js-add-to-wishlist-button" href="#" data-url="https://martfury.botble.com/wishlist/2"><i class="icon-heart"></i></a>
-                        
+                    <figure>
+                        <figcaption>Quantity</figcaption>
+                        <div class="form-group--number">
+                            <button onclick="incrementQty()" class="up"><i class="fa fa-plus"></i></button>
+                            <button onclick="dicrementQty()" class="down"><i
+                                    class="fa fa-minus"></i></button>
+                            <input id="quick_p_quantity" class="form-control" name="quantity" type="text"
+                                value="1">
                         </div>
+                    </figure>
+                    <br>
+                        <button class="ps-btn" id="quick_p_cart_btn" type="submit">Add to cart</button>
+                        <button class="ps-btn" id="quick_p_buy_btn" type="submit" name="checkout">Buy Now</button>
+                        <a class="ps-btn js-add-to-wishlist-button" id="quick_p_wishlist_btn" href="#" ><i class="icon-heart"></i></a>
+                     
                     </div>
-                </form>
             </div>
         </div>
         </article>
@@ -561,3 +559,21 @@
     </div>
     <div class="ps-panel__footer text-center"><a href="https://martfury.botble.com/products?q=men">See all results</a></div>
     </div>
+
+
+    <script>
+        function incrementQty() {
+            let input_value = document.getElementById('quick_p_quantity').value;
+            document.getElementById('quick_p_quantity').value = parseInt(input_value) + 1;
+        }
+
+        function dicrementQty() {
+            let input_value = document.getElementById('quick_p_quantity').value;
+            if (parseInt(input_value) > 1) {
+                document.getElementById('quick_p_quantity').value = parseInt(input_value) - 1;
+            } else {
+                alert('quantity should be at least one');
+            }
+
+        }
+    </script>

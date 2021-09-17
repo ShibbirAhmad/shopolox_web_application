@@ -6,18 +6,18 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
-use Illuminate\Support\Str;
 use App\Models\ProductImage;
 use App\Models\ShipmentInfo;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
+use App\Models\RequestProduct;
 use App\Models\ProductCategory;
 use App\Models\ProductAttribute;
 use App\Models\ProductSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\ProductSubSubCategory;
-use App\Models\RequestProduct;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 
 class productController extends Controller
@@ -116,6 +116,17 @@ class productController extends Controller
             //save product multiple image in store directory
             if ($request->hasFile('images')) {
             $files = $request->file('images');
+
+            //make thumnail image
+            $filename = time() .$files[0]->getClientOriginalName();
+            $image_resize = Image::make($files[0]->getRealPath());
+            $image_resize->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path('storage/images/thumbnail_img/'.$filename));
+            $product->thumbnail_img = $filename;
+            $product->save();
+
             foreach ($files as $file) {
                 $product_image = new ProductImage();
                 $product_image->product_id = $product->id;
@@ -213,6 +224,7 @@ class productController extends Controller
             $c_product->sale_price = $product->sale_price;
             $c_product->details = $product->details;
             $c_product->status = $product->status ;
+            $c_product->thumbnail_img = $product->thumbnail_img;
             $c_product->stock = 0;
             $c_product->brand_id = $product->brand_id ?? null ;
             $c_product->shiping_info_id = $product->shiping_info_id ?? null ;
@@ -355,6 +367,17 @@ class productController extends Controller
             //save product multiple image in store directory
             if ($request->hasFile('images')) {
             $files = $request->file('images');
+
+            //make thumnail image
+            $filename = time() .$files[0]->getClientOriginalName();
+            $image_resize = Image::make($files[0]->getRealPath());
+            $image_resize->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path('storage/images/thumbnail_img/'.$filename));
+            $product->thumbnail_img = $filename;
+            $product->save();
+
             foreach ($files as $file) {
                 $product_image = new ProductImage();
                 $product_image->product_id = $product->id;
