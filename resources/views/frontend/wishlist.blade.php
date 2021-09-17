@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'cart details')
+@section('title', 'wishlist products')
 
 @section('content')
     @parent
@@ -9,8 +9,7 @@
         <div class="ps-breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="shop-default.html">Shop</a></li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
                     <li>Whishlist</li>
                 </ul>
             </div>
@@ -23,8 +22,6 @@
                             <thead>
                                 <tr>
                                     <th>Product </th>
-                                    <th>Size </th>
-                                    <th>Color </th>
                                     <th>PRICE</th>
                                     <th>QUANTITY</th>
                                     <th>TOTAL</th>
@@ -32,27 +29,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               @foreach ($cart_content as $item)
+                               @foreach ($wishlist_content as $item)
                                     <tr class="{{$item->rowId  }}" >
                                         <td>
                                             <div class="ps-product--cart">
-                                                <div class="ps-product__thumbnail"><a href="{{ route('product',$item->options->slug) }}"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
+                                                <div class="ps-product__thumbnail"><a href="{{ route('product',$item->options->slug) }}"><img src="{{ asset('storage/images/thumbnail_img/'.$item->options->image) }}" ></a></div>
                                                 <div class="ps-product__content"><a href="{{ route('product',$item->options->slug) }}">{{ $item->name }}</a>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td > {{ $item->options->size ? $item->options->size : 'Null' }} </td>
-                                        <td > {{ $item->options->color ? $item->options->color : 'Null' }} </td>
-                                        <td class="price">&#2547;{{ $item->price }}</td>
+                                       <td class="price">&#2547;{{ $item->price }}</td>
                                         <td>
                                             <div class="form-group--number">
-                                                <button cart_row_id="{{ $item->rowId }}"   class="up cart_item_increment">+</button>
-                                                <button cart_row_id="{{ $item->rowId }}"  class="down cart_item_dicrement">-</button>
-                                                <input class="form-control" type="text" id="__cart_update_input_{{ $item->rowId }}" value="{{ $item->qty }}">
+                                                <button  class="up ">+</button>
+                                                <button  class="down ">-</button>
+                                                <input class="form-control" type="text" id="__wishlist_input_{{ $item->rowId }}" value="{{ $item->qty }}">
                                             </div>
                                         </td>
-                                        <td>  <span>&#2547;</span><span id="__total_of_cart_item_{{ $item->rowId }}" > {{ $item->qty * $item->price }} </span></td>
-                                        <td><a  class="__cart_destroy__"><i cart_row_id="{{ $item->rowId }}" class="icon-cross __remove_cart"></i></a></td>
+                                        <td>  <span>&#2547;</span><span id="__total_of_wishlist_item_{{ $item->rowId }}" > {{ $item->qty * $item->price }} </span></td>
+                                        <td style="text-align: center !important" >
+                                            <a class="ps-btn " style="font-size: 14px;" route="{{ route('cart_add', $item->id) }}">add to cart</a>
+                                            <a style="cursor: pointer"  class="__wishlist_destroy__"><i wishlist_row_id="{{ $item->rowId }}" class="icon-cross __remove_wishlist"></i></a></td>
                                     </tr>
                                                                   
                                @endforeach
@@ -61,17 +58,7 @@
                         </table>
                     </div>
                  </div>
-                <div class="ps-section__footer">
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-block--shopping-total">
-                                <div class="ps-block__header">
-                                    <p>Subtotal  <span>&#2547;</span><span id="__cart_total_in_cart_view">{{ $cart_total }}</span></p>
-                                </div>
-                            </div><a class="ps-btn ps-btn--fullwidth" href="{{ route('order.index') }}">Proceed to checkout</a>
-                        </div>
-                    </div>
-                </div>
+ 
             </div>
         </div>
     </div>
@@ -81,5 +68,21 @@
 
 @push('extra_js')
 
+    <script>
+        function incrementQty() {
+            let input_value = document.getElementById('p_quantity').value;
+            document.getElementById('p_quantity').value = parseInt(input_value) + 1;
+        }
+
+        function dicrementQty() {
+            let input_value = document.getElementById('p_quantity').value;
+            if (parseInt(input_value) > 1) {
+                document.getElementById('p_quantity').value = parseInt(input_value) - 1;
+            } else {
+                alert('quantity should be at least one');
+            }
+
+        }
+    </script>
 
 @endpush

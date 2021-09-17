@@ -70,7 +70,7 @@
                                @foreach ($cart_content as $item)
 
                                 <div class="ps-product--cart-mobile {{ $item->rowId }}">
-                                    <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
+                                    <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/images/thumbnail_img/'.$item->options->image) }}" alt=""></a></div>
                                     <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="{{ $item->rowId }}" class="icon-cross __remove_cart"></i></a>{{ $item->name }}
                                        <small><span id="header_cart_qty_{{ $item->rowId }}" > {{ $item->qty }} </span> x &#2547;{{ $item->price }}</small>
                                     </div>

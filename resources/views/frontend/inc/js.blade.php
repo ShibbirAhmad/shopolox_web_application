@@ -367,7 +367,7 @@
 
          //quick product buy from quick view
          $('#product_quickview_modal').find('#quick_p_buy_btn').on('click', function(e) {
-            console.log("adding cart");
+
             let $action = $(this).attr('route');
             let $quantity = document.getElementById('quick_p_quantity').value;
             const csrf_token = $('meta[name="csrf-token"]').attr('content');

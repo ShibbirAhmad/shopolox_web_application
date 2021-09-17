@@ -39,7 +39,7 @@
         right: 10px;
         top: 10px;
         z-index: 10;
-        cursor: pointer;
+        cursor: pointer
     }
 
 
@@ -59,77 +59,8 @@
             flex-flow: row nowrap;
         }
 
-        .ps-product--detail .ps-product__header .ps-product__thumbnail {
-            max-width: 43%;
-        }
-
-        .ps-product--detail .ps-product__thumbnail {
-            flex-flow: row wrap;
-        }
-
-        .ps-product--detail .ps-product__thumbnail {
-            align-content: flex-start;
-            display: flex;
-            flex-flow: row-reverse nowrap;
-            width: 100%;
-        }
         
-        /* .ps-product--quickview .ps-product__images {
-            position: relative;
-        }
-
-        .ps-product--detail .ps-product__thumbnail> {
-            width: 100%;
-        } */
-
-        /* .ps-product--quickview .ps-product__images .slick-arrow:first-child {
-            left: 20px;
-        } */
-/* 
-        .ps-product--quickview .ps-product__images .slick-arrow {
-            background-color: hsla(0,0%,100%,.5);
-            border-radius: 4px;
-            color: #000;
-            font-size: 18px;
-            height: 35px;
-            opacity: 0;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            visibility: hidden;
-            width: 35px;
-            z-index: 100;
-        } */
-
-        /* .slick-list {
-            position: relative;
-            display: block;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        } */
-
-        /* .ps-product--quickview .ps-product__images .slick-arrow:last-child {
-            right: 10px;
-        } */
-
-
-        /* .ps-product--quickview .ps-product__images .slick-arrow {
-            background-color: hsla(0,0%,100%,.5);
-            border-radius: 4px;
-            color: #000;
-            font-size: 18px;
-            height: 35px;
-            opacity: 0;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            visibility: hidden;
-            width: 35px;
-            z-index: 100;
-        } */
-
-
+    
    /* quick view modal style  */
 
 

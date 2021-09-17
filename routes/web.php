@@ -51,7 +51,7 @@ use App\Http\Controllers\Admin\OrderController as backendOrderController;
 Route::get('/', [IndexController::class, 'index']);
 Route::get('product/{slug}', [IndexController::class, 'product'])->name('product');
 Route::get('api/quick/view/product/{id}', [IndexController::class, 'productQickView'])->name('quick_view');
-Route::get('{slug}', [IndexController::class, 'categoryWiseProduct'])->name('category_product');
+Route::get('category/{slug}', [IndexController::class, 'categoryWiseProduct'])->name('category_product');
 Route::get('collections/{slug}', [IndexController::class, 'subCategoryWiseProduct'])->name('sub_category_product');
 Route::get('product/collections/{slug}', [IndexController::class, 'subSubCategoryWiseProduct'])->name('sub_sub_category_product');
 
