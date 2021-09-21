@@ -163,7 +163,7 @@
         });
 
 
-        //quick cart check 
+         //quick cart check 
          $('.ps-product__actions').find('.quick_cart_btn').on('click',function(){
               let $prdouct_id = $(this).attr('product_id') ;
               let $action = '{{ url('api/add/cart') }}';
@@ -259,7 +259,7 @@
          
                       });
 
-                     let img  = `<img src="storage/images/thumbnail_img/${resp.product.thumbnail_img}) }}" alt="product imgae">`
+                     let img  = `<img src="/storage/images/thumbnail_img/${resp.product.thumbnail_img}" class="quick_p_image">`
                      $('#product_quickview_modal').find('#quick_p_img_container').html(img) ;
                      let route = 'http://127.0.0.1:8000/api/add/cart/'+resp.product.id; 
                      $('#product_quickview_modal').find('#quick_p_cart_btn').attr('route',route); 
@@ -435,6 +435,7 @@
          });
 
         
+       
         //get cart content
         function getCartContent() {
 
@@ -455,7 +456,7 @@
                         Object.keys(resp.cart_content).forEach(item => {
                             let ele = resp.cart_content[item]
                             template += ` <div class="ps-product--cart-mobile ${ele.rowId}">
-                            <div class="ps-product__thumbnail"><img src="/storage/${ele.options.image.image}" > </div>
+                            <div class="ps-product__thumbnail"><img src="/storage/images/thumbnail_img/${ele.options.image}" > </div>
                             <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="${ele.rowId}" class="icon-cross __remove_cart"></i></a>${ele.name }
                                 <small> <span id="header_cart_qty_${ele.rowId}"> ${ele.qty} </span> x &#2547; ${ele.price}</small>
                                 </div>
@@ -603,6 +604,72 @@
 
         });
 
+
+         //quick cart check 
+         $('body').on('click','.__wishlist_to_cart',function(){
+
+              let $action =  $(this).attr('route');
+              let csrf_token = $('meta[name="csrf-token"]').attr('content');
+              let $rowId =  $(this).attr('rowId');
+              let qty = document.getElementById('__wishlist_input_'+$rowId).value
+              $data = { 'quantity': qty, 'size': '', 'color': '', 'weight': '','wishlist_rowId' : $rowId };
+            //ajax action is here
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
+                url: $action,
+                method: 'POST',
+                data: $data,
+                success: function(resp) {
+                    console.log(resp)
+                    if (resp.status == "OK") {
+                        getCartContent();
+                        document.getElementById('wilist_item_header').innerHTML = resp.wishlist_item ;
+                        $('body').find('.'+$rowId).remove(); 
+                        toastMessage(resp.message);
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }
+
+                },
+                //error function
+                error: function(e) {
+                    console.log(e);
+                    alert("something went wrong");
+                }
+            });
+
+         });
+
+
+        //remove  wishlist content
+        $('body').on('click','.__remove_wishlist',function(e){
+            let $action = '{{ url('api/wishlist/remove') }}';
+            $rowId = $(this).attr('wishlist_row_id') ;
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                url: $action + '/' + $rowId,
+                type: "GET",
+                success: function(resp) {
+                    console.log(resp);
+                    if (resp.status == "OK") {
+                        document.getElementById('wilist_item_header').innerHTML = resp.wishlist_item ;
+                        $('body').find('.'+$rowId).remove(); 
+                        toastMessage(resp.message);
+                    }
+                },
+                error: function(e) {}
+            });
+        });
 
 
         //category wise sub category

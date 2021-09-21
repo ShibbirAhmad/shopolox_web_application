@@ -23,8 +23,6 @@
                                 <tr>
                                     <th>Product </th>
                                     <th>PRICE</th>
-                                    <th>QUANTITY</th>
-                                    <th>TOTAL</th>
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
@@ -39,17 +37,11 @@
                                             </div>
                                         </td>
                                        <td class="price">&#2547;{{ $item->price }}</td>
-                                        <td>
-                                            <div class="form-group--number">
-                                                <button  class="up ">+</button>
-                                                <button  class="down ">-</button>
-                                                <input class="form-control" type="text" id="__wishlist_input_{{ $item->rowId }}" value="{{ $item->qty }}">
-                                            </div>
-                                        </td>
-                                        <td>  <span>&#2547;</span><span id="__total_of_wishlist_item_{{ $item->rowId }}" > {{ $item->qty * $item->price }} </span></td>
+                                     
+                                     
                                         <td style="text-align: center !important" >
-                                            <a class="ps-btn " style="font-size: 14px;" route="{{ route('cart_add', $item->id) }}">add to cart</a>
-                                            <a style="cursor: pointer"  class="__wishlist_destroy__"><i wishlist_row_id="{{ $item->rowId }}" class="icon-cross __remove_wishlist"></i></a></td>
+                                            <a class="ps-btn __wishlist_to_cart" rowId="{{ $item->rowId }}" style="font-size: 14px;"  route="{{ route('cart_add', $item->id) }}">add to cart</a>
+                                            <a style="cursor: pointer"  ><i wishlist_row_id="{{ $item->rowId }}" class="icon-cross __remove_wishlist"></i></a></td>
                                     </tr>
                                                                   
                                @endforeach

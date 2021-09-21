@@ -111,7 +111,6 @@ class productController extends Controller
             $product->seo_title = $request->seo_title ?? null ;
             $product->seo_description = $request->seo_description ?? null ;
             $product->collection_type = $request->collection ?? null ;
-            $product->save();
 
             //save product multiple image in store directory
             if ($request->hasFile('images')) {
@@ -270,7 +269,7 @@ class productController extends Controller
 
                 //save the product categories
                 $exist_p_sub_sub_categories= ProductSubSubCategory::where('product_id',$product->id)->get();
-                if (!empty($exist_p_sub_sub_categories)) {
+                if (count($exist_p_sub_sub_categories) > 0) {
                     $p_sub_sub_category = new ProductSubSubCategory();
                     $p_sub_sub_category->product_id = $c_product->id;
                     $p_sub_sub_category->sub_sub_category_id = $exist_p_sub_sub_categories[0]->sub_sub_category_id;
@@ -279,7 +278,7 @@ class productController extends Controller
 
                 //save the product properties
                 $exist_attributes = ProductAttribute::where('product_id',$product->id)->get();
-                if (!empty($exist_attributes)) {
+                if (count($exist_attributes) > 0) {
                         $p_attribute = new ProductAttribute();
                         $p_attribute->product_id = $c_product->id;
                         $p_attribute->attribute_id = $exist_attributes[0]->attribute_id;
@@ -287,7 +286,7 @@ class productController extends Controller
                 }
                 //save the product variants
                 $exist_p_variants = ProductVariant::where('product_id',$product->id)->get();
-                if (!empty($exist_p_variants)) {
+                if (count($exist_p_variants) > 0) {
                         $product_variant = new ProductVariant();
                         $product_variant->product_id = $c_product->id;
                         $product_variant->variant_id = $exist_p_variants[0]->variant_id;

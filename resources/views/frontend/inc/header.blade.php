@@ -446,9 +446,9 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content"><span id="quick_p_modal_close" class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
         <article class="ps-product--detail ps-product--fullwidth ps-product--quickview"><div class="ps-product__header">
-            <div class="ps-product__thumbnail" data-vertical="false">
+            <div class="ps-product__thumbnail" >
                 <div class="ps-product__images " id="quick_p_img_container" >
-           
+              
                 </div>
             </div>
             <div style="margin-bottom:20px;" class="ps-product__info">
@@ -522,43 +522,6 @@
     {{-- quick view closed  --}}
 
 
-
-
-    {{-- search content  --}}
-
-
-    <div class="ps-panel--search-result active"><div class="ps-panel__content">
-        <div class="ps-product ps-product--wide ps-product--search-result">
-    <div class="ps-product__thumbnail">
-        <a href="https://martfury.botble.com/products/audio-equipment">
-            <img src="https://martfury.botble.com/storage/products/7-300x300.jpg" alt="Audio Equipment">
-        </a>
-    </div>
-        <div class="ps-product__content">
-        <a class="ps-product__title" href="https://martfury.botble.com/products/audio-equipment">Audio Equipment</a>
-                                                            <div class="rating_wrap">
-                    <div class="rating">
-                        <div class="product_rate" style="width: 60%"></div>
-                    </div>
-                    <span class="rating_num">(1)</span>
-                </div>
-                                                    <p class="ps-product__price  sale ">$282.80  <del>$505.00 </del> </p>
-    </div>
-        </div>
-            <div class="ps-product ps-product--wide ps-product--search-result">
-        <div class="ps-product__thumbnail">
-            <a href="https://martfury.botble.com/products/baxter-care-hair-kit-for-bearded-mens">
-                <img src="https://martfury.botble.com/storage/products/22-300x300.jpg" alt="Baxter Care Hair Kit For Bearded Mens">
-            </a>
-        </div>
-            <div class="ps-product__content">
-            <a class="ps-product__title" href="https://martfury.botble.com/products/baxter-care-hair-kit-for-bearded-mens">Baxter Care Hair Kit For Bearded Mens</a>
-                                                                            <p class="ps-product__price ">$434.00 </p>
-        </div>
-    </div>
-    </div>
-    <div class="ps-panel__footer text-center"><a href="https://martfury.botble.com/products?q=men">See all results</a></div>
-    </div>
 
 
     <script>

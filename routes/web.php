@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 //frontedn classes
+use App\Http\Controllers\Frontend\SslCommerzPaymentController ;
 use App\Http\Controllers\Frontend\IndexController ;
 use App\Http\Controllers\Frontend\CartController ;
 use App\Http\Controllers\Frontend\OrderController ;
@@ -61,6 +62,23 @@ Route::group([ 'middleware' => ['auth','authuser'] ], function(){
         'order' => OrderController::class ,
     ]);
     //order routes
+
+            
+    // SSLCOMMERZ Start
+    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+    Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+    //SSLCOMMERZ END
+
+    //authenticated user routes 
     Route::view('user/profile', 'frontend.user.profile')->name('profile');
     Route::view('new/password','frontend.user.new_password') ;
     Route::view('change/password','frontend.user.change_password') ;

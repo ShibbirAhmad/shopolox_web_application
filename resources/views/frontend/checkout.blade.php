@@ -81,7 +81,7 @@
                                                     <tbody>
                                                         @foreach ($cart_content as $item)
                                                         <tr>
-                                                            <td> <a href="{{ route('product',$item->options->slug)  }}"> <img class="checkout_c_img" src="{{ asset('storage/'.$item->options->image->image) }}" > </a> </td>
+                                                            <td> <a href="{{ route('product',$item->options->slug)  }}"> <img class="checkout_c_img" src="{{ asset('storage/images/thumbnail_img/'.$item->options->image) }}" > </a> </td>
                                                             <td><a href="{{ route('product',$item->options->slug)  }}">  {{ $item->name }} × {{ $item->qty }}</a>
                                                             </td>
                                                             <td>&#2547;{{ $item->price }}</td>
@@ -142,6 +142,16 @@
 
 @endsection
 
+
+@push('extra_css')
+
+    <style> 
+     h3,h4 {
+         font-family: sans-serif !important;
+     }
+    </style>
+
+@endpush
 
 @push('extra_js')
 

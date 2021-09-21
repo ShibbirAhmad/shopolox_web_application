@@ -37,6 +37,11 @@ class CartController extends Controller
                $size = $request->size ;
            }
 
+           //if cart from wishlist 
+           if (!empty($request->wishlist_rowId)) {
+               Cart::instance('wishlist')->remove($request->wishlist_rowId);
+           }
+
             Cart::add([
                 'id' => $product->id,
                 'name'=>$product->name,
@@ -56,7 +61,8 @@ class CartController extends Controller
 
         return response()->json([
             'status'=>'OK',
-            'message'=>$product->name.' added your cart'
+            'message'=>$product->name.' added your cart',
+            'wishlist_item'=>Cart::instance('wishlist')->count(),
         ]);
         
 
@@ -159,14 +165,13 @@ class CartController extends Controller
 
 
     public  function wishlistDestroy($rowId){
-        Cart::remove($rowId);
-        $cart_total=Cart::subtotal();
-        return response()->json([
-            'status'=>'OK',
-            'message' => 'item removed from your cart',
-            'cart_total'=>$cart_total,
-            'item_count'=>Cart::count(),
-        ]);
+
+            Cart::instance('wishlist')->remove($rowId);
+            return response()->json([
+                'status'=>'OK',
+                'message' => 'item removed from your wishlist',
+                'wishlist_item'=>Cart::instance('wishlist')->count(),
+            ]);
 
 
     }

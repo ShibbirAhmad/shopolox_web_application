@@ -102,7 +102,7 @@
                    @foreach ($sub_category->products as $product)
 
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="{{ route('product',$product->slug) }}"> @if( count($product->product_images) > 0)  <img src="{{ asset('storage/'.$product->product_images['0']->image) }}" alt="{{ $product->name }}"> @endif </a>
+                        <div class="ps-product__thumbnail"><a href="{{ route('product',$product->slug) }}">  <img src="{{ asset('storage/images/thumbnail_img/'.$product->thumbnail_img) }}" alt="{{ $product->name }}"> </a>
                          @if ($product->discount > 0 )
                               <div class="ps-product__badge">
                                    @php

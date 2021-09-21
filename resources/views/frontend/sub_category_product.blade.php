@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'product details')
+@section('title', 'sub category product collections')
 
 @section('content')
     @parent
@@ -121,12 +121,12 @@
                                             <div class="ps-product">
                                                 <div class="ps-product__thumbnail"><a
                                                         href="{{ route('product', $product->slug) }}"><img
-                                                            src="{{ asset('storage/' . $product->product_images[0]->image) }}"
+                                                            src="{{  asset('storage/images/thumbnail_img/'.$product->thumbnail_img) }}"
                                                             alt=""></a>
                                                     <ul class="ps-product__actions">
                                                         <li><a class="quick_cart_btn" product_id={{ $product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
-                                                        <li><a  title="Quick View"><i class="icon-eye"></i></a></li>
-                                                        <li><a  title="Add to Whishlist"><i class="icon-heart"></i></a></li>
+                                                        <li><a class="quick_view_btn"  product_id={{ $product->id }} title="Quick View"><i class="icon-eye"></i></a></li>
+                                                        <li><a class="quick_wishlist_btn" product_id={{ $product->id }} title="Add to Whishlist" ><i class="icon-heart"></i></a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="ps-product__container">
