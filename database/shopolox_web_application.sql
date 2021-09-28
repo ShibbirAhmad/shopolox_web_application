@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2021 at 06:41 PM
+-- Generation Time: Sep 28, 2021 at 09:09 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.3.23
 
@@ -93,8 +93,8 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `url`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'https://shopolox.com/mens-100', 'images/banner/dMBSR1PtpFrg57xD2vYQQzxq55ws6LWvTTiXYxHE.png', 1, '2021-06-14 10:29:31', '2021-07-13 12:14:09'),
-(2, 'https://shopolox.com/womens-100', 'images/banner/PCWoALtp3SzSudeVIcbL30m4P7oqvB8WrflA2JGO.jpg', 1, '2021-07-13 12:16:13', '2021-07-13 12:16:13');
+(1, 'https://shopolox.com/mens-100', 'images/banner/1EpQEzSPB7Bl7XFvxr7wvRUTSzV5USbcVuMfYlq6.png', 1, '2021-06-14 10:29:31', '2021-09-04 11:05:39'),
+(2, 'https://shopolox.com/womens-100', 'images/banner/ZFPJbskohRmSQ2eFYhkASSygqCFvIaNBMXfrocXo.jpg', 1, '2021-07-13 12:16:13', '2021-09-04 11:05:24');
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,8 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `slug`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Daraz', 'daraz', 'images/brand/UAsl0jBWsLbt7ooZidIvnBQ4l9yX1GV3zPjWyPCv.jpg', 1, '2021-06-14 10:29:31', '2021-06-14 10:29:31');
+(1, 'Daraz', 'daraz', 'images/brand/UAsl0jBWsLbt7ooZidIvnBQ4l9yX1GV3zPjWyPCv.jpg', 1, '2021-06-14 10:29:31', '2021-06-14 10:29:31'),
+(2, 'Shopolox', 'shopolox', 'images/brand/oQ9RqaXi3GwnBvHULxhqpdUjfwljSwOKB9fQ1XNc.jpg', 1, '2021-08-01 22:08:06', '2021-08-01 22:08:06');
 
 -- --------------------------------------------------------
 
@@ -141,7 +142,13 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Men\'s Fashion', 'mens-fashion', 'images/category/h3bmYrrBAKFBXCvX9PhxTIz0HCfH6kqCawmuJOLB.jpg', 1, '2021-06-09 11:18:23', '2021-06-11 12:33:03'),
-(2, 'Women\'s Fashion', 'womens-fashion', NULL, 1, '2021-06-11 10:54:49', '2021-06-11 13:25:46');
+(2, 'Women\'s Fashion', 'womens-fashion', NULL, 1, '2021-06-11 10:54:49', '2021-06-11 13:25:46'),
+(3, 'Fitness Care', 'fitness-care', NULL, 1, '2021-08-01 21:43:52', '2021-08-01 21:43:52'),
+(4, 'Beauty Bay', 'beauty-bay', NULL, 1, '2021-08-01 21:44:18', '2021-08-01 21:44:18'),
+(5, 'Baby Care', 'baby-care', NULL, 1, '2021-08-01 21:44:41', '2021-08-01 21:44:41'),
+(6, 'Home Care', 'home-care', NULL, 1, '2021-08-01 21:45:03', '2021-08-01 21:45:03'),
+(7, 'Electronics & Gagdet', 'electronics-gagdet', NULL, 1, '2021-08-01 21:45:27', '2021-08-01 21:45:27'),
+(8, 'Global Collections', 'global-collections', NULL, 1, '2021-08-01 21:45:45', '2021-08-01 21:45:45');
 
 -- --------------------------------------------------------
 
@@ -232,6 +239,32 @@ INSERT INTO `cities` (`id`, `name`, `delivery_charge`, `status`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_date` date NOT NULL,
+  `expire_date` date NOT NULL,
+  `discount_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount_amount` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `code`, `start_date`, `expire_date`, `discount_type`, `discount_amount`, `status`, `created_at`, `updated_at`) VALUES
+(1, '173740', '2021-09-06', '2021-09-10', 'decimal', 50, 1, '2021-09-06 11:34:37', '2021-09-06 11:34:37'),
+(2, '707535', '2021-09-10', '2021-09-30', 'percentage', 5, 1, '2021-09-06 11:44:24', '2021-09-06 11:44:24');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `credits`
 --
 
@@ -246,6 +279,30 @@ CREATE TABLE `credits` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `user_id`, `phone`, `address`, `city_id`, `created_at`, `updated_at`) VALUES
+(4, 'shibbir ahmad', 2, '01737481778', 'Dhaka', 54, '2021-08-19 14:36:29', '2021-08-28 13:02:32');
 
 -- --------------------------------------------------------
 
@@ -325,6 +382,152 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_no` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `sub_city_id` int(11) DEFAULT NULL,
+  `courier_id` int(11) DEFAULT NULL,
+  `shipping_cost` int(11) NOT NULL DEFAULT 0,
+  `discount` int(11) NOT NULL DEFAULT 0,
+  `paid` int(11) NOT NULL DEFAULT 0,
+  `paid_by` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total` float NOT NULL,
+  `status` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'order placed',
+  `coupon_id` int(11) DEFAULT NULL,
+  `coupon_discount` int(11) DEFAULT NULL,
+  `create_admin_id` int(11) DEFAULT NULL,
+  `pending_admin_id` int(11) DEFAULT NULL,
+  `pending_date` date DEFAULT NULL,
+  `approved_admin_id` int(11) DEFAULT NULL,
+  `approved_date` date DEFAULT NULL,
+  `shipment_admin_id` int(11) DEFAULT NULL,
+  `shippment_date` date DEFAULT NULL,
+  `delivered_admin_id` int(11) DEFAULT NULL,
+  `delivery_date` date DEFAULT NULL,
+  `cancel_admin_id` int(11) DEFAULT NULL,
+  `cancel_date` date DEFAULT NULL,
+  `return_admin_id` int(11) DEFAULT NULL,
+  `return_date` date DEFAULT NULL,
+  `reseller_id` int(11) DEFAULT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `invoice_no`, `customer_id`, `city_id`, `sub_city_id`, `courier_id`, `shipping_cost`, `discount`, `paid`, `paid_by`, `total`, `status`, `coupon_id`, `coupon_discount`, `create_admin_id`, `pending_admin_id`, `pending_date`, `approved_admin_id`, `approved_date`, `shipment_admin_id`, `shippment_date`, `delivered_admin_id`, `delivery_date`, `cancel_admin_id`, `cancel_date`, `return_admin_id`, `return_date`, `reseller_id`, `comment`, `created_at`, `updated_at`) VALUES
+(1, 100, 4, 1, 67, NULL, 70, 0, 0, NULL, 302.5, 'order placed\r\n\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-19 14:36:29', '2021-08-19 14:36:29'),
+(2, 101, 4, 6, 273, NULL, 120, 0, 0, NULL, 0, 'order placed', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-09-01 11:28:31', '2021-09-01 11:28:31'),
+(3, 102, 4, 1, 77, NULL, 70, 0, 0, NULL, 1754.5, 'order placed', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-09-01 11:37:55', '2021-09-01 11:37:55'),
+(4, 103, 4, 1, 92, NULL, 70, 0, 0, NULL, 302.5, 'confirm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-09-01 11:38:50', '2021-09-01 12:50:38'),
+(5, 104, 4, 14, 194, NULL, 120, 0, 0, NULL, 1755, 'order placed', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-09-01 12:59:50', '2021-09-01 12:59:50'),
+(6, 105, 4, 12, 159, NULL, 120, 0, 0, NULL, 484, 'order placed', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-09-24 09:07:06', '2021-09-24 09:07:06'),
+(7, 106, 4, 12, 159, NULL, 120, 0, 0, NULL, 2360, 'order placed', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-09-24 11:41:53', '2021-09-24 11:41:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` float NOT NULL,
+  `size` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `color` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `weight` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `price`, `quantity`, `total`, `size`, `color`, `weight`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 250, 1, 250, 'S', 'White', '', 0, '2021-08-19 14:36:29', '2021-08-19 14:36:29'),
+(2, 3, 1, 250, 1, 250, 'L', 'Black', '', 0, '2021-09-01 11:37:55', '2021-09-01 11:37:55'),
+(3, 3, 13, 1200, 1, 1200, 'L', 'Black', '', 0, '2021-09-01 11:37:55', '2021-09-01 11:37:55'),
+(4, 4, 4, 250, 1, 250, '', 'Black', '', 0, '2021-09-01 11:38:50', '2021-09-01 11:38:50'),
+(5, 5, 2, 250, 1, 250, '', 'Black', '', 0, '2021-09-01 12:59:50', '2021-09-01 12:59:50'),
+(6, 5, 13, 1200, 1, 1200, 'L', 'Black', '', 0, '2021-09-01 12:59:50', '2021-09-01 12:59:50'),
+(7, 6, 4, 400, 1, 400, '', 'Black', '', 0, '2021-09-24 09:07:06', '2021-09-24 09:07:06'),
+(8, 7, 1, 400, 2, 800, 'L', 'Black', '', 0, '2021-09-24 11:41:53', '2021-09-24 11:41:53'),
+(9, 7, 13, 1150, 1, 1150, 'S', 'Red', '', 0, '2021-09-24 11:41:53', '2021-09-24 11:41:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_payments`
+--
+
+CREATE TABLE `order_payments` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `address` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order_id` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `transaction_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `currency` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `order_payments`
+--
+
+INSERT INTO `order_payments` (`id`, `name`, `email`, `phone`, `amount`, `address`, `status`, `order_id`, `transaction_id`, `currency`) VALUES
+(1, 'shibbir ahmad', 'noemail@gmail.com', '01737481778', 48.4, 'Dhaka', 'Pending', '6', '614de99d3e95e', 'BDT'),
+(2, 'shibbir ahmad', 'noemail@gmail.com', '01737481778', 236, 'Dhaka', 'Pending', '7', '614e0de312490', 'BDT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `otp_verifications`
+--
+
+CREATE TABLE `otp_verifications` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `phone` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `otp_verifications`
+--
+
+INSERT INTO `otp_verifications` (`id`, `phone`, `code`, `created_at`, `updated_at`) VALUES
+(1, '01737481778', '$2y$10$ZJayQAB6BShvkpPazxSK0OIJXtVp3SdoI1kFn05YeIrqu59XeaSjG', '2021-08-19 11:26:23', '2021-08-19 11:26:23'),
+(2, '01737481778', '$2y$10$mWrU9pWmnMnaeKVrq0P3AuQjcTuCp5Ca0SjjQDrQeo6zZQ.F3dHEy', '2021-09-28 11:28:13', '2021-09-28 11:28:13'),
+(3, '01737481778', '$2y$10$jkcUjhkcHM7zCt/lze0YBOzzEZ.8s9ni.fu0co3eG0ZiIEynO3p5q', '2021-09-28 11:34:40', '2021-09-28 11:34:40'),
+(4, '01635172218', '$2y$10$CApmjKOhWVKqbedBFTwuxOSZD5kYXf5BUgmJAMUFVXg6Cfk56cUfu', '2021-09-28 11:40:13', '2021-09-28 11:40:13'),
+(5, '01737481778', '$2y$10$2TtZpem8fr9LcMWbjAp1V.nnTqDxJQrLUMU0qesyHbAxhP9DRep5W', '2021-09-28 11:54:10', '2021-09-28 11:54:10'),
+(6, '01737481778', '$2y$10$NhHVbjxBXggZy6ZHmBJKdeQK71J76xh5lLg6vaUdNZCaCpwUMv3Su', '2021-09-28 12:04:28', '2021-09-28 12:04:28'),
+(7, '01759416979', '$2y$10$oHylAzJ9bVk.1xX9MLtrg.PwHaLYHoOO4pzjRhRfnY23b3O83cayu', '2021-09-28 12:05:24', '2021-09-28 12:05:24'),
+(8, '01737481778', '$2y$10$OM5mHPLqXDrqd5yGzbo3cOgHeWXLXL6B29OFwYyoiXVhiZYguG4bm', '2021-09-28 12:09:21', '2021-09-28 12:09:21'),
+(9, '01737481778', '$2y$10$vVmTzLO0qSOGFQ7S4auFs.Ig.xTiFhFIgd/vELbCG5P8kTyUmPqAe', '2021-09-28 12:59:55', '2021-09-28 12:59:55'),
+(10, '01737481778', '$2y$10$E9OSias8.VPFyU6Z3tw5U.JbqHzI9Vsb5DvaoJ2ar8l6jr90RvkAy', '2021-09-28 13:02:07', '2021-09-28 13:02:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pages`
 --
 
@@ -367,6 +570,7 @@ CREATE TABLE `products` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail_img` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `details` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `regular_price` int(11) NOT NULL,
   `discount` int(11) NOT NULL DEFAULT 0,
@@ -385,6 +589,50 @@ CREATE TABLE `products` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `code`, `slug`, `thumbnail_img`, `details`, `regular_price`, `discount`, `sale_price`, `brand_id`, `shiping_info_id`, `stock`, `status`, `is_featured`, `collection_type`, `labels`, `tags`, `seo_title`, `seo_description`, `created_at`, `updated_at`) VALUES
+(1, 'Half Sleeve Cotton T-Shirt', '1001', 'half-sleeve-cotton-t-shirt-1001', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', 'new arrival', 'new', NULL, NULL, NULL, '2021-09-21 09:36:05', '2021-09-21 09:36:05'),
+(2, 'Half Sleeve Cotton T-Shirt', '1001', 'half-sleeve-cotton-t-shirt-1001', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(3, 'Half Sleeve Cotton T-Shirt', '1002', 'half-sleeve-cotton-t-shirt-1002', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(4, 'Half Sleeve Cotton T-Shirt', '1003', 'half-sleeve-cotton-t-shirt-1003', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(5, 'Half Sleeve Cotton T-Shirt', '1004', 'half-sleeve-cotton-t-shirt-1004', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(6, 'Half Sleeve Cotton T-Shirt', '1005', 'half-sleeve-cotton-t-shirt-1005', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(7, 'Half Sleeve Cotton T-Shirt', '1006', 'half-sleeve-cotton-t-shirt-1006', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(8, 'Half Sleeve Cotton T-Shirt', '1007', 'half-sleeve-cotton-t-shirt-1007', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(9, 'Half Sleeve Cotton T-Shirt', '1008', 'half-sleeve-cotton-t-shirt-1008', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(10, 'Half Sleeve Cotton T-Shirt', '1009', 'half-sleeve-cotton-t-shirt-1009', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(11, 'Half Sleeve Cotton T-Shirt', '1010', 'half-sleeve-cotton-t-shirt-1010', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(12, 'Half Sleeve Cotton T-Shirt', '1011', 'half-sleeve-cotton-t-shirt-1011', '1632238564Cem7EC5CdlwHVZoYu7NsPfK7jrzLQmJ0KWHPxC58.jpg', 'Half Sleeve Cotton T-Shirt\r\nFabrics: Cotton\r\nSize: M, L, XL, XXL\r\nM= Chest-36, Length-27\r\nL= Chest-38, Length-28\r\nXL=  Chest-40, Length-29\r\nXXL=  Chest-43, Length-30', 450, 50, 400, 1, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(13, 'Indian Cotton Febrics Panjabi', '1012', 'indian-cotton-febrics-panjabi-1012', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', 'new arrival', 'new', NULL, NULL, NULL, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(14, 'Indian Cotton Febrics Panjabi', '1013', 'indian-cotton-febrics-panjabi-1013', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(15, 'Indian Cotton Febrics Panjabi', '1014', 'indian-cotton-febrics-panjabi-1014', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(16, 'Indian Cotton Febrics Panjabi', '1015', 'indian-cotton-febrics-panjabi-1015', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(17, 'Indian Cotton Febrics Panjabi', '1016', 'indian-cotton-febrics-panjabi-1016', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(18, 'Indian Cotton Febrics Panjabi', '1017', 'indian-cotton-febrics-panjabi-1017', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(19, 'Indian Cotton Febrics Panjabi', '1018', 'indian-cotton-febrics-panjabi-1018', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(20, 'Indian Cotton Febrics Panjabi', '1019', 'indian-cotton-febrics-panjabi-1019', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(21, 'Indian Cotton Febrics Panjabi', '1020', 'indian-cotton-febrics-panjabi-1020', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(22, 'Indian Cotton Febrics Panjabi', '1021', 'indian-cotton-febrics-panjabi-1021', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(23, 'Indian Cotton Febrics Panjabi', '1022', 'indian-cotton-febrics-panjabi-1022', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(24, 'Indian Cotton Febrics Panjabi', '1023', 'indian-cotton-febrics-panjabi-1023', '163223870856fQQN03CZybHCwqhGQ7gD8Cdu7SHucb52599evH.jpg', 'Indian Cotton Febrics Panjabi\r\nFabrics: Cotton/Linen\r\nSize: 40, 42, 44\r\nMeasurement:\r\n40=Chest-40, Length-40\r\n42=Chest-42, Length-42\r\n44=Chest-44, Length-44\r\nStylish & Fashionable men\'s wear.', 1250, 100, 1150, NULL, NULL, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(25, 'Universal Notebook Power Adapter', '1024', 'universal-notebook-power-adapter-1024', '1632239016sA0SB8h2VHzsnNOldAhH58pUJal7W5UmwMs58fbx.jpg', '**Product details of Universal Notebook Power Adapter**\r\nProduct Description Reliable power for your notebook and most mobile devices.\r\nit even powers mobile devices such as cell phones, smart phones, iPod, MP3 and more.\r\nThe built-in USB power port charges your mobile devices (USB Power Tips sold separately). T\r\nips are included for notebook computer charging, including tips for Dell, HP, Compaq, IBM, Lenovo, Toshiba, Sony, Gateway and Acer computers.\r\n100W Universal Laptop Power Supply 110-220v AC To DC 12V/16V/20V/24V Adapter For Laptop/Notebook 20pcs/Lot Free Shipping\r\nCategory: Laptop Adapters & Chargers\r\nShort Description: 100% Brand New. Adjustable output voltage at 15V, 16V, 18V, 19V, 20V, 24V Universal Input Voltage at 110V-240V AC Output at 15 - 24V DC Replace power supply for Dell PA-6 or Dell PA-9', 800, 200, 600, NULL, 1, '0', '1', 'on', 'new arrival', 'new', NULL, NULL, NULL, '2021-09-21 09:43:36', '2021-09-21 09:43:36'),
+(26, 'Universal Notebook Power Adapter', '1025', 'universal-notebook-power-adapter-1025', '1632239016sA0SB8h2VHzsnNOldAhH58pUJal7W5UmwMs58fbx.jpg', '**Product details of Universal Notebook Power Adapter**\r\nProduct Description Reliable power for your notebook and most mobile devices.\r\nit even powers mobile devices such as cell phones, smart phones, iPod, MP3 and more.\r\nThe built-in USB power port charges your mobile devices (USB Power Tips sold separately). T\r\nips are included for notebook computer charging, including tips for Dell, HP, Compaq, IBM, Lenovo, Toshiba, Sony, Gateway and Acer computers.\r\n100W Universal Laptop Power Supply 110-220v AC To DC 12V/16V/20V/24V Adapter For Laptop/Notebook 20pcs/Lot Free Shipping\r\nCategory: Laptop Adapters & Chargers\r\nShort Description: 100% Brand New. Adjustable output voltage at 15V, 16V, 18V, 19V, 20V, 24V Universal Input Voltage at 110V-240V AC Output at 15 - 24V DC Replace power supply for Dell PA-6 or Dell PA-9', 800, 200, 600, NULL, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(27, 'Universal Notebook Power Adapter', '1026', 'universal-notebook-power-adapter-1026', '1632239016sA0SB8h2VHzsnNOldAhH58pUJal7W5UmwMs58fbx.jpg', '**Product details of Universal Notebook Power Adapter**\r\nProduct Description Reliable power for your notebook and most mobile devices.\r\nit even powers mobile devices such as cell phones, smart phones, iPod, MP3 and more.\r\nThe built-in USB power port charges your mobile devices (USB Power Tips sold separately). T\r\nips are included for notebook computer charging, including tips for Dell, HP, Compaq, IBM, Lenovo, Toshiba, Sony, Gateway and Acer computers.\r\n100W Universal Laptop Power Supply 110-220v AC To DC 12V/16V/20V/24V Adapter For Laptop/Notebook 20pcs/Lot Free Shipping\r\nCategory: Laptop Adapters & Chargers\r\nShort Description: 100% Brand New. Adjustable output voltage at 15V, 16V, 18V, 19V, 20V, 24V Universal Input Voltage at 110V-240V AC Output at 15 - 24V DC Replace power supply for Dell PA-6 or Dell PA-9', 800, 200, 600, NULL, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(28, 'Universal Notebook Power Adapter', '1027', 'universal-notebook-power-adapter-1027', '1632239016sA0SB8h2VHzsnNOldAhH58pUJal7W5UmwMs58fbx.jpg', '**Product details of Universal Notebook Power Adapter**\r\nProduct Description Reliable power for your notebook and most mobile devices.\r\nit even powers mobile devices such as cell phones, smart phones, iPod, MP3 and more.\r\nThe built-in USB power port charges your mobile devices (USB Power Tips sold separately). T\r\nips are included for notebook computer charging, including tips for Dell, HP, Compaq, IBM, Lenovo, Toshiba, Sony, Gateway and Acer computers.\r\n100W Universal Laptop Power Supply 110-220v AC To DC 12V/16V/20V/24V Adapter For Laptop/Notebook 20pcs/Lot Free Shipping\r\nCategory: Laptop Adapters & Chargers\r\nShort Description: 100% Brand New. Adjustable output voltage at 15V, 16V, 18V, 19V, 20V, 24V Universal Input Voltage at 110V-240V AC Output at 15 - 24V DC Replace power supply for Dell PA-6 or Dell PA-9', 800, 200, 600, NULL, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(29, 'Universal Notebook Power Adapter', '1028', 'universal-notebook-power-adapter-1028', '1632239016sA0SB8h2VHzsnNOldAhH58pUJal7W5UmwMs58fbx.jpg', '**Product details of Universal Notebook Power Adapter**\r\nProduct Description Reliable power for your notebook and most mobile devices.\r\nit even powers mobile devices such as cell phones, smart phones, iPod, MP3 and more.\r\nThe built-in USB power port charges your mobile devices (USB Power Tips sold separately). T\r\nips are included for notebook computer charging, including tips for Dell, HP, Compaq, IBM, Lenovo, Toshiba, Sony, Gateway and Acer computers.\r\n100W Universal Laptop Power Supply 110-220v AC To DC 12V/16V/20V/24V Adapter For Laptop/Notebook 20pcs/Lot Free Shipping\r\nCategory: Laptop Adapters & Chargers\r\nShort Description: 100% Brand New. Adjustable output voltage at 15V, 16V, 18V, 19V, 20V, 24V Universal Input Voltage at 110V-240V AC Output at 15 - 24V DC Replace power supply for Dell PA-6 or Dell PA-9', 800, 200, 600, NULL, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(30, 'Universal Notebook Power Adapter', '1029', 'universal-notebook-power-adapter-1029', '1632239016sA0SB8h2VHzsnNOldAhH58pUJal7W5UmwMs58fbx.jpg', '**Product details of Universal Notebook Power Adapter**\r\nProduct Description Reliable power for your notebook and most mobile devices.\r\nit even powers mobile devices such as cell phones, smart phones, iPod, MP3 and more.\r\nThe built-in USB power port charges your mobile devices (USB Power Tips sold separately). T\r\nips are included for notebook computer charging, including tips for Dell, HP, Compaq, IBM, Lenovo, Toshiba, Sony, Gateway and Acer computers.\r\n100W Universal Laptop Power Supply 110-220v AC To DC 12V/16V/20V/24V Adapter For Laptop/Notebook 20pcs/Lot Free Shipping\r\nCategory: Laptop Adapters & Chargers\r\nShort Description: 100% Brand New. Adjustable output voltage at 15V, 16V, 18V, 19V, 20V, 24V Universal Input Voltage at 110V-240V AC Output at 15 - 24V DC Replace power supply for Dell PA-6 or Dell PA-9', 800, 200, 600, NULL, 1, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(31, 'High Sound able new smart sound box', '1030', 'high-sound-able-new-smart-sound-box-1030', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', 'new arrival', 'new', NULL, NULL, NULL, '2021-09-21 09:47:11', '2021-09-21 09:51:49'),
+(38, 'High Sound able new smart sound box', '1031', 'high-sound-able-new-smart-sound-box-1031', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(39, 'High Sound able new smart sound box', '1038', 'high-sound-able-new-smart-sound-box-1038', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(40, 'High Sound able new smart sound box', '1039', 'high-sound-able-new-smart-sound-box-1039', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(41, 'High Sound able new smart sound box', '1040', 'high-sound-able-new-smart-sound-box-1040', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(42, 'High Sound able new smart sound box', '1041', 'high-sound-able-new-smart-sound-box-1041', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(43, 'High Sound able new smart sound box', '1042', 'high-sound-able-new-smart-sound-box-1042', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(44, 'High Sound able new smart sound box', '1043', 'high-sound-able-new-smart-sound-box-1043', '16322395098.jpg', 'Unrestrained and portable active stereo speaker\r\nFree from the confines of wires and chords\r\n20 hours of portable capabilities\r\nDouble-ended Coil Cord with 3.5mm Stereo Plugs Included\r\n3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X', 2500, 0, 2500, 2, 2, '0', '1', 'on', NULL, 'new', NULL, NULL, NULL, '2021-09-21 09:55:11', '2021-09-21 09:55:11');
+
 -- --------------------------------------------------------
 
 --
@@ -399,6 +647,52 @@ CREATE TABLE `product_attributes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `product_attributes`
+--
+
+INSERT INTO `product_attributes` (`id`, `product_id`, `attribute_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(2, 1, 1, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(3, 2, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(4, 3, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(5, 4, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(6, 5, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(7, 6, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(8, 7, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(9, 8, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(10, 9, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(11, 10, 2, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(12, 11, 2, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(13, 12, 2, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(14, 13, 2, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(15, 13, 1, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(16, 14, 2, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(17, 15, 2, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(18, 16, 2, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(19, 17, 2, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(20, 18, 2, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(21, 19, 2, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(22, 20, 2, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(23, 21, 2, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(24, 22, 2, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(25, 23, 2, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(26, 24, 2, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(27, 25, 3, '2021-09-21 09:43:36', '2021-09-21 09:43:36'),
+(28, 26, 3, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(29, 27, 3, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(30, 28, 3, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(31, 29, 3, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(32, 30, 3, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(34, 31, 3, '2021-09-21 09:51:49', '2021-09-21 09:51:49'),
+(35, 38, 3, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(36, 39, 3, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(37, 40, 3, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(38, 41, 3, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(39, 42, 3, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(40, 43, 3, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(41, 44, 3, '2021-09-21 09:55:11', '2021-09-21 09:55:11');
+
 -- --------------------------------------------------------
 
 --
@@ -407,11 +701,55 @@ CREATE TABLE `product_attributes` (
 
 CREATE TABLE `product_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `category_id` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_categories`
+--
+
+INSERT INTO `product_categories` (`id`, `category_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, '1', '1', '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(2, '1', '2', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(3, '1', '3', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(4, '1', '4', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(5, '1', '5', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(6, '1', '6', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(7, '1', '7', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(8, '1', '8', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(9, '1', '9', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(10, '1', '10', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(11, '1', '11', '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(12, '1', '12', '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(13, '1', '13', '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(14, '1', '14', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(15, '1', '15', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(16, '1', '16', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(17, '1', '17', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(18, '1', '18', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(19, '1', '19', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(20, '1', '20', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(21, '1', '21', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(22, '1', '22', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(23, '1', '23', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(24, '1', '24', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(25, '7', '25', '2021-09-21 09:43:36', '2021-09-21 09:43:36'),
+(26, '7', '26', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(27, '7', '27', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(28, '7', '28', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(29, '7', '29', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(30, '7', '30', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(37, '7', '31', '2021-09-21 09:51:49', '2021-09-21 09:51:49'),
+(39, '7', '38', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(40, '7', '39', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(41, '7', '40', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(42, '7', '41', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(43, '7', '42', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(44, '7', '43', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(45, '7', '44', '2021-09-21 09:55:11', '2021-09-21 09:55:11');
 
 -- --------------------------------------------------------
 
@@ -427,6 +765,55 @@ CREATE TABLE `product_images` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`, `updated_at`) VALUES
+(1, 1, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(2, 1, 'images/products/ClQpu1BZWatJ7FcYgdqPQvFsDCxiS6rn4DFbpDTx.jpg', '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(3, 1, 'images/products/ArALkhSYgfzxyfIthvcKHDBSCdNDaKuB2lQt5TDe.jpg', '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(4, 2, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(5, 3, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(6, 4, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(7, 5, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(8, 6, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(9, 7, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(10, 8, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(11, 9, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(12, 10, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(13, 11, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(14, 12, 'images/products/ojSR5FnE8Kun7Ldp0uiHZmrCQ8ba3xC30DN8zLai.jpg', '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(15, 13, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(16, 13, 'images/products/L42EXYhylD71V136GW5yw07vDJ1VqfhXyfmQtbmS.jpg', '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(17, 13, 'images/products/rztPhNOG83aeMoayY6Mtmx4z4B29vxzPmYNfPi3y.jpg', '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(18, 14, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(19, 15, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(20, 16, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(21, 17, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(22, 18, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(23, 19, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(24, 20, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(25, 21, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(26, 22, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(27, 23, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(28, 24, 'images/products/5GRKT0tuSobqV6rKWI6kYMUyQhDjYWu1Y5Pqf3SO.jpg', '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(29, 25, 'images/products/XY6EG6eLwUj1rmDL1MSXhW4qVuHO6TPGkPal3e0y.jpg', '2021-09-21 09:43:36', '2021-09-21 09:43:36'),
+(30, 26, 'images/products/XY6EG6eLwUj1rmDL1MSXhW4qVuHO6TPGkPal3e0y.jpg', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(31, 27, 'images/products/XY6EG6eLwUj1rmDL1MSXhW4qVuHO6TPGkPal3e0y.jpg', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(32, 28, 'images/products/XY6EG6eLwUj1rmDL1MSXhW4qVuHO6TPGkPal3e0y.jpg', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(33, 29, 'images/products/XY6EG6eLwUj1rmDL1MSXhW4qVuHO6TPGkPal3e0y.jpg', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(34, 30, 'images/products/XY6EG6eLwUj1rmDL1MSXhW4qVuHO6TPGkPal3e0y.jpg', '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(35, 31, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:47:11', '2021-09-21 09:47:11'),
+(41, 31, 'images/products/uNHYXsx40vea0vhTDhIu42VkTEeN1z7htsBvUA1E.jpg', '2021-09-21 09:51:49', '2021-09-21 09:51:49'),
+(43, 38, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(44, 39, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(45, 40, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(46, 41, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(47, 42, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(48, 43, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(49, 44, 'images/products/zKrcw5ONGtGXS58QOoIPG5ZqmoGh3l0sxCNk5MTc.jpg', '2021-09-21 09:55:11', '2021-09-21 09:55:11');
+
 -- --------------------------------------------------------
 
 --
@@ -440,6 +827,51 @@ CREATE TABLE `product_sub_categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_sub_categories`
+--
+
+INSERT INTO `product_sub_categories` (`id`, `sub_category_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(2, 3, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(3, 3, 3, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(4, 3, 4, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(5, 3, 5, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(6, 3, 6, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(7, 3, 7, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(8, 3, 8, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(9, 3, 9, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(10, 3, 10, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(11, 3, 11, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(12, 3, 12, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(13, 15, 13, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(14, 15, 14, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(15, 15, 15, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(16, 15, 16, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(17, 15, 17, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(18, 15, 18, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(19, 15, 19, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(20, 15, 20, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(21, 15, 21, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(22, 15, 22, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(23, 15, 23, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(24, 15, 24, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(25, 10, 25, '2021-09-21 09:43:36', '2021-09-21 09:43:36'),
+(26, 10, 26, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(27, 10, 27, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(28, 10, 28, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(29, 10, 29, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(30, 10, 30, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(38, 11, 31, '2021-09-21 09:51:49', '2021-09-21 09:51:49'),
+(39, 12, 31, '2021-09-21 09:51:49', '2021-09-21 09:51:49'),
+(41, 11, 38, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(42, 11, 39, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(43, 11, 40, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(44, 11, 41, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(45, 11, 42, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(46, 11, 43, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(47, 11, 44, '2021-09-21 09:55:11', '2021-09-21 09:55:11');
 
 -- --------------------------------------------------------
 
@@ -455,6 +887,44 @@ CREATE TABLE `product_sub_sub_categories` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `product_sub_sub_categories`
+--
+
+INSERT INTO `product_sub_sub_categories` (`id`, `sub_sub_category_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(2, 5, 1, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(3, 3, 2, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(4, 3, 3, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(5, 3, 4, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(6, 3, 5, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(7, 3, 6, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(8, 3, 7, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(9, 3, 8, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(10, 3, 9, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(11, 3, 10, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(12, 3, 11, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(13, 3, 12, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(14, 12, 13, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(15, 14, 13, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(16, 12, 14, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(17, 12, 15, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(18, 12, 16, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(19, 12, 17, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(20, 12, 18, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(21, 12, 19, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(22, 12, 20, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(23, 12, 21, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(24, 12, 22, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(25, 12, 23, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(26, 12, 24, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(27, 9, 25, '2021-09-21 09:43:36', '2021-09-21 09:43:36'),
+(28, 9, 26, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(29, 9, 27, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(30, 9, 28, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(31, 9, 29, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(32, 9, 30, '2021-09-21 09:43:43', '2021-09-21 09:43:43');
+
 -- --------------------------------------------------------
 
 --
@@ -468,6 +938,66 @@ CREATE TABLE `product_variants` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_variants`
+--
+
+INSERT INTO `product_variants` (`id`, `product_id`, `variant_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 30, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(2, 1, 31, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(3, 1, 34, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(4, 1, 35, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(5, 1, 1, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(6, 1, 2, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(7, 1, 3, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(8, 1, 4, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(9, 1, 5, '2021-09-21 09:36:06', '2021-09-21 09:36:06'),
+(10, 2, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(11, 3, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(12, 4, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(13, 5, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(14, 6, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(15, 7, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(16, 8, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(17, 9, 30, '2021-09-21 09:36:38', '2021-09-21 09:36:38'),
+(18, 10, 30, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(19, 11, 30, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(20, 12, 30, '2021-09-21 09:36:39', '2021-09-21 09:36:39'),
+(21, 13, 30, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(22, 13, 31, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(23, 13, 34, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(24, 13, 35, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(25, 13, 1, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(26, 13, 2, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(27, 13, 3, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(28, 13, 4, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(29, 13, 5, '2021-09-21 09:38:29', '2021-09-21 09:38:29'),
+(30, 14, 30, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(31, 15, 30, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(32, 16, 30, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(33, 17, 30, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(34, 18, 30, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(35, 19, 30, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(36, 20, 30, '2021-09-21 09:39:07', '2021-09-21 09:39:07'),
+(37, 21, 30, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(38, 22, 30, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(39, 23, 30, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(40, 24, 30, '2021-09-21 09:39:08', '2021-09-21 09:39:08'),
+(41, 25, 33, '2021-09-21 09:43:36', '2021-09-21 09:43:36'),
+(42, 26, 33, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(43, 27, 33, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(44, 28, 33, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(45, 29, 33, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(46, 30, 33, '2021-09-21 09:43:43', '2021-09-21 09:43:43'),
+(48, 31, 36, '2021-09-21 09:51:49', '2021-09-21 09:51:49'),
+(49, 38, 36, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(50, 39, 36, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(51, 40, 36, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(52, 41, 36, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(53, 42, 36, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(54, 43, 36, '2021-09-21 09:55:11', '2021-09-21 09:55:11'),
+(55, 44, 36, '2021-09-21 09:55:11', '2021-09-21 09:55:11');
 
 -- --------------------------------------------------------
 
@@ -487,16 +1017,6 @@ CREATE TABLE `purchases` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `purchases`
---
-
-INSERT INTO `purchases` (`id`, `supplier_id`, `invoice_no`, `balance_id`, `paid`, `total`, `memo`, `created_at`, `updated_at`) VALUES
-(1, 1, '87958', 1, 0, 1000, NULL, '2021-07-06 12:51:40', '2021-07-06 12:51:40'),
-(10, 1, '458784', 1, 1200, 4020, NULL, '2021-07-10 03:17:05', '2021-07-10 03:17:05'),
-(11, 1, '458787', 1, 500, 2500, 'file/purchase_memo/XUvJyPwYy6wRFKzOGsq04tzWcYQbMeKM878JaqlM.jpg', '2021-07-10 04:19:30', '2021-07-10 04:19:30'),
-(12, 1, '584978', 2, 5000, 10000, NULL, '2021-07-13 13:05:13', '2021-07-13 13:05:13');
-
 -- --------------------------------------------------------
 
 --
@@ -513,15 +1033,31 @@ CREATE TABLE `purchase_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `purchase_items`
+-- Table structure for table `request_products`
 --
 
-INSERT INTO `purchase_items` (`id`, `purchase_id`, `product_id`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 1, 5, 250, 5, '2021-07-06 12:51:40', '2021-07-06 12:51:40'),
-(10, 10, 5, 2010, 2, '2021-07-10 03:17:05', '2021-07-10 03:17:05'),
-(11, 11, 6, 500, 5, '2021-07-10 04:19:30', '2021-07-10 04:19:30'),
-(12, 12, 5, 500, 20, '2021-07-13 13:05:13', '2021-07-13 13:05:13');
+CREATE TABLE `request_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_one_link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_one_variant` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_two_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_two_variant` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `request_products`
+--
+
+INSERT INTO `request_products` (`id`, `name`, `phone`, `email`, `product_one_link`, `product_one_variant`, `product_two_link`, `product_two_variant`, `created_at`, `updated_at`) VALUES
+(1, 'shibbir ahmad', '01737481778', 'shopolox@gmail.com', 'https://alibaba.com/product1', 'red,M', 'https://alibaba.com/product2', 'L,Black', '2021-09-24 11:24:58', '2021-09-24 11:24:58');
 
 -- --------------------------------------------------------
 
@@ -543,8 +1079,8 @@ CREATE TABLE `shipment_infos` (
 --
 
 INSERT INTO `shipment_infos` (`id`, `name`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'china shipment policy', 'description', 1, '2021-06-20 09:51:21', '2021-06-20 09:51:21'),
-(2, 'japan shipment policy', 'description', 1, '2021-06-20 09:52:44', '2021-06-20 09:52:44');
+(1, 'china shipment policy', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\r\nmolestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\r\nnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\r\noptio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\r\nobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam\r\nnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,\r\ntenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,\r\nquia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos \r\nsapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam\r\nrecusandae alias error harum maxime adipisci amet laborum. Perspiciatis \r\nminima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit \r\nquibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur', 1, '2021-06-20 09:51:21', '2021-08-05 11:25:56'),
+(2, 'japan shipment policy', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\r\nmolestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\r\nnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\r\noptio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\r\nobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam\r\nnihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,\r\ntenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,\r\nquia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos \r\nsapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam\r\nrecusandae alias error harum maxime adipisci amet laborum. Perspiciatis \r\nminima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit \r\nquibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur', 1, '2021-06-20 09:52:44', '2021-08-05 11:25:47');
 
 -- --------------------------------------------------------
 
@@ -566,8 +1102,9 @@ CREATE TABLE `sliders` (
 --
 
 INSERT INTO `sliders` (`id`, `image`, `url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'images/slider/ZSI2L60u8U3GIq74mIkDfuBW7wBWJeMdkp861hLV.jpg', 'https://shopolox.com', 1, '2021-07-13 10:34:31', '2021-07-13 11:37:10'),
-(2, 'images/slider/5AvRnP3tuW8vqYXdZlh6Z2S11v10hi52HwI0Aslt.jpg', 'https://shopolox.com', 1, '2021-07-13 11:37:36', '2021-07-13 11:37:36');
+(1, 'images/slider/BCulErCqU2K6EzhHnc1zY5u9rCuzvOCXezmA173R.jpg', 'https://shopolox.com', 1, '2021-07-13 10:34:31', '2021-09-04 10:56:00'),
+(2, 'images/slider/YH6WbxAPvDGgjZmPLOZZRULrGAfLaY9r1UU1Vk8n.jpg', 'https://shopolox.com', 1, '2021-07-13 11:37:36', '2021-09-04 10:55:45'),
+(3, 'images/slider/7a2Srkg5PK4sliyqn1lHaMaaKHsASpRLpwLtKLX9.jpg', 'https://shopolox.com/mens-100', 1, '2021-09-04 10:55:23', '2021-09-04 10:55:23');
 
 -- --------------------------------------------------------
 
@@ -594,8 +1131,20 @@ CREATE TABLE `sub_categories` (
 --
 
 INSERT INTO `sub_categories` (`id`, `name`, `slug`, `category_id`, `status`, `image`, `position`, `discount`, `discount_type`, `created_at`, `updated_at`) VALUES
-(2, 'Clock', '1001-Clock', 1, 1, 'images/subCategory/YHCdkFkE7Mm8wTyAccHUgHIulvbah2MkuSyQ2JsR.jpg', 1, NULL, NULL, '2021-06-11 11:46:43', '2021-06-11 13:22:26'),
-(3, 't-shirt', 't-shirt-61', 1, 1, NULL, 2, NULL, NULL, '2021-06-14 11:17:20', '2021-06-14 11:17:20');
+(2, 'Clock', '1001-Clock', 1, 0, 'images/subCategory/YHCdkFkE7Mm8wTyAccHUgHIulvbah2MkuSyQ2JsR.jpg', 1, NULL, NULL, '2021-06-11 11:46:43', '2021-08-07 10:24:42'),
+(3, 't-shirt', 't-shirt-61', 1, 1, NULL, 2, NULL, NULL, '2021-06-14 11:17:20', '2021-06-14 11:17:20'),
+(4, 'Hair Care', 'hair-care-86', 4, 0, NULL, 0, NULL, NULL, '2021-08-01 21:46:58', '2021-08-07 10:24:33'),
+(5, 'Eye Care', 'eye-care-64', 4, 0, NULL, 0, NULL, NULL, '2021-08-01 21:47:29', '2021-08-07 10:24:56'),
+(6, 'Babay Accessories', 'babay-accessories-95', 5, 0, NULL, 0, NULL, NULL, '2021-08-01 21:47:52', '2021-08-07 10:25:32'),
+(7, 'School Supplies', 'school-supplies-69', 5, 0, NULL, 0, NULL, NULL, '2021-08-01 21:48:27', '2021-08-07 10:25:06'),
+(8, 'Toys', 'toys-46', 5, 0, NULL, 0, NULL, NULL, '2021-08-01 21:48:40', '2021-08-07 10:23:59'),
+(9, 'Mobile Accessories', 'mobile-accessories-81', 7, 0, NULL, 0, NULL, NULL, '2021-08-01 21:49:26', '2021-08-07 10:25:51'),
+(10, 'Computer Accessories', 'computer-accessories-41', 7, 1, NULL, 0, NULL, NULL, '2021-08-01 21:49:46', '2021-08-01 21:49:46'),
+(11, 'Daily Electronics', 'daily-electronics-37', 7, 0, NULL, 0, NULL, NULL, '2021-08-01 21:50:39', '2021-08-07 10:27:14'),
+(12, 'Sound System', 'sound-system-22', 7, 1, NULL, 0, NULL, NULL, '2021-08-01 21:50:56', '2021-08-01 21:50:56'),
+(13, 'Home Storage', 'home-storage-47', 6, 0, NULL, 0, NULL, NULL, '2021-08-01 21:52:08', '2021-08-07 10:23:46'),
+(14, 'Cleaning Tools', 'cleaning-tools-95', 6, 0, NULL, 0, NULL, NULL, '2021-08-01 21:52:35', '2021-08-07 10:23:38'),
+(15, 'Panjabi', 'panjabi-34', 1, 1, NULL, 0, NULL, NULL, '2021-08-01 21:52:49', '2021-08-01 21:52:49');
 
 -- --------------------------------------------------------
 
@@ -1629,7 +2178,19 @@ CREATE TABLE `sub_sub_categories` (
 
 INSERT INTO `sub_sub_categories` (`id`, `name`, `slug`, `category_id`, `sub_category_id`, `image`, `discount`, `status`, `created_at`, `updated_at`, `discount_type`) VALUES
 (1, 'smart watch', 'smart-watch-48', 1, 2, NULL, NULL, 1, '2021-06-12 11:03:46', '2021-06-12 11:34:19', NULL),
-(2, 'Digital Clock', 'digital-clock-39', 1, 2, NULL, NULL, 1, '2021-06-14 11:16:25', '2021-06-14 11:16:25', NULL);
+(2, 'Digital Clock', 'digital-clock-39', 1, 2, NULL, NULL, 1, '2021-06-14 11:16:25', '2021-06-14 11:16:25', NULL),
+(3, 'Stylish T-shirt', 'stylish-t-shirt-58', 1, 3, NULL, NULL, 1, '2021-08-01 21:54:17', '2021-08-01 21:54:17', NULL),
+(4, 'Printed T-shirt', 'printed-t-shirt-91', 1, 3, NULL, NULL, 1, '2021-08-01 21:55:18', '2021-08-01 21:55:18', NULL),
+(5, 'Solid Color T-shirt', 'solid-color-t-shirt-74', 1, 3, NULL, NULL, 1, '2021-08-01 21:55:40', '2021-08-01 21:55:40', NULL),
+(6, 'Couple T-shirt', 'couple-t-shirt-77', 1, 3, NULL, NULL, 1, '2021-08-01 21:56:05', '2021-08-01 21:56:05', NULL),
+(7, 'Head Phone', 'head-phone-90', 7, 9, NULL, NULL, 1, '2021-08-01 21:57:22', '2021-08-01 21:57:22', NULL),
+(8, 'Power Bank', 'power-bank-81', 7, 9, NULL, NULL, 1, '2021-08-01 21:58:27', '2021-08-01 21:58:27', NULL),
+(9, 'Charger', 'charger-25', 7, 10, NULL, NULL, 1, '2021-08-01 21:58:54', '2021-08-01 21:58:54', NULL),
+(10, 'Laptop', 'laptop-99', 7, 10, NULL, NULL, 1, '2021-08-01 21:59:13', '2021-08-01 21:59:13', NULL),
+(11, 'Desktop', 'desktop-38', 7, 10, NULL, NULL, 1, '2021-08-01 21:59:32', '2021-08-01 21:59:32', NULL),
+(12, 'Luxury Panjabi', 'luxury-panjabi-73', 1, 15, NULL, NULL, 1, '2021-08-01 22:18:22', '2021-08-01 22:18:22', NULL),
+(13, 'Kabli', 'kabli-92', 1, 15, NULL, NULL, 1, '2021-08-01 22:19:03', '2021-08-01 22:19:03', NULL),
+(14, 'Premium', 'premium-87', 1, 15, NULL, NULL, 1, '2021-08-01 22:19:21', '2021-08-01 22:19:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -1689,11 +2250,14 @@ INSERT INTO `supplier_payments` (`id`, `supplier_id`, `amount`, `balance_id`, `c
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` int(11) NOT NULL DEFAULT 1,
-  `avator` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user.png',
+  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1703,8 +2267,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `avator`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'shopolox', 's@admin.com', NULL, '$2y$10$/3BPsXwWANWgyMSH1rNXv.zEwW017/vwoNDadA.s6f.7zv9Gydp3e', 2, 'user.png', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `city_id`, `address`, `email_verified_at`, `password`, `role`, `image`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'shopolox', 's@admin.com', '01759416979', NULL, NULL, NULL, '$2y$10$/3BPsXwWANWgyMSH1rNXv.zEwW017/vwoNDadA.s6f.7zv9Gydp3e', 2, 'user.png', NULL, NULL, NULL),
+(2, 'shibbir ahmad', 'shopolox@gmail.com', '01737481778', 12, 'Dhaka', NULL, '$2y$10$1X2JIrzwuRaWmtgisIgxferc8KGdPM0UtQlXKNTRuT4fdl2wER6mO', 1, 'user.png', NULL, '2021-08-18 14:10:52', '2021-09-24 09:07:06'),
+(3, 'Shibbir Ahmad', 'shibbirahmad920229@gmail.com', '', NULL, NULL, NULL, '$2y$10$gvkIvnnf4lUxS2en2c5Ezuwjy4RBf/a5xvTDkyxt/gh7.FPS0/BNO', 1, 'user.png', NULL, '2021-08-18 09:19:37', '2021-08-18 09:19:37');
 
 -- --------------------------------------------------------
 
@@ -1731,10 +2297,13 @@ INSERT INTO `variants` (`id`, `name`, `attribute_id`, `status`, `created_at`, `u
 (3, 'M', 1, 1, '2020-11-09 10:53:31', '2020-11-09 10:53:31'),
 (4, 'XL', 1, 1, '2020-11-09 10:54:19', '2020-11-09 10:54:19'),
 (5, 'XXL', 1, 1, '2020-11-09 10:54:26', '2020-11-09 10:54:26'),
-(30, 'red', 2, 1, '2021-06-16 10:55:57', '2021-06-16 10:55:57'),
-(31, 'black', 2, 1, '2021-06-16 10:56:18', '2021-06-16 10:56:18'),
+(30, 'Red', 2, 1, '2021-06-16 10:55:57', '2021-08-05 14:02:48'),
+(31, 'Black', 2, 1, '2021-06-16 10:56:18', '2021-08-05 14:02:59'),
 (32, '5 gm', 3, 1, '2021-06-16 10:57:03', '2021-06-16 10:57:03'),
-(33, '500 gm', 3, 1, '2021-07-13 13:13:51', '2021-07-13 13:13:51');
+(33, '500 gm', 3, 1, '2021-07-13 13:13:51', '2021-07-13 13:13:51'),
+(34, 'White', 2, 1, '2021-08-01 22:08:56', '2021-08-01 22:08:56'),
+(35, 'Navy Blue', 2, 1, '2021-08-01 22:10:02', '2021-08-01 22:10:02'),
+(36, '1200 gm', 3, 1, '2021-08-01 22:10:46', '2021-08-01 22:10:46');
 
 --
 -- Indexes for dumped tables
@@ -1781,9 +2350,22 @@ ALTER TABLE `cities`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cupons_code_unique` (`code`);
+
+--
 -- Indexes for table `credits`
 --
 ALTER TABLE `credits`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1803,6 +2385,30 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_payments`
+--
+ALTER TABLE `order_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `otp_verifications`
+--
+ALTER TABLE `otp_verifications`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1872,6 +2478,12 @@ ALTER TABLE `purchases`
 -- Indexes for table `purchase_items`
 --
 ALTER TABLE `purchase_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `request_products`
+--
+ALTER TABLE `request_products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1955,13 +2567,13 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -1970,10 +2582,22 @@ ALTER TABLE `cities`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `credits`
 --
 ALTER TABLE `credits`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `debits`
@@ -1994,6 +2618,30 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `order_payments`
+--
+ALTER TABLE `order_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `otp_verifications`
+--
+ALTER TABLE `otp_verifications`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
@@ -2003,55 +2651,61 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `product_attributes`
 --
 ALTER TABLE `product_attributes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `product_sub_categories`
 --
 ALTER TABLE `product_sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `product_sub_sub_categories`
 --
 ALTER TABLE `product_sub_sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `purchase_items`
 --
 ALTER TABLE `purchase_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `request_products`
+--
+ALTER TABLE `request_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shipment_infos`
@@ -2063,13 +2717,13 @@ ALTER TABLE `shipment_infos`
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `sub_cities`
@@ -2081,7 +2735,7 @@ ALTER TABLE `sub_cities`
 -- AUTO_INCREMENT for table `sub_sub_categories`
 --
 ALTER TABLE `sub_sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -2099,13 +2753,13 @@ ALTER TABLE `supplier_payments`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `variants`
 --
 ALTER TABLE `variants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
