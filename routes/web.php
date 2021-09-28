@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 //frontedn classes
+use App\Http\Controllers\Frontend\SslCommerzPaymentController ;
 use App\Http\Controllers\Frontend\IndexController ;
 use App\Http\Controllers\Frontend\CartController ;
 use App\Http\Controllers\Frontend\OrderController ;
@@ -50,7 +51,8 @@ use App\Http\Controllers\Admin\OrderController as backendOrderController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('product/{slug}', [IndexController::class, 'product'])->name('product');
-Route::get('{slug}', [IndexController::class, 'categoryWiseProduct'])->name('category_product');
+Route::get('api/quick/view/product/{id}', [IndexController::class, 'productQickView'])->name('quick_view');
+Route::get('category/{slug}', [IndexController::class, 'categoryWiseProduct'])->name('category_product');
 Route::get('collections/{slug}', [IndexController::class, 'subCategoryWiseProduct'])->name('sub_category_product');
 Route::get('product/collections/{slug}', [IndexController::class, 'subSubCategoryWiseProduct'])->name('sub_sub_category_product');
 
@@ -60,6 +62,23 @@ Route::group([ 'middleware' => ['auth','authuser'] ], function(){
         'order' => OrderController::class ,
     ]);
     //order routes
+
+            
+    // SSLCOMMERZ Start
+    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+    Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+    //SSLCOMMERZ END
+
+    //authenticated user routes 
     Route::view('user/profile', 'frontend.user.profile')->name('profile');
     Route::view('new/password','frontend.user.new_password') ;
     Route::view('change/password','frontend.user.change_password') ;
@@ -80,12 +99,17 @@ Route::post('api/add/cart/{id}', [CartController::class, 'addCart'])->name('cart
 Route::post('api/cart/item/update', [CartController::class, 'cartUpdate'])->name('cart_update');
 Route::get('api/cart/remove/{rowId}', [CartController::class, 'cartDestroy'])->name('cart_remove');
 Route::get('api/cart/content', [CartController::class, 'cartContent'])->name('cart_content');
+//wishlist routes
+Route::get('wishlist/view', [CartController::class, 'viewWishlist'])->name('wishlist_view');
+Route::post('api/add/wishlist/{id}', [CartController::class, 'addWishlist'])->name('wishlist_add');
+Route::get('api/wishlist/remove/{rowId}', [CartController::class, 'wishlistDestroy'])->name('wishlist_remove');
+
 //user and customer routes 
 Route::post('api/user/registration', [LoginController::class, 'userRegistration'])->name('user_registration');
 //otp login routes
 Route::get('/otp/login', function () {
      return view('frontend.user.otp_login');
-});
+})->name('otp_login');
 Route::post('api/send/otp/code', [LoginController::class, 'sendOtp'])->name('send_otp');
 Route::post('api/verify/otp/code', [LoginController::class, 'verifyOtpCode'])->name('verify_otp');
 //socialite login routes 
@@ -166,3 +190,4 @@ Route::group([
 
 
 Route::get('/admin/login', [HomeController::class, 'login'])->name('admin.login');
+Route::post('/admin/login/submit', [LoginController::class, 'adminLogin'])->name('admin_login_submit');

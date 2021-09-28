@@ -32,7 +32,7 @@
                             <div class="ps-form__content">
                                 <h5>Submit your Number</h5>
                                 <div class="form-group">
-                                    <input maxlength="11" class="form-control" name="phone" required type="text" placeholder="01xxxxxxxxx">
+                                    <input maxlength="11" class="form-control" name="phone" id="otp_phone_number" required type="text" placeholder="01xxxxxxxxx">
                                 </div>
                                 <div class="form-group submtit">
                                     <button  class="ps-btn ps-btn--fullwidth">Submit</button>
@@ -52,6 +52,7 @@
                             <div class="ps-form__content">
                                 <h5>Verirfy OTP Code</h5>
                                 <div class="form-group">
+                                    <input type="hidden" name="phone" id="user_phone_to_get_otp">
                                     <input maxlength="4" class="form-control" name="code" required type="text" placeholder="xxxx">
                                 </div>
                                 <div class="form-group submtit">

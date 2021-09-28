@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Product;
-use App\Models\Variant;
 use App\Models\Attribute;
-use App\Models\ProductImage;
 use Illuminate\Http\Request;
-use App\Models\ProductVariant;
 use App\Models\ProductAttribute;
 use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -40,6 +37,11 @@ class CartController extends Controller
                $size = $request->size ;
            }
 
+           //if cart from wishlist 
+           if (!empty($request->wishlist_rowId)) {
+               Cart::instance('wishlist')->remove($request->wishlist_rowId);
+           }
+
             Cart::add([
                 'id' => $product->id,
                 'name'=>$product->name,
@@ -53,13 +55,14 @@ class CartController extends Controller
                          'color'=>$color,
                          'weight'=>$weight,
                          'slug'=>$product->slug,
-                         'image'=>ProductImage::where('product_id',$product->id)->first()
+                         'image'=> $product->thumbnail_img ?? 'noimage.png',
                       ]
             ]);
 
         return response()->json([
             'status'=>'OK',
-            'message'=>$product->name.' added your cart'
+            'message'=>$product->name.' added your cart',
+            'wishlist_item'=>Cart::instance('wishlist')->count(),
         ]);
         
 
@@ -129,4 +132,53 @@ class CartController extends Controller
 
 
     }
+
+
+
+
+
+
+    public function addWishlist(Request $request,$id){
+
+           $product=Product::findOrFail($id);
+           Cart::instance('wishlist')->add($product->id,$product->name,1,$product->sale_price,00,['slug' => $product->slug ,'image' => $product->thumbnail_img ?? 'noimage.png' ]);
+            return response()->json([
+                'status'=>'OK',
+                'message'=>$product->name.' added to  wishlist',
+                'wishlist_item'=>Cart::instance('wishlist')->count(),
+            ]);
+            
+
+    }
+
+
+
+    public function viewWishlist(){
+
+        $wishlist_content=Cart::instance('wishlist')->content();
+        $wishlist_item = Cart::instance('wishlist')->count();
+        return view('frontend.wishlist',compact(['wishlist_content','wishlist_item']));
+
+        }
+
+
+
+
+    public  function wishlistDestroy($rowId){
+
+            Cart::instance('wishlist')->remove($rowId);
+            return response()->json([
+                'status'=>'OK',
+                'message' => 'item removed from your wishlist',
+                'wishlist_item'=>Cart::instance('wishlist')->count(),
+            ]);
+
+
+    }
+
+
+
+
+
+
 }

@@ -48,23 +48,46 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
+        $validator = Validator::make($request->all(),[
+            'phone' => 'required|digits:11',
+            'password' => 'required',
+        ]);
+
+        if (!$validator->fails()) {
+            if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password, 'role' => 1])) {
+                        return response()->json([
+                            'status' => 'OK',
+                            'message' => 'Authenticated successfully',
+                        ]);
+                } else {
+                    return response()->json([
+                        'status' => 'not_matched',
+                        'message' => "Credential isn't mathing with our records",
+                    ]);
+                }
+
+            }else{
+                return response()->json([
+                    'status' => 'FAILD',
+                    'errors' => $validator->errors()->all(),
+                ]);
+            }
+
+    }
+
+
+    public function adminLogin(Request $request){
+
         $validated = $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($validated)) {
-            if (Auth::user()->role == 1) {
-                return response()->json([
-                    'status' => 'OK',
-                    'message' => 'Authenticated successfully',
-                ]);
-            } elseif (Auth::user()->role == 2) {
+            if (Auth::user()->role == 2) {
                 return redirect()->route('admin.home');
-
             } else {
-                return redirect('/');
-
+                return redirect()->back();
             }
         } else {
             return response()->json([
@@ -80,23 +103,25 @@ class LoginController extends Controller
 
 
 
+
+
     
     public function userRegistration(Request $request){
 
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'digits:11','unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
         if (!$validator->fails()) {
             $user = new User();
             $user->name = $request->name;
-            $user->email = $request->email;
+            $user->phone = $request->phone;
             $user->password = Hash::make($request->password);
             $user->role = 1;
             $user->save();
-            Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role' => 1]);
+            Auth::attempt(['phone' => $request->phone, 'password' => $request->password, 'role' => 1]);
             return response()->json([
                 'status' => "OK",
                 'message' => 'you have registered',
@@ -126,6 +151,7 @@ class LoginController extends Controller
             $otp->phone=$request->phone;
             $otp->code=Hash::make($code);
             $otp->save();
+            User::sendOtpCode($otp->phone,$code);
             return response()->json([
                 'status' => "OK",
                 'message' => 'sent one time verification code on your phone number ',
@@ -181,7 +207,8 @@ class LoginController extends Controller
              }
      }else{
 
-        return \response()->json('Code Dose Not Match');
+            return response()->json('Code Dose Not Match');
+
      }
 
 }

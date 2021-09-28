@@ -36,7 +36,7 @@
                             <div class="ps-form__content">
                                 <h5>Log In Your Account</h5>
                                 <div class="form-group">
-                                    <input class="form-control" name="email" required type="email" placeholder="example@gmail.com">
+                                    <input class="form-control" maxlength="11" name="phone" required type="text" placeholder="01xxxxxxxxx">
                                 </div>
                                 <div class="form-group form-forgot">
                                     <input class="form-control" required name="password" type="password" ><a href="">Forgot?</a>
@@ -66,7 +66,7 @@
                                     <input class="form-control" required name="name" type="text" placeholder="Ex: Mohammad">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" required name="email" type="email" placeholder="example@gmail.com">
+                                    <input class="form-control" required name="phone" maxlength="11" type="text" placeholder="01xxxxxxxxx">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" required name="password" type="password">

@@ -6,18 +6,18 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
-use Illuminate\Support\Str;
 use App\Models\ProductImage;
 use App\Models\ShipmentInfo;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
+use App\Models\RequestProduct;
 use App\Models\ProductCategory;
 use App\Models\ProductAttribute;
 use App\Models\ProductSubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\ProductSubSubCategory;
-use App\Models\RequestProduct;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 
 class productController extends Controller
@@ -111,11 +111,21 @@ class productController extends Controller
             $product->seo_title = $request->seo_title ?? null ;
             $product->seo_description = $request->seo_description ?? null ;
             $product->collection_type = $request->collection ?? null ;
-            $product->save();
 
             //save product multiple image in store directory
             if ($request->hasFile('images')) {
             $files = $request->file('images');
+
+            //make thumnail image
+            $filename = time() .$files[0]->getClientOriginalName();
+            $image_resize = Image::make($files[0]->getRealPath());
+            $image_resize->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path('storage/images/thumbnail_img/'.$filename));
+            $product->thumbnail_img = $filename;
+            $product->save();
+
             foreach ($files as $file) {
                 $product_image = new ProductImage();
                 $product_image->product_id = $product->id;
@@ -213,6 +223,7 @@ class productController extends Controller
             $c_product->sale_price = $product->sale_price;
             $c_product->details = $product->details;
             $c_product->status = $product->status ;
+            $c_product->thumbnail_img = $product->thumbnail_img;
             $c_product->stock = 0;
             $c_product->brand_id = $product->brand_id ?? null ;
             $c_product->shiping_info_id = $product->shiping_info_id ?? null ;
@@ -258,7 +269,7 @@ class productController extends Controller
 
                 //save the product categories
                 $exist_p_sub_sub_categories= ProductSubSubCategory::where('product_id',$product->id)->get();
-                if (!empty($exist_p_sub_sub_categories)) {
+                if (count($exist_p_sub_sub_categories) > 0) {
                     $p_sub_sub_category = new ProductSubSubCategory();
                     $p_sub_sub_category->product_id = $c_product->id;
                     $p_sub_sub_category->sub_sub_category_id = $exist_p_sub_sub_categories[0]->sub_sub_category_id;
@@ -267,7 +278,7 @@ class productController extends Controller
 
                 //save the product properties
                 $exist_attributes = ProductAttribute::where('product_id',$product->id)->get();
-                if (!empty($exist_attributes)) {
+                if (count($exist_attributes) > 0) {
                         $p_attribute = new ProductAttribute();
                         $p_attribute->product_id = $c_product->id;
                         $p_attribute->attribute_id = $exist_attributes[0]->attribute_id;
@@ -275,7 +286,7 @@ class productController extends Controller
                 }
                 //save the product variants
                 $exist_p_variants = ProductVariant::where('product_id',$product->id)->get();
-                if (!empty($exist_p_variants)) {
+                if (count($exist_p_variants) > 0) {
                         $product_variant = new ProductVariant();
                         $product_variant->product_id = $c_product->id;
                         $product_variant->variant_id = $exist_p_variants[0]->variant_id;
@@ -355,6 +366,17 @@ class productController extends Controller
             //save product multiple image in store directory
             if ($request->hasFile('images')) {
             $files = $request->file('images');
+
+            //make thumnail image
+            $filename = time() .$files[0]->getClientOriginalName();
+            $image_resize = Image::make($files[0]->getRealPath());
+            $image_resize->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path('storage/images/thumbnail_img/'.$filename));
+            $product->thumbnail_img = $filename;
+            $product->save();
+
             foreach ($files as $file) {
                 $product_image = new ProductImage();
                 $product_image->product_id = $product->id;

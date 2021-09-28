@@ -16,6 +16,8 @@ use App\Models\ProductSubCategory;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\ProductSubSubCategory;
+use App\Models\Variant;
+use Attribute;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 
@@ -35,9 +37,8 @@ class IndexController extends Controller
          $sub_categories_with_products =SubCategory::where('status',1)->orderBy('position','desc')->with('sub_sub_categories')->get();
          foreach($sub_categories_with_products as $sub_category){
            $products_id=ProductSubCategory::where('sub_category_id',$sub_category->id)->select('product_id')->pluck('product_id');
-           $sub_category->{'products'}=Product::whereIn('id',$products_id)->with('product_images')
-                                                                    ->where('status',1)
-                                                                    ->select('id','name','slug','code','discount','regular_price','sale_price')
+           $sub_category->{'products'}=Product::whereIn('id',$products_id)->where('status',1)
+                                                                    ->select('id','name','slug','thumbnail_img','code','discount','regular_price','sale_price')
                                                                     ->get()
                                                                     ->take(10);
         }
@@ -60,7 +61,7 @@ class IndexController extends Controller
         //finding related sub category products
         $product_sub_category=ProductSubCategory::where('product_id',$product->id)->first();
         $s_products_id=ProductSubCategory::where('sub_category_id',$product_sub_category->sub_category_id)->select('product_id')->pluck('product_id');
-        $related_products=Product::whereIn('id',$s_products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(10);
+        $related_products=Product::whereIn('id',$s_products_id)->where('id','!=',$product->id)->get()->take(10);
 
         //finding related category products
         $product_category=ProductCategory::where('product_id',$product->id)->first();
@@ -75,8 +76,8 @@ class IndexController extends Controller
                 array_push($after_four,$id);
             }
          }
-        $related_category_products=Product::whereIn('id',$after_four)->whereNotIn('id',$s_products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(12);
-        $recommend_products=Product::whereIn('id',$before_four)->whereNotIn('id',$s_products_id)->where('id','!=',$product->id)->with('product_images')->get()->take(12);
+        $related_category_products=Product::whereIn('id',$after_four)->whereNotIn('id',$s_products_id)->where('id','!=',$product->id)->select('id','name','slug','thumbnail_img','code','discount','regular_price','sale_price')->get()->take(12);
+        $recommend_products=Product::whereIn('id',$before_four)->whereNotIn('id',$s_products_id)->where('id','!=',$product->id)->select('id','name','slug','thumbnail_img','code','discount','regular_price','sale_price')->get()->take(12);
        
         return view('frontend.single_product',compact(['product','product_attributes','related_products','related_category_products','recommend_products']));
     }
@@ -92,7 +93,7 @@ class IndexController extends Controller
             $related_categories=Category::where('status',1)->where('id','!=',$category->id)->with('sub_categories')->get();
             //finding related sub category products
             $c_products_id=ProductCategory::where('category_id',$category->id)->select('product_id')->pluck('product_id');
-            $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
+            $products=Product::whereIn('id',$c_products_id)->select('id','name','slug','thumbnail_img','code','discount','regular_price','sale_price')->paginate(25);
             $brands= Brand::where('status',1)->get();
 
             return view('frontend.category_product',compact(['category','brands','products','related_categories']));
@@ -107,7 +108,7 @@ class IndexController extends Controller
             $related_categories=SubCategory::where('id','!=',$category->id)->where('status',1)->with('sub_sub_categories')->get();
             //finding related sub category products
             $c_products_id=ProductSubCategory::where('sub_category_id',$category->id)->select('product_id')->pluck('product_id');
-            $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
+            $products=Product::whereIn('id',$c_products_id)->select('id','name','slug','thumbnail_img','code','discount','regular_price','sale_price')->paginate(25);
             $brands= Brand::where('status',1)->get();
 
             return view('frontend.sub_category_product',compact(['category','brands','products','related_categories']));
@@ -118,11 +119,11 @@ class IndexController extends Controller
     
     public function subSubCategoryWiseProduct($slug){
 
-        $category = SubSubCategory::where('slug',$slug)->first();
-        $related_categories=SubSubCategory::where('status',1)->where('id','!=',$category->id)->get();
+       $category = SubSubCategory::where('slug',$slug)->first();
+       $related_categories=SubSubCategory::where('id','!=',$category->id)->where('status',1)->get();
         //finding related sub category products
         $c_products_id=ProductSubSubCategory::where('sub_sub_category_id',$category->id)->select('product_id')->pluck('product_id');
-        $products=Product::whereIn('id',$c_products_id)->with('product_images')->paginate(25);
+        $products=Product::whereIn('id',$c_products_id)->select('id','name','slug','thumbnail_img','code','discount','regular_price','sale_price')->paginate(25);
         $brands= Brand::where('status',1)->get();
 
         return view('frontend.sub_sub_category_product',compact(['category','brands','products','related_categories']));
@@ -138,9 +139,18 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function productQickView($id){
+        
+            $product = Product::select('id','name','details','regular_price','sale_price')->with('product_images')->findOrFail($id);
+            $variants_id=ProductVariant::where('product_id',$product->id)->select('variant_id')->pluck('variant_id');
+            $variants=Variant::whereIn('id',$variants_id)->select('name')->get();  
+                            
+            return response()->json([
+               'status' => 'OK',
+               'product' => $product,
+               'variants' => $variants,
+
+           ]);
     }
 
     /**

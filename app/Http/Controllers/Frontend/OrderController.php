@@ -129,11 +129,14 @@ class OrderController extends Controller
                    // $invoice=$order->invoice_no;
                     //  Order::SendMessageCustomer($number,$name,$invoice);
                     cart::destroy();
+                    session()->put('order_id',Order::max('id'));
                 });
 
                 return response()->json([
                     'status' => "OK",
                     'message' => 'Thanks Dear '.$request->name.' your order is placed successfully',
+                    'order_id' => Order::max('id'),
+                    'payment_method' => $request->payment_method ,
                 ]);
                 
             }else{

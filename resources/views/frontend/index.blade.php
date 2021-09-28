@@ -102,7 +102,7 @@
                    @foreach ($sub_category->products as $product)
 
                     <div class="ps-product ps-product--inner">
-                        <div class="ps-product__thumbnail"><a href="{{ route('product',$product->slug) }}"> @if( count($product->product_images) > 0)  <img src="{{ asset('storage/'.$product->product_images['0']->image) }}" alt="{{ $product->name }}"> @endif </a>
+                        <div class="ps-product__thumbnail"><a href="{{ route('product',$product->slug) }}">  <img src="{{ asset('storage/images/thumbnail_img/'.$product->thumbnail_img) }}" alt="{{ $product->name }}"> </a>
                          @if ($product->discount > 0 )
                               <div class="ps-product__badge">
                                    @php
@@ -112,8 +112,8 @@
                          @endif  
                             <ul class="ps-product__actions">
                                 <li><a class="quick_cart_btn" product_id={{ $product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
-                                <li><a  title="Quick View"><i class="icon-eye"></i></a></li>
-                                <li><a  title="Add to Whishlist"><i class="icon-heart"></i></a></li>
+                                <li><a class="quick_view_btn"  product_id={{ $product->id }} title="Quick View"><i class="icon-eye"></i></a></li>
+                                <li><a class="quick_wishlist_btn" product_id={{ $product->id }} title="Add to Whishlist" ><i class="icon-heart"></i></a></li>
                              </ul>
                         </div>
                         <div class="ps-product__container">
@@ -280,28 +280,7 @@
             </div>
         </div>
     </div>
-    <div class="ps-newsletter">
-        <div class="ps-container">
-            <form class="ps-form--newsletter" action="do_action" method="post">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                        <div class="ps-form__left">
-                            <h3>Newsletter</h3>
-                            <p>Subcribe to get information about products and coupons</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                        <div class="ps-form__right">
-                            <div class="form-group--nest">
-                                <input class="form-control" type="email" placeholder="Email address">
-                                <button class="ps-btn">Subscribe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+  
 </div>
 
 @endsection

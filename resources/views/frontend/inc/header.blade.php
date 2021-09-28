@@ -2,7 +2,7 @@
         $cart_content=Cart::content();
         $cart_total=Cart::subtotal();
         $cart_item=Cart::count();
-
+        $wishlist_item = Cart::instance('wishlist')->count();
         $categories=App\Models\Category::where('status',1)->with('sub_categories.sub_sub_categories')->get();
 @endphp
 <header class="header header--1" data-sticky="true">
@@ -63,14 +63,14 @@
                 </form>
             </div>
             <div class="header__right">
-                <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
+                <div class="header__actions"><a class="header__extra" href="{{ route('wishlist_view') }}"><i class="icon-heart"></i><span id="wilist_item_header"><i>{{ $wishlist_item }}</i></span></a>
                     <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i id="__cart_count">{{ $cart_item }}</i></span></a>
                         <div id="__cart_content_parent" class="ps-cart__content">
                             <div id="__cart_content_container" class="ps-cart__items">
                                @foreach ($cart_content as $item)
 
                                 <div class="ps-product--cart-mobile {{ $item->rowId }}">
-                                    <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
+                                    <div class="ps-product__thumbnail"><a href="#"><img src="{{ asset('storage/images/thumbnail_img/'.$item->options->image) }}" alt=""></a></div>
                                     <div class="ps-product__content"><a class="ps-product__remove" ><i cart_row_id="{{ $item->rowId }}" class="icon-cross __remove_cart"></i></a>{{ $item->name }}
                                        <small><span id="header_cart_qty_{{ $item->rowId }}" > {{ $item->qty }} </span> x &#2547;{{ $item->price }}</small>
                                     </div>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="ps-block--user-header">
                        @if (auth()->guest())
-                         <div class="ps-block__left"><a href="{{ route('login') }}"><i class="icon-user"></i></a></div>     
+                         <div class="ps-block__left"><a href="{{ route('otp_login') }}"><i class="icon-user"></i></a></div>     
                        @else
                         <li class="nav-item dropdown user_drop_nav">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -437,3 +437,5 @@
         </ul>
     </div>
 </div>
+
+

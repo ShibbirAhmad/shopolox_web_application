@@ -9,9 +9,8 @@
         <div class="ps-breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="shop-default.html">Shop</a></li>
-                    <li>Whishlist</li>
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li>cart</li>
                 </ul>
             </div>
         </div>
@@ -36,7 +35,7 @@
                                     <tr class="{{$item->rowId  }}" >
                                         <td>
                                             <div class="ps-product--cart">
-                                                <div class="ps-product__thumbnail"><a href="{{ route('product',$item->options->slug) }}"><img src="{{ asset('storage/'.$item->options->image->image) }}" alt=""></a></div>
+                                                <div class="ps-product__thumbnail"><a href="{{ route('product',$item->options->slug) }}"><img src="{{ asset('storage/images/thumbnail_img/'.$item->options->image) }}" ></a></div>
                                                 <div class="ps-product__content"><a href="{{ route('product',$item->options->slug) }}">{{ $item->name }}</a>
                                                 </div>
                                             </div>

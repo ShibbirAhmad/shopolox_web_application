@@ -16,16 +16,17 @@
                                     <div class="ps-wrapper">
                                         <div class="ps-product__gallery" data-arrow="true">
                                             @foreach ($product->product_images as $item)
-                                                <div class="item"><a href="{{ asset('storage/' . $item->image) }}"><img
-                                                            src="{{ asset('storage/' . $item->image) }}"
-                                                            alt="{{ $product->name }}"></a></div>
+                                                <div class="item"><a href="{{ asset('storage/' . $item->image) }}">
+                                                    <img class="single_p_main_img"  src="{{ asset('storage/' . $item->image) }}"
+                                                     alt="{{ $product->name }}"></a>
+                                                </div>
                                             @endforeach
                                         </div>
                                     </div>
                                 </figure>
                                 <div class="ps-product__variants" data-item="4" data-md="4" data-sm="4" data-arrow="false">
                                     @foreach ($product->product_images as $item)
-                                        <div class="item"><img src="{{ asset('storage/' . $item->image) }}"
+                                        <div class="item"><img class="preview_image_item" src="{{ asset('storage/' . $item->image) }}"
                                                 alt="{{ $product->name }}"></div>
                                     @endforeach
                                 </div>
@@ -259,17 +260,12 @@
                                 <div class="ps-product">
                                     <div class="ps-product__thumbnail"><a
                                             href="{{ route('product', $r_product->slug) }}"><img
-                                                src="{{ asset('storage/' . $r_product->product_images[0]->image) }}"
+                                                src="{{ asset('storage/images/thumbnail_img/' . $r_product->thumbnail_img) }}"
                                                 alt=""></a>
                                         <ul class="ps-product__actions">
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i
-                                                        class="icon-bag2"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i
-                                                        class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i
-                                                        class="icon-chart-bars"></i></a></li>
+                                            <li><a class="quick_cart_btn" product_id={{ $r_product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
+                                            <li><a class="quick_view_btn"  product_id={{ $r_product->id }} title="Quick View"><i class="icon-eye"></i></a></li>
+                                            <li><a class="quick_wishlist_btn" product_id={{ $r_product->id }} title="Add to Whishlist" ><i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="ps-product__container">
@@ -301,16 +297,13 @@
                                 <div class="ps-product">
                                     <div class="ps-product__thumbnail"><a
                                             href="{{ route('product', $c_product->slug) }}"><img
-                                                src="{{ asset('storage/' . $c_product->product_images[0]->image) }}"
+                                                src="{{ asset('storage/images/thumbnail_img/'.$c_product->thumbnail_img) }}"
                                                 alt=""></a>
-                                        <ul class="ps-product__actions">
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i
-                                                        class="icon-bag2"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Quick View"><i
-                                                        class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                        </ul>
+                                                <ul class="ps-product__actions">
+                                                    <li><a class="quick_cart_btn" product_id={{ $c_product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
+                                                    <li><a class="quick_view_btn"  product_id={{ $c_product->id }} title="Quick View"><i class="icon-eye"></i></a></li>
+                                                    <li><a class="quick_wishlist_btn" product_id={{ $c_product->id }} title="Add to Whishlist" ><i class="icon-heart"></i></a></li>
+                                               </ul>
                                     </div>
                                     <div class="ps-product__container">
                                         <div class="ps-product__content"><a class="ps-product__title"
@@ -342,13 +335,13 @@
                             <div class="ps-product">
                                 <div class="ps-product__thumbnail"><a
                                         href="{{ route('product', $r_product->slug) }}"><img
-                                            src="{{ asset('storage/' . $r_product->product_images[0]->image) }}"
+                                            src="{{ asset('storage/images/thumbnail_img/'.$r_product->thumbnail_img) }}"
                                             alt=""></a>
-                                    <ul class="ps-product__actions">
-                                        <li><a class="quick_cart_btn" r_product={{ $product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
-                                        <li><a  title="Quick View"><i class="icon-eye"></i></a></li>
-                                        <li><a  title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                    </ul>
+                                            <ul class="ps-product__actions">
+                                                <li><a class="quick_cart_btn" product_id={{ $r_product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
+                                                <li><a class="quick_view_btn"  product_id={{ $r_product->id }} title="Quick View"><i class="icon-eye"></i></a></li>
+                                                <li><a class="quick_wishlist_btn" product_id={{ $r_product->id }} title="Add to Whishlist" ><i class="icon-heart"></i></a></li>
+                                           </ul>
                                 </div>
                                 <div class="ps-product__container">
                                     <div class="ps-product__content"><a class="ps-product__title"

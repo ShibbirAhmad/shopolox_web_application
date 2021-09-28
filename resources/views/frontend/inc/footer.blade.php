@@ -1,55 +1,158 @@
 <footer class="ps-footer">
-    <div class="ps-container">
-        <div class="ps-footer__widgets">
-            <aside class="widget widget_footer widget_contact-us">
-                <h4 class="widget-title">Contact us</h4>
-                <div class="widget_content">
-                    <p>Call us 24/7</p>
-                    <h3>1800 97 97 69</h3>
-                    <p>502 New Design Str, Melbourne, Australia <br><a href="/cdn-cgi/l/email-protection#afccc0c1dbceccdbefc2cedddbc9daddd681ccc0"><span class="__cf_email__" data-cfemail="a4c7cbcad0c5c7d0e4c9c5d6d0c2d1d6dd8ac7cb">[email&#160;protected]</span></a></p>
-                    <ul class="ps-list--social">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-                    </ul>
+    <div class="bg-gray-14 py-2 hide">
+        <div class="container-fluid">
+            <div class="foooter desktop_footer">
+
+                <div class="fpart-first">
+
+                    <div class="row">
+                        <div class="contact col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <ul>
+                                <li style="list-style-type:none" class="address">
+
+                                    <router-link to="/">
+                                        <img src="{{ asset('frontend/img/logo_light.png') }}"
+                                            class="img-fluid site_logo" />
+                                    </router-link>
+
+                                    <p class="short_desc">
+                                        <span style="
+                        font-size: 16px;
+                        color: #199EFF;
+                        font-weight: 700;
+                      ">shopolox.com</span>
+                                        is a complete e-commerce market place.
+                                        Here, consumers of all ages can buy every essential product
+                                        of the day, from gadgets, electronics, home appliances,
+                                        leather goods, jewelry, baby accessories, cosmetics, fashion
+                                        and lifestyle products to affordable prices at home
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="quick_link_container">
+                                <div class="quick_link">
+                                    <h5>Quick Links</h5>
+                                    <div class="line"></div>
+                                    <ul class="link_line">
+                                        <li><a href="/" class="router-link-active">Home</a></li>
+                                        <li><a href="/about/us"
+                                                class="">About Us</a></li>
+                    <li><a href="
+                                                /contact/us"
+                                                class="">Contact Us</a></li>
+                  </ul>
                 </div>
-            </aside>
-            <aside class="widget widget_footer">
-                <h4 class="widget-title">Quick links</h4>
-                <ul class="ps-list--link">
-                    <li><a href="#">Policy</a></li>
-                    <li><a href="#">Term & Condition</a></li>
-                    <li><a href="#">Shipping</a></li>
-                    <li><a href="#">Return</a></li>
-                    <li><a href="faqs.html">FAQs</a></li>
+
+              <div class="
+                                                quick_link">
+                                                <h5>Information</h5>
+                                                <div class="line"></div>
+                                                <ul class="link_line">
+                                                    <li><a href="/how/to/buy"
+                                                            class="">How to order</a></li>
+                  <li><a href="
+                                                            /return/policy"
+                                                            class="">Return Policy</a></li>
+                  <li><a href="
+                                                            /shipment"
+                                                            class="">Shipment </a></li>
+                  <li><a href="
+                                                            /about/seller"
+                                                            class="">About Seller </a></li>
                 </ul>
-            </aside>
-            <aside class="widget widget_footer">
-                <h4 class="widget-title">Company</h4>
-                <ul class="ps-list--link">
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="#">Affilate</a></li>
-                    <li><a href="#">Career</a></li>
-                    <li><a href="contact-us.html">Contact</a></li>
-                </ul>
-            </aside>
-            <aside class="widget widget_footer">
-                <h4 class="widget-title">Bussiness</h4>
-                <ul class="ps-list--link">
-                    <li><a href="#">Our Press</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
-                    <li><a href="my-account.html">My account</a></li>
-                    <li><a href="shop-default.html">Shop</a></li>
-                </ul>
-            </aside>
-        </div>
-        
-        <div class="ps-footer__copyright">
-            <p>© 2018 Martfury. All Rights Reserved</p>
-            <p><span>We Using Safe Payment For:</span><a href="#"><img src="{{ asset('frontend/img/payment-method/1.jpg') }}" alt=""></a><a href="#"><img src="img/payment-method/2.jpg" alt=""></a><a href="#"><img src="{{ asset('frontend/img/payment-method/3.jpg') }}" alt=""></a><a href="#"><img src="{{ asset('frontend/img/payment-method/4.jpg') }}" alt=""></a><a href="#"><img src="{{ asset('frontend/img/payment-method/5.jpg') }}" alt=""></a></p>
-        </div>
-    </div>
+              </div>
+
+             </div>
+            </div>
+
+            <div class="
+                                                            col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <div class="news_letter">
+                                                                <h5>Follow Us</h5>
+                                                                <div class="line"></div>
+                                                                <form>
+                                                                    <div class="row">
+                                                                        <div class="subscribe_container">
+                                                                            <form method="POST" action="">
+                                                                                <div class="form-group s_form">
+                                                                                    <label for="subscribe"
+                                                                                        class="form-label">submit
+                                                                                        email to recieve latest offer
+                                                                                        .</label>
+                                                                                    <input type="email"
+                                                                                        style="height: 44px;" required
+                                                                                        placeholder="example@gmail.com"
+                                                                                        class="form-control"
+                                                                                        name="email" />
+
+                                                                                    <button type="submit"
+                                                                                        class="email_btn">
+                                                                                        <i class="fa fa-envelope"></i>
+                                                                                    </button>
+
+                                                                                </div>
+
+                                                                            </form>
+                                                                            <div class="social-icon">
+                                                                                <a href="https://www.youtube.com/"
+                                                                                    target="_blank"
+                                                                                    class="social-wrape"><i
+                                                                                        class="fa fa-youtube-square f-icon"></i>
+
+                                                                                </a>
+                                                                                <a href="#" target="_blank"
+                                                                                    class="social-wrape"
+                                                                                    style="margin-top: 10px">
+                                                                                    <i class="fa fa-twitter f-icon"></i>
+                                                                                </a>
+                                                                                <a href="https://linkedin.com/"
+                                                                                    target="_blank"
+                                                                                    class="social-wrape"
+                                                                                    style="margin-top: 10px"><i
+                                                                                        class="fa fa-linkedin f-icon"></i></a>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="fpart-second">
+                     
+                                <div id="powered" class="clearfix"></div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="payment-card"><img
+                                                src="{{ asset('frontend/ssl.png') }}"></div>
+                                    </div>
+                                </div>
+
+                                
+                        <div class="end_footer">
+
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 text-center">
+                                <p class="copy_right_info">
+                                    Copyright © shopolox.com 2021. All rights reserved.
+                                </p>
+                            </div>
+
+                        </div>
+                      
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
 </footer>
 {{-- <div class="ps-popup" id="subscribe" data-time="500">
     <div class="ps-popup__content bg--cover" data-background="{{ asset('frontend/img/bg/subscribe.jpg') }}"><a class="ps-popup__close" href="#"><i class="icon-cross"></i></a>
@@ -88,3 +191,122 @@
         </form>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- product quick view modal --}}
+
+<div class="modal  " id="product_quickview_modal" tabindex="-1" role="dialog" aria-labelledby="product-quickview"
+    aria-modal="true" style="padding-right: 16px;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content"><span id="quick_p_modal_close" class="modal-close" data-dismiss="modal"><i
+                    class="icon-cross2"></i></span>
+            <article class="ps-product--detail ps-product--fullwidth ps-product--quickview">
+                <div class="ps-product__header">
+                    <div class="ps-product__thumbnail">
+                        <div class="ps-product__images " id="quick_p_img_container">
+
+                        </div>
+                    </div>
+                    <div style="margin-bottom:20px;" class="ps-product__info">
+                        <h4 id="quick_p_name"> </h4>
+                        <div class="ps-product__meta">
+                        </div>
+                        <h4 class="ps-product__price  sale "><span>&#2547;</span><span id="quick_p_sale_price"></span>
+                            <del>&#2547;</del><del id="quick_p_regular_price"></del> </h4>
+                        <div class="ps-product__desc">
+                            <div class="ps-list--dot">
+                                <p id="quick_p_details"> </p>
+                            </div>
+                        </div>
+                        <div class="pr_switch_wrap">
+                            <div class="product-attributes">
+                                {{-- for color --}}
+                                <div class="visual-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
+                                    data-type="visual">
+                                    <label class="attribute-name">Color</label>
+                                    <div class="attribute-values">
+                                        <ul id="quick_p_color_list" class="visual-swatch color-swatch attribute-swatch">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                {{-- for color --}}
+
+                                {{-- for size --}}
+
+
+                                <div class="text-swatches-wrapper attribute-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
+                                    data-type="text">
+                                    <label class="attribute-name">Size</label>
+                                    <div class="attribute-values">
+                                        <ul id="quick_p_size_list" class="text-swatch attribute-swatch color-swatch">
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                {{-- for size --}}
+
+
+                            </div>
+
+                        </div>
+                        <div class="number-items-available" style="display: none; margin-bottom: 10px;"></div>
+                        <figure>
+                            <figcaption>Quantity</figcaption>
+                            <div class="form-group--number">
+                                <button onclick="incrementQty()" class="up"><i
+                                        class="fa fa-plus"></i></button>
+                                <button onclick="dicrementQty()" class="down"><i
+                                        class="fa fa-minus"></i></button>
+                                <input id="quick_p_quantity" class="form-control" name="quantity" type="text"
+                                    value="1">
+                            </div>
+                        </figure>
+                        <br>
+                        <button class="ps-btn" id="quick_p_cart_btn" type="submit">Add to cart</button>
+                        <button class="ps-btn" id="quick_p_buy_btn" type="submit" name="checkout">Buy
+                            Now</button>
+                        <a class="ps-btn js-add-to-wishlist-button" id="quick_p_wishlist_btn" href="#"><i
+                                class="icon-heart"></i></a>
+
+                    </div>
+                </div>
+        </div>
+        </article>
+    </div>
+</div>
+</div>
+
+
+{{-- quick view closed --}}
+
+
+
+
+<script>
+    function incrementQty() {
+        let input_value = document.getElementById('quick_p_quantity').value;
+        document.getElementById('quick_p_quantity').value = parseInt(input_value) + 1;
+    }
+
+    function dicrementQty() {
+        let input_value = document.getElementById('quick_p_quantity').value;
+        if (parseInt(input_value) > 1) {
+            document.getElementById('quick_p_quantity').value = parseInt(input_value) - 1;
+        } else {
+            alert('quantity should be at least one');
+        }
+
+    }
+</script>

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'product details')
+@section('title', 'sub category product collections')
 
 @section('content')
     @parent
@@ -51,42 +51,7 @@
                         </figure>
                      
 
-                        <figure>
-                            <h4 class="widget-title">By Color</h4>
-                            <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-1" name="size">
-                                <label for="color-1"></label>
-                            </div>
-                            <div class="ps-checkbox ps-checkbox--color color-2 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-2" name="size">
-                                <label for="color-2"></label>
-                            </div>
-                            <div class="ps-checkbox ps-checkbox--color color-3 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-3" name="size">
-                                <label for="color-3"></label>
-                            </div>
-                            <div class="ps-checkbox ps-checkbox--color color-4 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-4" name="size">
-                                <label for="color-4"></label>
-                            </div>
-                            <div class="ps-checkbox ps-checkbox--color color-5 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-5" name="size">
-                                <label for="color-5"></label>
-                            </div>
-                            <div class="ps-checkbox ps-checkbox--color color-6 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-6" name="size">
-                                <label for="color-6"></label>
-                            </div>
-                            <div class="ps-checkbox ps-checkbox--color color-7 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-7" name="size">
-                                <label for="color-7"></label>
-                            </div>
-                            <div class="ps-checkbox ps-checkbox--color color-8 ps-checkbox--inline">
-                                <input class="form-control" type="checkbox" id="color-8" name="size">
-                                <label for="color-8"></label>
-                            </div>
-                        </figure>
-
+     
                     </aside>
                 </div>
                 <div class="ps-layout__right">
@@ -121,12 +86,12 @@
                                             <div class="ps-product">
                                                 <div class="ps-product__thumbnail"><a
                                                         href="{{ route('product', $product->slug) }}"><img
-                                                            src="{{ asset('storage/' . $product->product_images[0]->image) }}"
+                                                            src="{{  asset('storage/images/thumbnail_img/'.$product->thumbnail_img) }}"
                                                             alt=""></a>
                                                     <ul class="ps-product__actions">
                                                         <li><a class="quick_cart_btn" product_id={{ $product->id }} title="Add To Cart"><i class="icon-bag2"></i></a></li>
-                                                        <li><a  title="Quick View"><i class="icon-eye"></i></a></li>
-                                                        <li><a  title="Add to Whishlist"><i class="icon-heart"></i></a></li>
+                                                        <li><a class="quick_view_btn"  product_id={{ $product->id }} title="Quick View"><i class="icon-eye"></i></a></li>
+                                                        <li><a class="quick_wishlist_btn" product_id={{ $product->id }} title="Add to Whishlist" ><i class="icon-heart"></i></a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="ps-product__container">
