@@ -11863,7 +11863,8 @@ textarea.form-control {
 }
 
 .ps-section--shopping {
-  padding: 100px 0;
+  padding-top: 5px ;
+  padding-bottom: 50px;
 }
 
 .ps-section--shopping .ps-section__header {
@@ -16623,7 +16624,7 @@ html .bg--parallax {
   box-shadow: 0 0 transparent;
   box-shadow: 0 0 0 #000;
   font-size: 14px;
-  height: 50px;
+  height: 40px;
   outline: 0;
   padding: 0 20px;
   transition: all .4s ease;
@@ -16709,8 +16710,9 @@ button, input, select, textarea {
 
 
 .checkout_total_section h4 {
-     
      padding: 3% 0%;
+     font-size: 16px;
+     font-weight: normal;
 }
 
 .checkout_c_img {

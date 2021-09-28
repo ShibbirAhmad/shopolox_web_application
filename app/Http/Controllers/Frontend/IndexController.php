@@ -141,7 +141,7 @@ class IndexController extends Controller
      */
     public function productQickView($id){
         
-            $product = Product::select('id','name','details','regular_price','sale_price','thumbnail_img')->findOrFail($id);
+            $product = Product::select('id','name','details','regular_price','sale_price')->with('product_images')->findOrFail($id);
             $variants_id=ProductVariant::where('product_id',$product->id)->select('variant_id')->pluck('variant_id');
             $variants=Variant::whereIn('id',$variants_id)->select('name')->get();  
                             

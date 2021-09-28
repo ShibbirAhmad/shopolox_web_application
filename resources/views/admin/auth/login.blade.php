@@ -29,7 +29,7 @@
                         <h1 class="">Sign In</h1>
                         <p class="">Log in to your account to continue.</p>
 
-                        <form action="{{ route('login') }}" class="text-left" method="POST">
+                        <form action="{{ route('admin_login_submit') }}" class="text-left" method="POST">
                             @csrf
                             @if ($errors->any())
                                 <div class="alert alert-danger">

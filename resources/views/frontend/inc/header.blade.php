@@ -86,7 +86,7 @@
                     </div>
                     <div class="ps-block--user-header">
                        @if (auth()->guest())
-                         <div class="ps-block__left"><a href="{{ route('login') }}"><i class="icon-user"></i></a></div>     
+                         <div class="ps-block__left"><a href="{{ route('otp_login') }}"><i class="icon-user"></i></a></div>     
                        @else
                         <li class="nav-item dropdown user_drop_nav">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -439,104 +439,3 @@
 </div>
 
 
-
-    {{-- product quick view modal  --}}
-
-    <div class="modal  " id="product_quickview_modal" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-modal="true" style="padding-right: 16px;">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content"><span id="quick_p_modal_close" class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
-        <article class="ps-product--detail ps-product--fullwidth ps-product--quickview"><div class="ps-product__header">
-            <div class="ps-product__thumbnail" >
-                <div class="ps-product__images " id="quick_p_img_container" >
-              
-                </div>
-            </div>
-            <div style="margin-bottom:20px;" class="ps-product__info">
-                <h4 id="quick_p_name">  </h4>
-                <div class="ps-product__meta">
-            </div>
-                <h4 class="ps-product__price  sale "><span>&#2547;</span><span id="quick_p_sale_price"></span>  <del>&#2547;</del><del id="quick_p_regular_price"></del> </h4>
-                <div class="ps-product__desc">
-                    <div class="ps-list--dot">
-                        <p id="quick_p_details">  </p>  
-                    </div>
-                </div>
-        <div class="pr_switch_wrap">
-        <div class="product-attributes" >
-        {{-- for color  --}}
-         <div class="visual-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
-            data-type="visual">
-            <label class="attribute-name">Color</label>
-            <div class="attribute-values">
-                <ul id="quick_p_color_list" class="visual-swatch color-swatch attribute-swatch">
-                   
-                </ul>
-            </div>
-         </div>
-        {{-- for color  --}}
-
-        {{-- for size  --}}
-
-
-        <div class="text-swatches-wrapper attribute-swatches-wrapper attribute-swatches-wrapper form-group product__attribute product__color"
-            data-type="text">
-            <label class="attribute-name">Size</label>
-            <div class="attribute-values">
-                <ul id="quick_p_size_list"  class="text-swatch attribute-swatch color-swatch">
-
-                </ul>
-            </div>
-        </div>
-
-        {{-- for size  --}}
-
-
-        </div>
-        
-                    </div>
-                    <div class="number-items-available" style="display: none; margin-bottom: 10px;"></div>
-                    <figure>
-                        <figcaption>Quantity</figcaption>
-                        <div class="form-group--number">
-                            <button onclick="incrementQty()" class="up"><i class="fa fa-plus"></i></button>
-                            <button onclick="dicrementQty()" class="down"><i
-                                    class="fa fa-minus"></i></button>
-                            <input id="quick_p_quantity" class="form-control" name="quantity" type="text"
-                                value="1">
-                        </div>
-                    </figure>
-                    <br>
-                        <button class="ps-btn" id="quick_p_cart_btn" type="submit">Add to cart</button>
-                        <button class="ps-btn" id="quick_p_buy_btn" type="submit" name="checkout">Buy Now</button>
-                        <a class="ps-btn js-add-to-wishlist-button" id="quick_p_wishlist_btn" href="#" ><i class="icon-heart"></i></a>
-                     
-                    </div>
-            </div>
-        </div>
-        </article>
-        </div>
-        </div>
-        </div>
-
-
-    {{-- quick view closed  --}}
-
-
-
-
-    <script>
-        function incrementQty() {
-            let input_value = document.getElementById('quick_p_quantity').value;
-            document.getElementById('quick_p_quantity').value = parseInt(input_value) + 1;
-        }
-
-        function dicrementQty() {
-            let input_value = document.getElementById('quick_p_quantity').value;
-            if (parseInt(input_value) > 1) {
-                document.getElementById('quick_p_quantity').value = parseInt(input_value) - 1;
-            } else {
-                alert('quantity should be at least one');
-            }
-
-        }
-    </script>

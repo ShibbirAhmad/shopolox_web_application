@@ -259,7 +259,7 @@
          
                       });
 
-                     let img  = `<img src="/storage/images/thumbnail_img/${resp.product.thumbnail_img}" class="quick_p_image">`
+                     let img  = `<img src="/storage/${resp.product.product_images[0].image}" class="quick_p_image">`
                      $('#product_quickview_modal').find('#quick_p_img_container').html(img) ;
                      let route = 'http://127.0.0.1:8000/api/add/cart/'+resp.product.id; 
                      $('#product_quickview_modal').find('#quick_p_cart_btn').attr('route',route); 
@@ -689,7 +689,12 @@
                             })
                           let sub_total = document.getElementById('checkout_sub_total').innerHTML  ;
                           document.getElementById('shipping_cost').innerHTML = resp.city.delivery_charge  ;
+                    
                           document.getElementById('checkout_total').innerHTML = parseInt(sub_total) + parseInt(resp.city.delivery_charge) ;
+                          document.getElementById('checkout_total_1').innerHTML = parseInt(sub_total)  ;
+                          let s_total = parseInt(sub_total) ;
+                          let ten_percent_value_of_order = parseFloat( ( s_total * 10 ) / 100 ) ;
+                          document.getElementById('ten_percent_value_of_order').innerHTML = `(${ten_percent_value_of_order}) `;
                         }else{
                             option=`<option disabled>Select  Sub City</option>`;
                         }                    
@@ -724,15 +729,23 @@
                 processData: false,
                 success: function(resp) {
                     console.log(resp)
+
                     if (resp.status == "OK") {
                         toastMessage(resp.message);
                         var url = "http://127.0.0.1:8000/order";
                         $(location).attr('href',url);
-                    } else {
+                    }else if (resp.status == "not_matched"){
                         Swal.fire({
                             type: 'error',
                             title: '<P style="color: red;">Oops...<p>',
                             text: resp.message,
+                            footer: '<b> Something Wrong</b>'
+                        });
+                    }else {
+                        Swal.fire({
+                            type: 'error',
+                            title: '<P style="color: red;">Oops...<p>',
+                            text: resp.errors,
                             footer: '<b> Something Wrong</b>'
                         });
                     }
@@ -813,7 +826,8 @@
                     console.log(resp)
                     if (resp.status == "OK") {
                         toastMessage(resp.message);
-                        
+                        let number = document.getElementById('otp_phone_number').value ;
+                        document.getElementById('user_phone_to_get_otp').value = number ;
                         document.getElementById('user_otp_login_form').classList.toggle('form_display_toggle');
                         document.getElementById('user_otp_validation_form').classList.toggle('form_display_toggle');
 
@@ -858,6 +872,8 @@
                     console.log(resp)
                     if (resp.status == "OK") {
                         toastMessage(resp.message);
+                        var url = "http://127.0.0.1:8000/order";
+                            $(location).attr('href',url);
                     } else {
                         Swal.fire({
                             type: 'error',
@@ -877,7 +893,7 @@
         });
 
 
-       //place order 
+        //place order 
         $('body').on('submit', '#checkout_form', function(e) {
             event.preventDefault();
 
@@ -899,8 +915,14 @@
                     console.log(resp)
                     if (resp.status == "OK") {
                         toastMessage(resp.message);
-                        var url = "http://127.0.0.1:8000/";
-                        $(location).attr('href',url);
+                        if (resp.payment_method=='Online Payment') {
+                            document.getElementById('place_order_btn').innerHTML = "Redirecting to SSLCOMMEREZ";
+                            document.getElementById('online_payment_form').submit();
+                        }else{
+                            var url = "http://127.0.0.1:8000/";
+                            $(location).attr('href',url);
+                        }
+
                     } else {
                         Swal.fire({
                             type: 'error',
@@ -919,6 +941,7 @@
             });
         });
 
+ 
 
         //user profile update
         $('body').on('submit', '#user_profile_update_form', function(e) {

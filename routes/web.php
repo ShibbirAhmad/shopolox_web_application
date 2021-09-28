@@ -109,7 +109,7 @@ Route::post('api/user/registration', [LoginController::class, 'userRegistration'
 //otp login routes
 Route::get('/otp/login', function () {
      return view('frontend.user.otp_login');
-});
+})->name('otp_login');
 Route::post('api/send/otp/code', [LoginController::class, 'sendOtp'])->name('send_otp');
 Route::post('api/verify/otp/code', [LoginController::class, 'verifyOtpCode'])->name('verify_otp');
 //socialite login routes 
@@ -190,3 +190,4 @@ Route::group([
 
 
 Route::get('/admin/login', [HomeController::class, 'login'])->name('admin.login');
+Route::post('/admin/login/submit', [LoginController::class, 'adminLogin'])->name('admin_login_submit');
