@@ -1,12 +1,41 @@
 @extends('admin.layouts.app')
 @push('extra_css')
   <style>
-      .payment_container ul li{
+     
+     .payment_container ul li{
          list-style-type: none;
          padding: 2px 0px ;
          text-align: left;
          margin-left: -30px;
       }
+
+    .order_statistic{
+        margin-left: 10px;
+    }
+    .statistic_item{
+        float: left;
+        background: #fff;
+        box-shadow: 0 1pt 6pt rgb(150 165 237);
+        border: none;
+        padding: 20px 40px;
+        margin: 5px;
+        width: 23.4%;
+        height: 100px;
+    }
+    .statistic_item h2 {
+        font-size: 34px;
+        font-weight: bold;
+        font-family: serif;
+        line-height: 23px;
+        color: #000;
+    }
+    .statistic_item p {
+        font-size: 16px;
+        font-family: serif;
+        position: absolute;
+        line-height: 13px;
+        color: #000;
+    }
 
 
 
@@ -17,11 +46,16 @@
 
         <div class="row layout-top-spacing justify-content-center">
 
-            <div class="col-lg-12">
-                <a class="btn btn-primary mb-2 mr-2 btn-rounded " href="{{ route('admin.home') }} " 
+        <div class="col-lg-12">
+        <a class="btn btn-primary mb-2 mr-2 btn-rounded " href="{{ route('admin.home') }} " 
                   ><i class="fa fa-arrow-left"></i></a>
 
-            </div>
+
+         </div>
+
+
+
+
 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div id="tableHover" class="col-lg-12 col-12 layout-spacing">
