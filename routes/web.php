@@ -26,7 +26,7 @@ use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\ShipmentInfoController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\VariantController;
-use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\SubCityController;
@@ -149,7 +149,7 @@ Route::group([
     'middleware' => 'admin',
 ], function () {
 
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.home');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.home');
 
     //resoure route
     Route::resources([
@@ -189,5 +189,5 @@ Route::group([
 });
 
 
-Route::get('/admin/login', [HomeController::class, 'login'])->name('admin.login');
+Route::view('/admin/login','admin.auth.login')->name('admin.login');
 Route::post('/admin/login/submit', [LoginController::class, 'adminLogin'])->name('admin_login_submit');

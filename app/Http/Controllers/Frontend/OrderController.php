@@ -93,7 +93,7 @@ class OrderController extends Controller
                     }
                     //save the order
                     $id = Order::max('id') ?? 0;
-                    $invoice = 100 + $id;
+                    $invoice = 1000 + $id;
                     $total=Cart::total();
                     if(!empty($request->coupon_discount) && $request->coupon_discount > 0 ){
                         $total=$total-$request->coupon_discount;

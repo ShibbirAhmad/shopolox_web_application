@@ -119,7 +119,7 @@ class productController extends Controller
             //make thumnail image
             $filename = time() .$files[0]->getClientOriginalName();
             $image_resize = Image::make($files[0]->getRealPath());
-            $image_resize->resize(200, 200, function ($constraint) {
+            $image_resize->resize(400, 400, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $image_resize->save(public_path('storage/images/thumbnail_img/'.$filename));
@@ -370,7 +370,7 @@ class productController extends Controller
             //make thumnail image
             $filename = time() .$files[0]->getClientOriginalName();
             $image_resize = Image::make($files[0]->getRealPath());
-            $image_resize->resize(200, 200, function ($constraint) {
+            $image_resize->resize(400, 400, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $image_resize->save(public_path('storage/images/thumbnail_img/'.$filename));

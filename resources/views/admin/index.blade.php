@@ -1,3 +1,19 @@
+
+@php
+
+
+function todayCreditBalance($balance){
+        $amount = 0 ;
+        foreach($balance->today_credit_balance as $item) {
+           $amount += $item->amount ;
+        }
+        return $amount ;
+    }
+
+
+    
+@endphp
+
 @extends('admin.layouts.app')
 @push('extra_css')
   <style>
@@ -89,7 +105,7 @@
             <div class="order_statistic">
 
                 <div class="statistic_item bg-primary" >
-                  <h2> 20 </h2>
+                  <h2> {{ $analysis['new_order'] }} </h2>
                    <p> New Orders</p>
                    <div class="more_info ">
                        <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -97,7 +113,7 @@
                 </div>
     
             <div class="statistic_item bg-warning " >
-                <h2> 10 </h2>
+                <h2> {{ $analysis['pending_order'] }} </h2>
                 <p>Pending Orders</p>
                 <div class="more_info ">
                     <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -106,8 +122,8 @@
     
     
             <div class="statistic_item bg-success" >
-             <h2>  35 </h2>
-             <p> Approved Orders </p>
+             <h2> {{ $analysis['approved_order'] }} </h2>
+             <p> Confirm Orders </p>
              <div class="more_info ">
                 <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -116,7 +132,7 @@
     
     
             <div class="statistic_item bg-info" >
-             <h2>  20 </h2>
+             <h2>  {{ $analysis['shipment_order'] }} </h2>
              <p> Shipment  Orders </p>
              <div class="more_info ">
                 <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -125,7 +141,7 @@
     
     
             <div class="statistic_item bg-success" >
-             <h2> 30 </h2>
+             <h2> {{ $analysis['delivered_order'] }} </h2>
              <p> Delivered  Orders </p>
              <div class="more_info ">
                 <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -134,7 +150,7 @@
     
     
             <div class="statistic_item bg-warning" >
-             <h2> 40 </h2>
+             <h2> {{ $analysis['return_order'] }} </h2>
              <p> Return  Orders </p>
              <div class="more_info ">
                 <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -142,7 +158,7 @@
             </div>
     
             <div class="statistic_item bg-danger" >
-             <h2> 50 </h2>
+             <h2> {{ $analysis['cancel_order'] }} </h2>
              <p> Cancel  Orders </p>
              <div class="more_info ">
                 <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -150,7 +166,7 @@
             </div>
     
             <div class="statistic_item bg-info " >
-             <h2>  202 </h2>
+             <h2>  {{ $analysis['total_order'] }} </h2>
              <p> Total  Orders </p>
              <div class="more_info ">
                 <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -159,52 +175,52 @@
 
 
             <div class="statistic_item bg-info " >
-                <h2>  202 </h2>
+                <h2>  {{ $analysis['total_product_request'] }} </h2>
                 <p> Products Request </p>
                 <div class="more_info ">
-                   <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+                   <a href="{{ route('backend_requested_product') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
                </div>
             </div>
 
 
             <div class="statistic_item bg-info " >
-                <h2>  202 </h2>
+                <h2>   {{ $analysis['total_product'] }} </h2>
                 <p> Total Products </p>
                 <div class="more_info ">
-                   <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+                   <a href="{{ route('product.index') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
                </div>
             </div>
     
                         
             <div class="statistic_item bg-info " >
-                <h2>  202 </h2>
+                <h2>   {{ $analysis['total_purchase'] }} </h2>
                 <p> Total purchased   </p>
                 <div class="more_info ">
-                 <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+                 <a href="{{ route('purchase.index') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
                </div>
             </div>
     
             <div class="statistic_item bg-info " >
-                <h2>  202 </h2>
+                <h2>   {{ $analysis['total_supplier'] }} </h2>
                 <p> Suppliers </p>
                 <div class="more_info ">
-                   <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+                   <a href="{{ route('supplier.index') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
                </div>
             </div>
 
-            <div class="statistic_item bg-info " >
-                <h2>  202 </h2>
-                <p> Suppliers </p>
-                <div class="more_info ">
-                   <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
-               </div>
-            </div>
+            <div class="statistic_item bg-warning " >
+              <h2>   {{ $analysis['total_user'] }} </h2>
+              <p> Users  </p>
+              <div class="more_info ">
+                 <a href="{{ route('user_list') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+             </div>
+           </div>
 
-            <div class="statistic_item bg-info " >
-                <h2>  202 </h2>
+            <div class="statistic_item bg-success " >
+                <h2>   {{ $analysis['total_customer'] }} </h2>
                 <p> Customers  </p>
                 <div class="more_info ">
-                   <a href="{{ route('backend_orders') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+                   <a href="{{ route('customer_list') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
                </div>
             </div>
 
@@ -278,9 +294,12 @@
               <div class="custom-box">
   
                 <div class="custom-box-body">
-                  <h4 >
-                    In Bkash : <strong>0</strong>
-                  </h4>
+                  @foreach ($balance as $balance)
+                   <h4 >
+                    In {{ $balance->name }} : <strong> {{ todayCreditBalance($balance) }}</strong>
+                  </h4>          
+                  @endforeach
+
                 <h4> In  Total : <strong>0 </strong>  </h4>
                 </div>
   
@@ -469,4 +488,9 @@
     </div>
 
 </div>
+
+
+
+
+
 @endsection

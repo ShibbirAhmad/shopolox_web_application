@@ -133,6 +133,7 @@
                                                     <li onclick="statusChange({{ $order->id }},'received by  shopolox')" class="dropdown-item"> <a class="btn btn-sm btn-success" >Received by  shopolox</a> </li>
                                                     <li onclick="statusChange({{ $order->id }},'shipped')" class="dropdown-item"> <a class="btn btn-sm btn-info" >Shipped</a> </li>
                                                     <li onclick="statusChange({{ $order->id }},'delivered')" class="dropdown-item"> <a class="btn btn-sm btn-success" >Delivered</a> </li>
+                                                    <li onclick="statusChange({{ $order->id }},'return')" class="dropdown-item"> <a class="btn btn-sm btn-success" >Return</a> </li>
                                                
                                                 </div>
                                               </div>
