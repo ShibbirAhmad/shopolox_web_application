@@ -35,6 +35,12 @@ class Order extends Model
   }
 
 
+  public function payment(){
+        
+    return  $this->hasone(OrderPayment::class,'order_id')->select(['order_id','amount','status']) ;
+}
+
+
 
 
   
