@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
         $analysis = self::dataCount();
         $top_selling_products_this_week=self::topSellingProductThisWeek();
-     $recent_orders=Order::latest()->select('id','customer_id','invoice_no','total','status')->with(['customer:id,name','payment','order_items.product'])->take(10)->get();
+        $recent_orders=Order::latest()->select('id','customer_id','invoice_no','total','status')->with(['customer:id,name','payment','order_items.product'])->take(10)->get();
         $balance_data=Balance::with('today_credit_balance','total_credit_balance','today_debit_balance','total_debit_balance')->get();
        
         return view('admin.index',compact(['analysis','recent_orders','balance_data','top_selling_products_this_week']));

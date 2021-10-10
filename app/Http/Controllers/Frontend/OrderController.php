@@ -126,8 +126,7 @@ class OrderController extends Controller
                             $details->save();
                         }
 
-                   // $invoice=$order->invoice_no;
-                    //  Order::SendMessageCustomer($number,$name,$invoice);
+                    User::SendMessageCustomer($customer->phone,$customer->name,$order->invoice_no);
                     cart::destroy();
                     session()->put('order_id',Order::max('id'));
                 });

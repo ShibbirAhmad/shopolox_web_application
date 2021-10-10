@@ -75,7 +75,23 @@
                        <tr>
                             <td colspan="5" ></td>
                             <td class="text_decoration">paid </td>
-                            <td> &#2547;{{ $order->paid }} </td>
+                            <td> &#2547;
+                               @if(!empty($order->payment)) 
+
+                                @if ($order->payment->status=='Pending')
+                                 <span>  {{ 'Pending'.'-'.$order->payment->amount }}  </span> 
+                                @else
+                                <span>  {{ $order->payment->status.'-'.$order->payment->amount }}  </span> 
+                                @endif
+
+
+                                @else
+                                <span>  {{ '0' }} </span>
+                               @endif
+                      
+                            
+                            </td>
+                        
                       </tr>
                        <tr>
                            <td colspan="5" ></td>

@@ -119,6 +119,7 @@
                                                        <li>    <h4>Shipping Cost : &#2547;<span id="shipping_cost">  </span> </h4> </li>
                                                        <li>    <h4>Total : &#2547;<span id="checkout_total">{{ $cart_total }}</span></h4></li>
                                                        <li>    <h4>Pay Now 10%  <span id="ten_percent_value_of_order">(00)</span>BDT Of : &#2547;<span id="checkout_total_1">{{ $cart_total }}</span></h4></li>
+                                                       <li>    <h4>Due Amount &#2547;<span id="due_amount_of_order">00</span></h4></li>
                                                    </ul>
                                                  <br>
                                                     <div  class="coupon">

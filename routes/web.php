@@ -185,7 +185,10 @@ Route::group([
     Route::get('backend/order/list',[backendOrderController::class,'index'])->name('backend_orders');
     Route::get('backend/order/details/{id}',[backendOrderController::class,'orderDetails'])->name('backend_order_details');
     Route::get('api/order/status/change/{id}/{status}',[backendOrderController::class,'statusChange']);
- 
+    //exports
+    Route::get('api/export/users','UserController@export_users');
+    Route::get('api/export/customers','CustomerController@export_customers');
+
 });
 
 

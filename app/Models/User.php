@@ -7,11 +7,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
-
+    use HasFactory, Notifiable, HasRoles;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -53,7 +53,16 @@ class User extends Authenticatable
             $message = 'Welcome to shopolox.com Your one time pin (OTP) is: '.$code.'. which will expire within 5 minutes. For help:01635 172218';  
             return self::messageApi($contacts,$message) ;
 
-        }
+    }
+    
+
+    public static function SendMessageCustomer($number,$name,$invoice_no){
+            
+            $contacts = $number ;
+            $message = 'Dear '.$name.', your order has been placed. Order ID '.$invoice_no.' . Thanks for choosing us. Thanks By shopolox.com' ;
+            return self::messageApi($contacts,$message) ;
+
+    }
 
 
 

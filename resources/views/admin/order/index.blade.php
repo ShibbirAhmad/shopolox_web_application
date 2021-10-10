@@ -105,7 +105,21 @@
                                                 <ul>
                                                     <li>Total:   <span style="padding-left: 25px"> &#2547;{{ $order->total }} </span> </li>
                                                     <li>Shipping:<span style="padding-left: 5px">&#2547;{{ $order->shipping_cost }} </span> </li>
-                                                    <li>Paid:    <span style="padding-left: 30px">&#2547;{{ $order->paid }} </span> </li>
+                                                    <li>Paid:  
+                                                        @if(!empty($order->payment)) 
+
+                                                        @if ($order->payment->status=='Pending')
+                                                         <span style="padding-left: 30px">  {{ 'Pending'.'-'.$order->payment->amount }}  </span> 
+                                                        @else
+                                                        <span style="padding-left: 30px">  {{ $order->payment->status.'-'.$order->payment->amount }}  </span> 
+                                                        @endif
+                        
+                        
+                                                        @else
+                                                        <span style="padding-left: 30px">&#2547;0</span>
+                                                       @endif
+
+                                                     </li>
                                                     <li>Due:     <span style="padding-left: 32px">&#2547;{{ ($order->total + $order->shipping_cost) - ($order->paid + $order->discount) }}  </span></li>
                                                 </ul>
                                             </div>

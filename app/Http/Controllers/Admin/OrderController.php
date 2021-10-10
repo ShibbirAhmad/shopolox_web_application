@@ -13,7 +13,7 @@ class OrderController extends Controller
      
     
     public function index(){
-          $orders = Order::orderby('id','desc')->with('customer')->paginate(30);
+          $orders = Order::orderby('id','desc')->with('customer','payment')->paginate(30);
           return view('admin.order.index',compact('orders')) ;
       }
 
@@ -31,7 +31,7 @@ class OrderController extends Controller
 
 
     public function orderDetails($id){
-          $order = Order::where('id',$id)->select('id','customer_id','city_id','sub_city_id','invoice_no','status','shipping_cost','discount','paid','total')->with('order_items.product.product_images','customer','city','sub_city')->first();
+          $order = Order::where('id',$id)->select('id','customer_id','city_id','sub_city_id','invoice_no','status','shipping_cost','discount','paid','total')->with('payment','order_items.product.product_images','customer','city','sub_city')->first();
           return view('admin.order.details',compact('order')) ;
       }
 

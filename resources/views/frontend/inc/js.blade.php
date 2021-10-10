@@ -695,6 +695,8 @@
                           let s_total = parseInt(sub_total) ;
                           let ten_percent_value_of_order = parseFloat( ( s_total * 10 ) / 100 ) ;
                           document.getElementById('ten_percent_value_of_order').innerHTML = `(${ten_percent_value_of_order}) `;
+                          document.getElementById('due_amount_of_order').innerHTML = s_total -  ten_percent_value_of_order;
+                        
                         }else{
                             option=`<option disabled>Select  Sub City</option>`;
                         }                    
