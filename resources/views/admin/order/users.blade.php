@@ -17,7 +17,7 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-center">
-                                    <h4> Users </h4>
+                                    <h4>  <a style="margin-right: 30px;" class="btn btn-success" target="_blank" href="{{ route('export_users') }}"> <i class="fa fa-download"></i>Exports </a> Users </h4>
                                 </div>
                             </div>
                         </div>

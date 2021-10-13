@@ -7,6 +7,9 @@ use App\Models\Order;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
+use Picqer;
 
 class OrderController extends Controller
 {
@@ -49,6 +52,21 @@ class OrderController extends Controller
 
 
 
+
+
+    public function invoicePrint($id){
+
+        // $order_id=explode(',',$id);
+        // $orders=Order::whereIn('id',$order_id)->get();
+        $order=Order::findOrFail($id);
+  
+        // foreach ($orders as $order) {
+        //       $order->print_status = 1 ;
+        //       $order->save();
+        //   }
+  
+        return view('admin.order.invoice', \compact('order'));
+      }
 
 
 }

@@ -92,8 +92,8 @@ class OrderController extends Controller
                         $customer->save();
                     }
                     //save the order
-                    $id = Order::max('id') ?? 0;
-                    $invoice = 1000 + $id;
+                    $id = Order::max('id') ?? 1;
+                    $invoice = rand(111,999) + $id;
                     $total=Cart::total();
                     if(!empty($request->coupon_discount) && $request->coupon_discount > 0 ){
                         $total=$total-$request->coupon_discount;
@@ -194,8 +194,6 @@ class OrderController extends Controller
     }
 
 
-
-    
 
     public function orderList(){
 

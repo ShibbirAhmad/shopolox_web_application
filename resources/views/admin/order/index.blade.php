@@ -125,7 +125,12 @@
                                             </div>
                                         </td>
                                         <td >{{ $order->discount }}</td>
-                                        <td > <span class="badge badge-info">{{ $order->status }}</span> </td>
+                                        <td > 
+                                             <span class="badge badge-info">{{ $order->status }}</span>
+                                             @if ($order->print_status==1)
+                                                 <span style="margin-top: 10px" class="badge badge-success"> Printed </span>
+                                             @endif
+                                       </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

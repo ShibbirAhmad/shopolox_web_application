@@ -18,7 +18,7 @@ class UsersExport implements FromCollection , WithHeadings , ShouldAutoSize
         $collections = User::all();
 
         foreach($collections as  $item){
-            unset($item->id,$item->city_id, $item->remember_token, $item->password,$item->email_verified_at,$item->updated_at,$item->created_at,$item->status);
+            unset($item->id,$item->city_id, $item->remember_token, $item->password,$item->email_verified_at,$item->updated_at,$item->created_at,$item->status,$item->image);
              $item->mobile_no=$item->mobile_no;
              $collections[]=$item;
          }

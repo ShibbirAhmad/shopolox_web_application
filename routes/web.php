@@ -185,9 +185,10 @@ Route::group([
     Route::get('backend/order/list',[backendOrderController::class,'index'])->name('backend_orders');
     Route::get('backend/order/details/{id}',[backendOrderController::class,'orderDetails'])->name('backend_order_details');
     Route::get('api/order/status/change/{id}/{status}',[backendOrderController::class,'statusChange']);
+    Route::get('api/order/invoice/print/{id}',[backendOrderController::class,'invoicePrint'])->name('invoice_print');
     //exports
-    Route::get('api/export/users','UserController@export_users');
-    Route::get('api/export/customers','CustomerController@export_customers');
+    Route::get('api/export/users',[AdminController::class,'exportUsers'])->name('export_users');
+    Route::get('api/export/customers',[AdminController::class,'exportCustomers'])->name('export_customers');
 
 });
 

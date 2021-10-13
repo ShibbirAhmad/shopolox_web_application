@@ -23,6 +23,17 @@
         font-size: 16px;
     }
 
+    .site_logo{
+        margin-top: 50px;
+    }
+
+
+    .print_btn{
+        margin-top: 100px;
+        margin-left: 50px;
+    }
+    
+
   </style>
   
 @endpush
@@ -32,15 +43,28 @@
 
       <div class="ps-block__content">
 
-        <div class="customer_info ">
-            <ul>
-                <li> Name: {{ $order->customer->name }} </li>
-                <li> Phone: {{ $order->customer->phone }} </li>
-                <li> City: {{ $order->city->name }} </li>
-                <li> Sub-City: {{ $order->sub_city->name }} </li>
-                <li> Address Details: {{ $order->customer->address }} </li>
-            </ul>
-        </div>
+      <div class="row">
+          <div class="col-lg-4 col-md-4 col-xs-12">
+            <div class="customer_info ">
+                <ul>
+                    <li> Name: {{ $order->customer->name }} </li>
+                    <li> Phone: {{ $order->customer->phone }} </li>
+                    <li> City: {{ $order->city->name }} </li>
+                    <li> Sub-City: {{ $order->sub_city->name }} </li>
+                    <li> Address Details: {{ $order->customer->address }} </li>
+                </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-xs-12">
+            <img src="{{ asset('frontend/img/logo_light.png') }}"
+                        class="img-fluid site_logo" />
+          </div>
+          <div class="col-lg-4 col-md-4 col-xs-12">
+
+               <a class="btn btn-success print_btn" href="{{ route('invoice_print',$order->id) }}" target="_blank" ><i class="fa fa-print"></i>Invoice Print</a>
+               
+          </div>
+      </div>
 
         <div class="table-responsive mt-5">      
             <table class="table table-hover text-center  ps-table ps-table--vendor ">

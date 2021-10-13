@@ -17,7 +17,7 @@ class CustomersExport implements FromCollection  , WithHeadings , ShouldAutoSize
         $collections = Customer::all();
 
         foreach($collections as  $item){
-            unset($item->id,$item->customer_type , $item->city_id, $item->status,$item->created_at,$item->updated_at );
+            unset($item->id,$item->user_id ,$item->city_id,$item->created_at,$item->updated_at );
              $collections[]=$item;
          }
 

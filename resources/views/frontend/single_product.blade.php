@@ -40,7 +40,7 @@
                                 </h4>
                                 @if ($product->shipment)
                                     <div class="ps-product__desc">
-                                        <p>{!! $product->shipment->description !!}</p>
+                                        <p>{{  $product->shipment->description }}</p>
                                     </div>
                                 @endif
 
